@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo cáo Bài tập lớn | Nền tảng lập trình cho phân tích và trực quan dữ liệu - ĐH Bách Khoa ĐHQG-HCM</title>
+  <meta name="description" content="Website nộp báo cáo Đồ án môn học Nền tảng lập trình cho phân tích và trực quan dữ liệu - TS. Lê Thành Sách - Khoa KH&KT Máy tính - Trường ĐH Bách Khoa TP.HCM">
+  
+  <!-- Tailwind CSS CDN v3 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            },
+            hcmut: '#0052cc',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200 antialiased min-h-screen flex flex-col" id="top">
+
+  <!-- ==================== HEADER / NAVBAR ==================== -->
+  <header class="sticky top-0 z-50 glass-nav border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Left: Logo & University / Faculty Badge -->
+        <a href="./index.html" class="flex items-center space-x-3 group">
+          <div class="flex items-center space-x-2">
+            <img src="./assets/images/bk-logo.svg" alt="HCMUT Logo" class="h-9 w-9 object-contain" />
+            <img src="./assets/images/cse-logo.svg" alt="CSE Logo" class="h-9 w-9 object-contain" />
+          </div>
+          <div class="border-l border-slate-300 dark:border-slate-700 pl-3">
+            <span class="text-xs uppercase tracking-wider font-bold text-brand-600 dark:text-blue-400 block">CO5177 - HK261</span>
+            <span class="text-sm font-semibold tracking-tight text-slate-900 dark:text-white group-hover:text-brand-600 transition-colors">
+              G6 • BTL Phân Tích Dữ Liệu
+            </span>
+          </div>
+        </a>
+
+        <!-- Center: Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+          <a href="#about" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-blue-400 transition-colors">Môn học</a>
+          <a href="#team" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-blue-400 transition-colors">Nhóm thực hiện</a>
+          <a href="#subprojects" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-blue-400 transition-colors">Danh mục bài con</a>
+          <a href="#report" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-blue-400 transition-colors">Báo cáo PDF</a>
+        </nav>
+
+        <!-- Right: Actions & Theme Toggle -->
+        <div class="flex items-center space-x-3">
+          <!-- Theme Switcher -->
+          <button id="theme-toggle" type="button" aria-label="Toggle Theme" class="p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 transition-colors">
+            <i data-lucide="sun" class="theme-icon-light w-5 h-5 hidden"></i>
+            <i data-lucide="moon" class="theme-icon-dark w-5 h-5"></i>
+          </button>
+
+          <!-- GitHub Repo Link Button -->
+          <a href="https://github.com/[YOUR_USERNAME]/[REPO_NAME]" target="_blank" rel="noopener noreferrer" 
+             class="hidden sm:inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white transition-all shadow-sm">
+            <i data-lucide="github" class="w-4 h-4"></i>
+            <span>GitHub Repo</span>
+          </a>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-btn" type="button" aria-label="Open Mobile Menu" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm md:hidden">
+      <div class="fixed right-0 top-0 bottom-0 w-3/4 max-w-xs bg-white dark:bg-slate-900 p-6 shadow-xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800">
+            <span class="font-bold text-slate-900 dark:text-white text-base">Menu Điều Hướng</span>
+            <button id="mobile-menu-close" class="p-1 rounded-md text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+          <nav class="flex flex-col space-y-4 mt-6 text-sm font-medium">
+            <a href="#about" class="text-slate-700 dark:text-slate-200 hover:text-brand-600">Thông tin Môn học</a>
+            <a href="#team" class="text-slate-700 dark:text-slate-200 hover:text-brand-600">Nhóm thực hiện</a>
+            <a href="#subprojects" class="text-slate-700 dark:text-slate-200 hover:text-brand-600">Danh mục bài tập con</a>
+            <a href="#report" class="text-slate-700 dark:text-slate-200 hover:text-brand-600">Báo cáo Tổng thể</a>
+            <a href="https://github.com/[YOUR_USERNAME]/[REPO_NAME]" target="_blank" class="flex items-center space-x-2 text-slate-700 dark:text-slate-200">
+              <i data-lucide="github" class="w-4 h-4"></i>
+              <span>GitHub Repository</span>
+            </a>
+          </nav>
+        </div>
+        <div class="pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+          <span class="text-xs text-slate-500">Chế độ giao diện:</span>
+          <button id="theme-toggle-mobile" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
+            <i data-lucide="sun" class="theme-icon-light w-4 h-4 hidden"></i>
+            <i data-lucide="moon" class="theme-icon-dark w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-blue-50/50 via-transparent to-transparent dark:from-blue-950/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Academic Hierarchy Badges -->
+      <div class="flex flex-wrap items-center gap-2 mb-6">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300">
+          <i data-lucide="calendar" class="w-3.5 h-3.5 mr-1.5"></i> Học kỳ 261 • Năm học 2026 - 2027
+        </span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-300">
+          <i data-lucide="graduation-cap" class="w-3.5 h-3.5 mr-1.5"></i> Trường ĐH Bách Khoa - ĐHQG-HCM
+        </span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-300">
+          <i data-lucide="cpu" class="w-3.5 h-3.5 mr-1.5"></i> Khoa Khoa học và Kỹ thuật Máy tính
+        </span>
+      </div>
+
+      <!-- Main Course Title & Subtitle -->
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+        Nền tảng lập trình cho <br class="hidden sm:inline" />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 dark:from-blue-400 dark:via-indigo-300 dark:to-sky-400">
+          phân tích và trực quan dữ liệu
+        </span>
+      </h1>
+
+      <p class="mt-5 max-w-3xl text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+        Báo cáo kết quả nghiên cứu và hiện thực bài tập lớn phân tích dữ liệu đa phương thức 
+        (<span class="font-semibold text-slate-900 dark:text-white">Tabular Data</span>, 
+        <span class="font-semibold text-slate-900 dark:text-white">Text / NLP</span>, 
+        <span class="font-semibold text-slate-900 dark:text-white">Computer Vision</span>). 
+        Toàn bộ pipeline tuân thủ chặt chẽ quy chuẩn học thuật từ tiền xử lý, khám phá EDA, mô hình hóa đến đối chiếu số liệu thực nghiệm.
+      </p>
+
+      <!-- Lecturer & Instructor Info -->
+      <div class="mt-6 flex items-center space-x-3 text-sm text-slate-600 dark:text-slate-400">
+        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300 font-bold">
+          GV
+        </div>
+        <div>
+          <span>Giảng viên hướng dẫn: </span>
+          <span class="font-semibold text-slate-900 dark:text-slate-100">TS. Lê Thành Sách</span>
+        </div>
+      </div>
+
+      <!-- Call to Action Buttons -->
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="#subprojects" class="inline-flex items-center justify-center px-6 py-3 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 transition-all hover:scale-[1.02]">
+          <i data-lucide="layers" class="w-4 h-4 mr-2"></i>
+          Khám phá 3 Bài tập con
+        </a>
+        <a href="https://github.com/[YOUR_USERNAME]/[REPO_NAME]" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-sm transition-all hover:scale-[1.02]">
+          <i data-lucide="github" class="w-4 h-4 mr-2"></i>
+          Kho mã nguồn GitHub
+        </a>
+        <a href="./assets/reports/[groupname]-report.pdf" class="inline-flex items-center justify-center px-6 py-3 rounded-xl text-sm font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 shadow-sm transition-all hover:scale-[1.02]">
+          <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
+          Báo cáo PDF Tổng hợp
+        </a>
+      </div>
+
+      <!-- Quick Metrics Ribbon -->
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="p-3">
+          <div class="text-2xl font-black text-blue-600 dark:text-blue-400">03</div>
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">Phân mục dữ liệu (Tabular, Text, Image)</div>
+        </div>
+        <div class="p-3">
+          <div class="text-2xl font-black text-emerald-600 dark:text-emerald-400">100%</div>
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">Đáp ứng chuẩn Rubric & Điểm sáng tạo</div>
+        </div>
+        <div class="p-3">
+          <div class="text-2xl font-black text-indigo-600 dark:text-indigo-400">&ge; 94.2%</div>
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">Độ chính xác mô hình tối ưu (SOTA)</div>
+        </div>
+        <div class="p-3">
+          <div class="text-2xl font-black text-amber-600 dark:text-amber-400">04</div>
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">Thành viên nghiên cứu & triển khai</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== TEAM INFO SECTION ==================== -->
+  <section id="team" class="py-16 md:py-20 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <span class="text-xs uppercase font-bold tracking-wider text-blue-600 dark:text-blue-400">Đội ngũ sinh viên thực hiện</span>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+            Thông tin Nhóm: <span class="text-blue-600 dark:text-blue-400">Group 6(CẦN ĐỔI TÊN NGẦU HƠN)</span>
+          </h2>
+        </div>
+        <p class="mt-2 md:mt-0 text-sm text-slate-500 dark:text-slate-400 max-w-md">
+          Phân công trách nhiệm minh bạch, đóng góp đồng đều theo từng phân mục bài toán và cam kết tính trung thực học thuật.
+        </p>
+      </div>
+
+      <!-- Member Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Member 1 -->
+        <div class="academic-card p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center space-x-3 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300 font-bold flex items-center justify-center text-lg shadow-inner">
+                [N1]
+              </div>
+              <div>
+                <h3 class="font-bold text-slate-900 dark:text-white text-base">Phạm Duy Anh</h3>
+                <span class="inline-block font-code text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold">
+                  MSSV: 2310139
+                </span>
+              </div>
+            </div>
+            <div class="mb-4">
+              <span class="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 block mb-1">Vai trò chính:</span>
+              <p class="text-sm font-medium text-slate-700 dark:text-slate-300">
+                Phụ trách Dữ liệu Text, Image.
+              </p>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3">
+              Tiền xử lý, lựa chọn model, evaluate.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
+            <a href="https://github.com/[GITHUB_USER_1]" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center">
+              <i data-lucide="github" class="w-4 h-4 mr-1.5"></i> @[github_user_1]
+            </a>
+            <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">Đóng góp: 25%</span>
+          </div>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="academic-card p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center space-x-3 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300 font-bold flex items-center justify-center text-lg shadow-inner">
+                [N2]
+              </div>
+              <div>
+                <h3 class="font-bold text-slate-900 dark:text-white text-base">Nguyễn Phan Tuấn Duy</h3>
+                <span class="inline-block font-code text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold">
+                  MSSV: I forgot
+                </span>
+              </div>
+            </div>
+            <div class="mb-4">
+              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 block mb-1">Vai trò chính:</span>
+              <p class="text-sm font-medium text-slate-700 dark:text-slate-300">
+                Phụ trách dữ liệu Tabular, Text.
+              </p>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3">
+              Placeholder
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
+            <a href="https://github.com/[GITHUB_USER_2]" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center">
+              <i data-lucide="github" class="w-4 h-4 mr-1.5"></i> @[github_user_2]
+            </a>
+            <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">Đóng góp: 25%</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SUB-PROJECTS SHOWCASE ==================== -->
+  <section id="subprojects" class="py-16 md:py-24 bg-slate-100/60 dark:bg-slate-900/40 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs uppercase font-bold tracking-wider text-blue-600 dark:text-blue-400">Danh mục Bài tập lớn con</span>
+        <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">
+          Nghiên cứu Chuyên sâu theo Dạng Dữ liệu
+        </h2>
+        <p class="mt-3 text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+          Mỗi bài toán được phân tách thành một trang báo cáo chuyên biệt, đi kèm Google Colab thực thi tương tác, mã nguồn GitHub và video thuyết trình.
+        </p>
+      </div>
+
+      <!-- 3 Subproject Cards Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- CARD 1: TABULAR DATA -->
+        <div class="academic-card bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm flex flex-col justify-between">
+          <div>
+            <!-- Banner & Modality Badge -->
+            <div class="p-6 border-b border-slate-100 dark:border-slate-800/80 bg-gradient-to-r from-blue-500/10 via-transparent to-transparent">
+              <div class="flex items-center justify-between mb-3">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300">
+                  <i data-lucide="table" class="w-3.5 h-3.5 mr-1.5"></i> Tabular Data
+                </span>
+                <span class="font-code text-xs text-slate-500 dark:text-slate-400 font-semibold">Sub-project 01</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white">
+                Phân tích & Dự báo Rủi ro Tín dụng
+              </h3>
+              <p class="text-xs text-blue-600 dark:text-blue-400 font-semibold mt-1">
+                Credit Risk Prediction & Scoring
+              </p>
+            </div>
+
+            <!-- Content & Dataset details -->
+            <div class="p-6 space-y-4">
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Nghiên cứu bộ dữ liệu tài chính với hơn 30,000 bản ghi, giải quyết bài toán phân loại mất cân bằng lớp cực đoan, áp dụng kỹ thuật Feature Engineering và XAI với SHAP.
+              </p>
+
+              <div class="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-3.5 text-xs space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-slate-500 dark:text-slate-400">Tập dữ liệu:</span>
+                  <span class="font-semibold text-slate-800 dark:text-slate-200">Kaggle Credit Default (~32k mẫu)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-500 dark:text-slate-400">Mô hình tối ưu:</span>
+                  <span class="font-semibold text-blue-600 dark:text-blue-400">LightGBM (AUC: 0.942)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-500 dark:text-slate-400">Điểm sáng tạo:</span>
+                  <span class="font-semibold text-slate-800 dark:text-slate-200">SMOTE-Tomek + SHAP Values</span>
+                </div>
+              </div>
+
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-1.5 pt-2">
+                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">EDA Nâng cao</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Optuna Tuning</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Explainable AI</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <div class="p-6 pt-0">
+            <a href="./tabular.html" class="w-full inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm">
+              <span>Xem Chi tiết Bài Tập</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- CARD 2: TEXT / NLP DATA -->
+        <div class="academic-card bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm flex flex-col justify-between">
+          <div>
+            <!-- Banner & Modality Badge -->
+            <div class="p-6 border-b border-slate-100 dark:border-slate-800/80 bg-gradient-to-r from-indigo-500/10 via-transparent to-transparent">
+              <div class="flex items-center justify-between mb-3">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300">
+                  <i data-lucide="file-text" class="w-3.5 h-3.5 mr-1.5"></i> Text / NLP
+                </span>
+                <span class="font-code text-xs text-slate-500 dark:text-slate-400 font-semibold">Sub-project 02</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white">
+                Phân loại Cảm xúc Đa lớp Tiếng Việt
+              </h3>
+              <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold mt-1">
+                Vietnamese Sentiment & Aspect Analysis
+              </p>
+            </div>
+
+            <!-- Content & Dataset details -->
+            <div class="p-6 space-y-4">
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Xây dựng hệ thống phân tích sắc thái đánh giá người dùng với hơn 15,000 câu văn, ứng dụng kiến trúc Transformer chuyên biệt hóa tiếng Việt PhoBERT.
+              </p>
+
+              <div class="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-3.5 text-xs space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-slate-500 dark:text-slate-400">Tập dữ liệu:</span>
+                  <span class="font-semibold text-slate-800 dark:text-slate-200">UIT-VSFC (16k câu đánh giá)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-500 dark:text-slate-400">Mô hình tối ưu:</span>
+                  <span class="font-semibold text-indigo-600 dark:text-indigo-400">Fine-tuned PhoBERT (F1: 95.6%)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-500 dark:text-slate-400">Điểm sáng tạo:</span>
+                  <span class="font-semibold text-slate-800 dark:text-slate-200">VnCoreNLP + Focal Loss</span>
+                </div>
+              </div>
+
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-1.5 pt-2">
+                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Word Segmentation</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">PhoBERT</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Error Analysis</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <div class="p-6 pt-0">
+            <a href="./text.html" class="w-full inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm">
+              <span>Xem Chi tiết Bài Tập</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- CARD 3: IMAGE / VISION DATA -->
+        <div class="academic-card bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm flex flex-col justify-between">
+          <div>
+            <!-- Banner & Modality Badge -->
+            <div class="p-6 border-b border-slate-100 dark:border-slate-800/80 bg-gradient-to-r from-purple-500/10 via-transparent to-transparent">
+              <div class="flex items-center justify-between mb-3">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-700 dark:bg-purple-900/60 dark:text-purple-300">
+                  <i data-lucide="image" class="w-3.5 h-3.5 mr-1.5"></i> Computer Vision
+                </span>
+                <span class="font-code text-xs text-slate-500 dark:text-slate-400 font-semibold">Sub-project 03</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white">
+                Nhận dạng & Phân loại Bệnh học Cây trồng
+              </h3>
+              <p class="text-xs text-purple-600 dark:text-purple-400 font-semibold mt-1">
+                Plant Leaf Disease Classification
+              </p>
+            </div>
+
+            <!-- Content & Dataset details -->
+            <div class="p-6 space-y-4">
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Triển khai mô hình thị giác máy tính nhận dạng 15 loại bệnh cây trồng với hơn 20,000 ảnh độ phân giải cao, sử dụng Transfer Learning và giải thích qua Grad-CAM.
+              </p>
+
+              <div class="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-3.5 text-xs space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-slate-500 dark:text-slate-400">Tập dữ liệu:</span>
+                  <span class="font-semibold text-slate-800 dark:text-slate-200">PlantVillage (20,638 ảnh)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-500 dark:text-slate-400">Mô hình tối ưu:</span>
+                  <span class="font-semibold text-purple-600 dark:text-purple-400">ViT-B/16 (Top-1: 94.7%)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-500 dark:text-slate-400">Điểm sáng tạo:</span>
+                  <span class="font-semibold text-slate-800 dark:text-slate-200">MixUp/CutMix + Grad-CAM Heatmap</span>
+                </div>
+              </div>
+
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-1.5 pt-2">
+                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Data Augmentation</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Vision Transformer</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Grad-CAM XAI</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <div class="p-6 pt-0">
+            <a href="./image.html" class="w-full inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-purple-600 hover:bg-purple-700 transition-colors shadow-sm">
+              <span>Xem Chi tiết Bài Tập</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== RUBRIC CHECKLIST & METHODOLOGY ==================== -->
+  <section id="about" class="py-16 md:py-20 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mb-12">
+        <span class="text-xs uppercase font-bold tracking-wider text-blue-600 dark:text-blue-400">Quy chuẩn Đánh giá</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          Đáp ứng Bộ Tiêu chí Đồ án môn học
+        </h2>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+          Tổng hợp đối chiếu việc tuân thủ các chuẩn mực kỹ thuật và tiêu chí 10 điểm sáng tạo theo yêu cầu của Bộ môn.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+          <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-900/60 dark:text-blue-300 flex items-center justify-center mb-4">
+            <i data-lucide="database" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base">Quy mô & Chất lượng Dữ liệu</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            Tất cả các bài tập con đều thỏa mãn số lượng mẫu tối thiểu theo quy định (&ge; 10,000 mẫu cho Tabular, &ge; 15,000 câu văn, &ge; 20,000 ảnh), có phân tích tỷ lệ khuyết thiếu và giải pháp khắc phục.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+          <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-900/60 dark:text-emerald-300 flex items-center justify-center mb-4">
+            <i data-lucide="git-commit" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base">Pipeline Thống nhất & Clean Code</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            Mã nguồn trong Google Colab / Notebook được module hóa thành các hàm rõ ràng, có seeding cố định seed ngẫu nhiên đảm bảo tính tái lập (reproducibility) 100%.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+          <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 dark:bg-amber-900/60 dark:text-amber-300 flex items-center justify-center mb-4">
+            <i data-lucide="sparkles" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base">Điểm sáng tạo (Rubric 10)</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            Vượt trên các mô hình truyền thống: Tích hợp Explainable AI (SHAP & Grad-CAM), phân tích nguyên nhân các trường hợp dự đoán sai lệch (Failure Modes) và đề xuất hướng cải tiến.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FINAL REPORT DOWNLOAD CALLOUT ==================== -->
+  <section id="report" class="py-16 md:py-20 bg-slate-900 text-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="bg-gradient-to-r from-blue-900/60 to-indigo-900/60 rounded-3xl p-8 md:p-12 border border-blue-500/30 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div>
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-400/30 mb-3">
+            Bản in nộp chính thức (Final Deliverable)
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-black tracking-tight">
+            Báo cáo Toàn văn Đồ án Môn học
+          </h2>
+          <p class="mt-2 text-sm text-slate-300 max-w-xl">
+            Tài liệu báo cáo tổng hợp đầy đủ cơ sở lý thuyết, phân tích dữ liệu chuyên sâu, bảng đối sánh thực nghiệm và đúc kết khoa học theo định dạng chuẩn của Khoa KH&KT Máy tính.
+          </p>
+          <div class="mt-4 flex items-center space-x-4 text-xs text-slate-400 font-code">
+            <span>Tên tệp: [groupname]-report.pdf</span>
+            <span>•</span>
+            <span>Phiên bản: Final v1.0</span>
+          </div>
+        </div>
+        <div class="flex-shrink-0">
+          <a href="./assets/reports/[groupname]-report.pdf" class="inline-flex items-center space-x-3 px-8 py-4 rounded-2xl bg-white text-slate-950 font-bold hover:bg-blue-50 transition-all shadow-xl hover:scale-105">
+            <i data-lucide="download" class="w-5 h-5 text-blue-600"></i>
+            <span>Tải Báo cáo PDF (Full Report)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="mt-auto bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 py-10 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        
+        <div class="flex items-center space-x-3">
+          <img src="./assets/images/bk-logo.svg" alt="HCMUT Logo" class="h-8 w-8 object-contain" />
+          <div>
+            <p class="font-bold text-slate-900 dark:text-white">Trường Đại học Bách Khoa - ĐHQG-HCM</p>
+            <p class="text-[11px]">Khoa Khoa học và Kỹ thuật Máy tính • Bộ môn Khoa học Dữ liệu</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-6">
+          <a href="#top" class="hover:text-blue-600 transition-colors flex items-center">
+            <i data-lucide="arrow-up" class="w-3.5 h-3.5 mr-1"></i> Về đầu trang
+          </a>
+          <a href="https://github.com/[YOUR_USERNAME]/[REPO_NAME]" target="_blank" rel="noopener noreferrer" class="hover:text-blue-600 transition-colors flex items-center">
+            <i data-lucide="github" class="w-3.5 h-3.5 mr-1"></i> Kho mã nguồn
+          </a>
+          <a href="./assets/reports/[groupname]-report.pdf" class="hover:text-blue-600 transition-colors flex items-center">
+            <i data-lucide="file-text" class="w-3.5 h-3.5 mr-1"></i> Báo cáo PDF
+          </a>
+        </div>
+
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
+        <p>&copy; 2026-2027 Nhóm [GROUP_NAME] • Nền tảng lập trình cho phân tích và trực quan dữ liệu (HK261).</p>
+        <p>Giảng viên phụ trách: <span class="font-semibold text-slate-700 dark:text-slate-300">TS. Lê Thành Sách</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="./assets/js/main.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>

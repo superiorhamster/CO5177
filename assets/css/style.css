@@ -1,0 +1,107 @@
+/* Custom Academic & Tailwind enhancements */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Glassmorphism navigation */
+.glass-nav {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.dark .glass-nav {
+  background-color: rgba(15, 23, 42, 0.85);
+}
+
+/* Responsive 16:9 Video Container */
+.video-responsive {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  border-radius: 0.75rem;
+}
+
+.video-responsive iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Card hover animation */
+.academic-card {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease;
+}
+.academic-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Code & Monospace Badges */
+.font-code {
+  font-family: var(--font-mono);
+}
+
+/* Colab Button Badge animation */
+.colab-badge {
+  background: linear-gradient(135deg, #f9ab00 0%, #e37400 100%);
+  transition: all 0.2s ease;
+}
+.colab-badge:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 4px 14px rgba(227, 116, 0, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Print Stylesheet for Academic Evaluation */
+@media print {
+  header, footer, .no-print, .action-buttons, #theme-toggle {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .dark {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .academic-card {
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+}

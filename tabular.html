@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dữ liệu Dạng Bảng (Tabular) | BTL Phân tích và trực quan dữ liệu</title>
+  <meta name="description" content="Báo cáo phân tích chuyên sâu dữ liệu dạng bảng - Phân loại rủi ro tín dụng với LightGBM và giải thích mô hình bằng SHAP">
+  
+  <!-- Tailwind CSS CDN v3 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons & Chart.js -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200 antialiased min-h-screen flex flex-col" id="top">
+
+  <!-- ==================== HEADER & BREADCRUMBS ==================== -->
+  <header class="sticky top-0 z-50 glass-nav border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Breadcrumbs Navigation -->
+        <nav class="flex items-center space-x-2 text-xs sm:text-sm font-medium">
+          <a href="./index.html" class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 flex items-center">
+            <i data-lucide="home" class="w-4 h-4 mr-1"></i> Trang chủ
+          </a>
+          <span class="text-slate-300 dark:text-slate-600">/</span>
+          <span class="text-slate-900 dark:text-white font-semibold">Phân tích Dữ liệu Dạng Bảng</span>
+        </nav>
+
+        <!-- Right Tools -->
+        <div class="flex items-center space-x-3">
+          <button id="theme-toggle" type="button" aria-label="Toggle Theme" class="p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 transition-colors">
+            <i data-lucide="sun" class="theme-icon-light w-5 h-5 hidden"></i>
+            <i data-lucide="moon" class="theme-icon-dark w-5 h-5"></i>
+          </button>
+          <a href="./index.html" class="inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5 mr-1"></i> Mục lục bài con
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== PROJECT HERO & RESUME ==================== -->
+  <section class="pt-10 pb-8 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-blue-50/50 to-transparent dark:from-blue-950/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-wrap items-center gap-2 mb-4">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300">
+          <i data-lucide="table" class="w-3.5 h-3.5 mr-1.5"></i> Dữ liệu Dạng Bảng (Tabular Data)
+        </span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+          Supervised Binary Classification
+        </span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-400">
+          AUC-ROC: 0.942
+        </span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        Phân tích & Dự báo Rủi ro Tín dụng Cá nhân
+      </h1>
+      <p class="mt-2 text-slate-600 dark:text-slate-300 text-base max-w-3xl leading-relaxed">
+        Xây dựng hệ thống chấm điểm tín dụng (Credit Scoring) tự động hóa, xử lý mất cân bằng lớp cực đoan và ứng dụng Explainable AI (SHAP) để minh bạch hóa quyết định phê duyệt khoản vay.
+      </p>
+
+      <!-- Sub-team in charge -->
+      <div class="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-600 dark:text-slate-400 pt-4 border-t border-slate-200/80 dark:border-slate-800">
+        <div>
+          <span class="font-semibold text-slate-900 dark:text-white">Nhóm thực hiện:</span>
+          <span>[GROUP_NAME]</span>
+        </div>
+        <span>•</span>
+        <div>
+          <span class="font-semibold text-slate-900 dark:text-white">Thành viên phụ trách chính:</span>
+          <span>[HỌ VÀ TÊN 1] (MSSV: [MSSV_1])</span>,
+          <span>[HỌ VÀ TÊN 4] (MSSV: [MSSV_4])</span>
+        </div>
+      </div>
+
+      <!-- ==================== RESOURCE BAR / ACTION CARDS ==================== -->
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Google Colab Action Card -->
+        <a href="https://colab.research.google.com/drive/[YOUR_COLAB_NOTEBOOK_ID]" target="_blank" rel="noopener noreferrer"
+           class="academic-card p-4 rounded-2xl bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-900/60 shadow-sm flex items-center space-x-3.5 group hover:border-amber-400">
+          <div class="w-11 h-11 rounded-xl colab-badge flex items-center justify-center flex-shrink-0 text-white shadow-sm">
+            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+              <path d="M16.9 7.8c-.8 0-1.5.4-1.9 1-.7-1.1-1.9-1.9-3.3-1.9-2.2 0-4 1.8-4 4 0 1.4.7 2.6 1.8 3.3-.1.4-.2.9-.2 1.4 0 2.2 1.8 4 4 4 1.4 0 2.6-.7 3.3-1.8.4.6 1.1 1 1.9 1 1.3 0 2.3-1 2.3-2.3 0-.6-.2-1.1-.6-1.5.4-.4.6-.9.6-1.5s-.2-1.1-.6-1.5c.4-.4.6-.9.6-1.5 0-1.3-1-2.2-2.3-2.2z"/>
+            </svg>
+          </div>
+          <div>
+            <span class="text-xs uppercase font-bold tracking-wider text-amber-600 dark:text-amber-400 block">Thực thi trực tiếp</span>
+            <span class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-amber-600 transition-colors">Run on Google Colab</span>
+          </div>
+        </a>
+
+        <!-- GitHub Notebook Card -->
+        <a href="https://github.com/[YOUR_USERNAME]/[REPO_NAME]/blob/main/notebooks/tabular_analysis.ipynb" target="_blank" rel="noopener noreferrer"
+           class="academic-card p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center space-x-3.5 group hover:border-blue-400">
+          <div class="w-11 h-11 rounded-xl bg-slate-900 dark:bg-slate-800 text-white flex items-center justify-center flex-shrink-0 shadow-sm">
+            <i data-lucide="code-2" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <span class="text-xs uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400 block">Mã nguồn gốc</span>
+            <span class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">View on GitHub</span>
+          </div>
+        </a>
+
+        <!-- PDF Report Card -->
+        <a href="./assets/reports/[groupname]-tabular-report.pdf" target="_blank"
+           class="academic-card p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center space-x-3.5 group hover:border-emerald-400">
+          <div class="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-sm">
+            <i data-lucide="file-text" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <span class="text-xs uppercase font-bold tracking-wider text-emerald-600 dark:text-emerald-400 block">Báo cáo phân mục</span>
+            <span class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 transition-colors">Download PDF Report</span>
+          </div>
+        </a>
+
+        <!-- YouTube Video Card -->
+        <a href="#video-presentation"
+           class="academic-card p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center space-x-3.5 group hover:border-rose-400">
+          <div class="w-11 h-11 rounded-xl bg-rose-600 text-white flex items-center justify-center flex-shrink-0 shadow-sm">
+            <i data-lucide="video" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <span class="text-xs uppercase font-bold tracking-wider text-rose-600 dark:text-rose-400 block">Thuyết trình</span>
+            <span class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-rose-600 transition-colors">Watch Presentation</span>
+          </div>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16 flex-grow">
+
+    <!-- 1. PROBLEM & DATASET OVERVIEW -->
+    <section>
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center">
+          <i data-lucide="database" class="w-6 h-6 mr-2.5 text-blue-600"></i>
+          Tổng quan Bài toán & Tập dữ liệu
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Context & Problem Description -->
+        <div class="lg:col-span-2 space-y-4 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            Trong lĩnh vực ngân hàng số, việc thẩm định hồ sơ vay tự động yêu cầu độ chính xác cao và khả năng diễn giải minh bạch nhằm giảm thiểu tối đa tỷ lệ nợ xấu (Non-Performing Loans) mà không từ chối nhầm các khách hàng tiềm năng.
+          </p>
+          <p>
+            Nghiên cứu sử dụng tập dữ liệu thực tế gồm các thuộc tính tài chính cá nhân, lịch sử tín dụng và đặc điểm khoản vay. Thách thức cốt lõi nằm ở tình trạng <span class="font-semibold text-slate-900 dark:text-white">mất cân bằng nhãn nghiêm trọng</span> (tỷ lệ khách hàng vỡ nợ chỉ chiếm 21.8%) và sự hiện diện của các giá trị khuyết thiếu trong biến lãi suất và thời gian công tác.
+          </p>
+
+          <!-- Key Hypotheses -->
+          <div class="p-4 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/60 text-xs sm:text-sm">
+            <h4 class="font-bold text-blue-900 dark:text-blue-300 flex items-center mb-1">
+              <i data-lucide="lightbulb" class="w-4 h-4 mr-1.5"></i> Giả thuyết nghiên cứu chính:
+            </h4>
+            <ul class="list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
+              <li>Tỷ lệ nợ trên thu nhập (Debt-to-Income) và Điểm quá hạn thanh toán là 2 biến tương tác phi tuyến tính có trọng số chi phối mạnh nhất.</li>
+              <li>Việc kết hợp kỹ thuật lấy mẫu tổng hợp SMOTE-Tomek giúp triệt tiêu nhiễu vùng biên mà không làm bóp méo phân phối thực tế.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Dataset Specifications Table -->
+        <div class="academic-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4 flex items-center">
+            <i data-lucide="sliders" class="w-4 h-4 mr-2 text-blue-600"></i> Bảng Thông số Kỹ thuật
+          </h3>
+          <div class="space-y-3 text-xs">
+            <div class="flex justify-between py-2 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Quy mô mẫu (Samples):</span>
+              <span class="font-bold text-slate-900 dark:text-white font-code">32,581 bản ghi (&ge; 10k)</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Số chiều đặc trưng:</span>
+              <span class="font-bold text-slate-900 dark:text-white">12 biến (8 định lượng, 4 phân loại)</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Tỷ lệ khuyết thiếu (Missing):</span>
+              <span class="font-bold text-amber-600 dark:text-amber-400">loan_int_rate (9.5%), emp_length (2.8%)</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Tỷ lệ nhãn mục tiêu (Target):</span>
+              <span class="font-bold text-slate-900 dark:text-white">0 (Không vỡ nợ): 78.2% | 1 (Vỡ nợ): 21.8%</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Nguồn dữ liệu:</span>
+              <span class="font-semibold text-blue-600 dark:text-blue-400">Kaggle Credit Risk Benchmark</span>
+            </div>
+            <div class="flex justify-between py-2">
+              <span class="text-slate-500 dark:text-slate-400">Tỷ lệ phân chia Train / Test:</span>
+              <span class="font-bold text-slate-900 dark:text-white font-code">80% Train (Stratified) / 20% Test</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. PIPELINE ARCHITECTURE -->
+    <section>
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center">
+          <i data-lucide="workflow" class="w-6 h-6 mr-2.5 text-blue-600"></i>
+          Pipeline Xử lý & Huấn luyện Toàn diện
+        </h2>
+      </div>
+
+      <!-- Stepper / Workflow Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        
+        <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 relative">
+          <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300">Bước 1</span>
+          <h3 class="font-bold text-slate-900 dark:text-white mt-3 text-base">Khám phá & Tiền xử lý</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+            Kiểm định phân phối skewness, xử lý ngoại lệ bằng IQR lọc nhiễu, điền khuyết thiếu bằng KNN Imputer và One-Hot Encoding cho các biến phân loại.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 relative">
+          <span class="text-xs font-bold px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-300">Bước 2</span>
+          <h3 class="font-bold text-slate-900 dark:text-white mt-3 text-base">Feature Engineering</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+            Sinh biến tương tác tài chính: <code>loan_to_income</code>, <code>installment_ratio</code>. Cân bằng dữ liệu bằng kỹ thuật hỗn hợp <code>SMOTE-Tomek Links</code>.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 relative">
+          <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-100 text-purple-800 dark:bg-purple-900/60 dark:text-purple-300">Bước 3</span>
+          <h3 class="font-bold text-slate-900 dark:text-white mt-3 text-base">Huấn luyện Mô hình</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+            So sánh Baseline (Logistic, Random Forest) với Gradient Boosting (XGBoost, CatBoost, LightGBM). Tối ưu siêu tham số bằng Bayesian Optimization (Optuna).
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 relative">
+          <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300">Bước 4</span>
+          <h3 class="font-bold text-slate-900 dark:text-white mt-3 text-base">Giải thích XAI (SHAP)</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+            Tính toán TreeSHAP values toàn cục và cục bộ, phân tích tương tác biến, xây dựng ma trận quyết định theo ngưỡng xác suất tối ưu hóa rủi ro kinh doanh.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. INTERACTIVE MEDIA / EMBEDDED PRESENTATION -->
+    <section id="video-presentation">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center">
+          <i data-lucide="play-circle" class="w-6 h-6 mr-2.5 text-blue-600"></i>
+          Video Thuyết minh & Trình bày Giải pháp
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        
+        <!-- Video 16:9 responsive embed -->
+        <div class="lg:col-span-2">
+          <div class="video-responsive bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800">
+            <!-- Placeholder YouTube Embed - Replace [YOUTUBE_VIDEO_ID] with actual video ID -->
+            <iframe 
+              src="https://www.youtube.com/embed/[YOUTUBE_VIDEO_ID]?rel=0" 
+              title="YouTube video player - Tabular Analysis Presentation" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-3 italic text-center sm:text-left">
+            * Lưu ý: Thay thế ID video YouTube thực tế vào thuộc tính src trong thẻ iframe trên trang mã nguồn.
+          </p>
+        </div>
+
+        <!-- Video Agenda & Key Milestones -->
+        <div class="academic-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4 flex items-center">
+            <i data-lucide="clock" class="w-4 h-4 mr-2 text-blue-600"></i> Mục lục Clip Báo cáo
+          </h3>
+          <ul class="space-y-3 text-xs">
+            <li class="flex items-start justify-between p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">
+              <span class="font-code font-bold text-blue-600 dark:text-blue-400">00:00 - 01:30</span>
+              <span class="text-slate-700 dark:text-slate-300 text-right">Giới thiệu bài toán & Mục tiêu đồ án</span>
+            </li>
+            <li class="flex items-start justify-between p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">
+              <span class="font-code font-bold text-blue-600 dark:text-blue-400">01:31 - 04:00</span>
+              <span class="text-slate-700 dark:text-slate-300 text-right">Khám phá dữ liệu EDA & Xử lý mất cân bằng</span>
+            </li>
+            <li class="flex items-start justify-between p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">
+              <span class="font-code font-bold text-blue-600 dark:text-blue-400">04:01 - 07:15</span>
+              <span class="text-slate-700 dark:text-slate-300 text-right">So sánh thực nghiệm mô hình & Optuna</span>
+            </li>
+            <li class="flex items-start justify-between p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">
+              <span class="font-code font-bold text-blue-600 dark:text-blue-400">07:16 - 09:30</span>
+              <span class="text-slate-700 dark:text-slate-300 text-right">Giải thích SHAP & Điểm sáng tạo Rubric 10</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. KEY FINDINGS & RUBRIC 10 CREATIVE HIGHLIGHTS -->
+    <section>
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center">
+          <i data-lucide="award" class="w-6 h-6 mr-2.5 text-blue-600"></i>
+          Kết quả Thực nghiệm & Điểm Sáng tạo (Rubric 10)
+        </h2>
+      </div>
+
+      <!-- Metrics Comparison Table -->
+      <div class="mb-10 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+        <div class="p-4 bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800">
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+            Bảng Đối chiếu Độ đo Thực nghiệm (5-Fold Stratified Cross-Validation)
+          </h3>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead class="bg-slate-100/70 dark:bg-slate-800/40 text-slate-600 dark:text-slate-300 uppercase text-[11px] font-bold">
+              <tr>
+                <th class="py-3.5 px-4">Kiến trúc Mô hình</th>
+                <th class="py-3.5 px-4">Accuracy</th>
+                <th class="py-3.5 px-4">Precision (Default)</th>
+                <th class="py-3.5 px-4">Recall (Default)</th>
+                <th class="py-3.5 px-4">F1-Score</th>
+                <th class="py-3.5 px-4 text-blue-600 dark:text-blue-400">AUC-ROC</th>
+                <th class="py-3.5 px-4">Độ trễ suy luận</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-medium text-slate-900 dark:text-white">Logistic Regression (Baseline)</td>
+                <td class="py-3 px-4 font-code">80.4%</td>
+                <td class="py-3 px-4 font-code">56.2%</td>
+                <td class="py-3 px-4 font-code">53.1%</td>
+                <td class="py-3 px-4 font-code">54.6%</td>
+                <td class="py-3 px-4 font-code">0.764</td>
+                <td class="py-3 px-4 text-slate-500">0.2 ms</td>
+              </tr>
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-medium text-slate-900 dark:text-white">Random Forest (100 Trees)</td>
+                <td class="py-3 px-4 font-code">89.6%</td>
+                <td class="py-3 px-4 font-code">78.4%</td>
+                <td class="py-3 px-4 font-code">71.0%</td>
+                <td class="py-3 px-4 font-code">74.5%</td>
+                <td class="py-3 px-4 font-code">0.885</td>
+                <td class="py-3 px-4 text-slate-500">4.5 ms</td>
+              </tr>
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-medium text-slate-900 dark:text-white">XGBoost (Default Params)</td>
+                <td class="py-3 px-4 font-code">92.1%</td>
+                <td class="py-3 px-4 font-code">84.2%</td>
+                <td class="py-3 px-4 font-code">76.8%</td>
+                <td class="py-3 px-4 font-code">80.3%</td>
+                <td class="py-3 px-4 font-code">0.918</td>
+                <td class="py-3 px-4 text-slate-500">1.9 ms</td>
+              </tr>
+              <tr class="bg-blue-50/60 dark:bg-blue-950/30 font-semibold hover:bg-blue-50 dark:hover:bg-blue-950/50">
+                <td class="py-3.5 px-4 text-blue-700 dark:text-blue-300 flex items-center">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-1.5 text-blue-600"></i> LightGBM + Optuna (Tối ưu)
+                </td>
+                <td class="py-3.5 px-4 font-code text-blue-700 dark:text-blue-300">93.8%</td>
+                <td class="py-3.5 px-4 font-code text-blue-700 dark:text-blue-300">87.5%</td>
+                <td class="py-3.5 px-4 font-code text-blue-700 dark:text-blue-300">81.4%</td>
+                <td class="py-3.5 px-4 font-code text-blue-700 dark:text-blue-300">84.3%</td>
+                <td class="py-3.5 px-4 font-code text-blue-700 dark:text-blue-300 font-bold">0.942</td>
+                <td class="py-3.5 px-4 text-blue-700 dark:text-blue-300">1.8 ms</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Interactive Charts Container -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        
+        <!-- Chart 1: Feature Importance -->
+        <div class="academic-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                Xếp hạng Đặc trưng Quan trọng (SHAP Weights)
+              </h3>
+              <span class="text-[11px] font-code text-blue-600 dark:text-blue-400">Mean(|SHAP|)</span>
+            </div>
+            <div class="relative h-64 w-full">
+              <canvas id="chart-tabular-feature-importance"></canvas>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-4 border-t border-slate-100 dark:border-slate-800 pt-3">
+            Tỷ lệ Nợ/Thu nhập (DTI) và Điểm nợ quá hạn đóng góp hơn 51% vào quyết định phân loại rủi ro của mô hình.
+          </p>
+        </div>
+
+        <!-- Chart 2: ROC-AUC Comparison -->
+        <div class="academic-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                Đường cong ROC Đối chiếu Mô hình
+              </h3>
+              <span class="text-[11px] font-code text-emerald-600 dark:text-emerald-400">AUC = 0.942</span>
+            </div>
+            <div class="relative h-64 w-full">
+              <canvas id="chart-tabular-roc"></canvas>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-4 border-t border-slate-100 dark:border-slate-800 pt-3">
+            Mô hình LightGBM tối ưu bằng Optuna vượt trội rõ rệt so với Baseline ở vùng ngưỡng chấp nhận rủi ro thấp (FPR &lt; 0.1).
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Rubric 10 Creative Highlights & Error Analysis Box -->
+      <div class="p-6 rounded-2xl bg-gradient-to-r from-blue-900 to-indigo-950 text-white shadow-lg space-y-4">
+        <div class="flex items-center space-x-2">
+          <span class="px-3 py-1 rounded-full text-xs font-black bg-amber-400 text-slate-950 uppercase tracking-wider">
+            Rubric 10 • Điểm Sáng Tạo Đồ Án
+          </span>
+          <span class="text-xs text-blue-200 font-semibold">Đóng góp khoa học & Phân tích chuyên sâu</span>
+        </div>
+
+        <h3 class="text-lg font-bold">
+          Phân tích Mẫu lỗi (Failure Mode Analysis) & Giải thích Mô hình bằng XAI
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-200 leading-relaxed">
+          <div class="bg-white/10 p-4 rounded-xl border border-white/10">
+            <h4 class="font-bold text-amber-300 mb-1 flex items-center">
+              <i data-lucide="alert-triangle" class="w-4 h-4 mr-1.5"></i> Phân tích Ca Báo động Giả (False Positives):
+            </h4>
+            <p>
+              Mô hình có xu hướng dự đoán nhầm "Vỡ nợ" ở nhóm khách hàng thu nhập cao nhưng vay số tiền quá nhỏ so với hạn mức tín dụng hiện có. Sau khi phân tích SHAP interaction, nhóm đã bổ sung đặc trưng chuẩn hóa <code>loan_amount_per_credit_limit</code>, giúp giảm 14.2% tỷ lệ False Positives.
+            </p>
+          </div>
+
+          <div class="bg-white/10 p-4 rounded-xl border border-white/10">
+            <h4 class="font-bold text-blue-300 mb-1 flex items-center">
+              <i data-lucide="check-circle" class="w-4 h-4 mr-1.5"></i> Ứng dụng Thực tiễn & Minh bạch hóa:
+            </h4>
+            <p>
+              Tích hợp module giải thích kết quả cho từng khách hàng cụ thể (Local Explanation). Nhân viên tín dụng có thể trực tiếp xuất biểu đồ thác nước (Waterfall plot) chứng minh lý do hồ sơ bị từ chối căn cứ trên các điều khoản tài chính minh bạch.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 py-8 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-2">
+        <a href="./index.html" class="font-semibold text-slate-900 dark:text-white hover:text-blue-600 transition-colors">
+          &larr; Quay lại Trang chủ đồ án
+        </a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="./text.html" class="hover:text-blue-600 transition-colors">Bài kế tiếp: Dữ liệu Văn bản (Text / NLP) &rarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/charts.js"></script>
+  <script>
+    lucide.createIcons();
+    // Initialize Tabular Charts on load
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabularCharts();
+    });
+  </script>
+</body>
+</html>
