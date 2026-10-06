@@ -2,7 +2,7 @@
 
 A static Vietnamese/English GitHub Pages portfolio for Semester 261, academic year 2026–2027. It includes a group landing page and separate Tabular, Text, and Image project pages based on [the course requirements](requirements.md).
 
-Group details, datasets, notebooks, reports, and videos are **pending**. The website is not a completed assignment submission until the real details and resources are added. Dataset requirements and suggested methods on the pages are guidance, not claims about completed experiments.
+Group **SlightSeek** has two members: Phạm Duy Anh (2310139; Text and Image) and Nguyễn Phan Tuấn Duy (2310491; Tabular and Text). The Image page includes recorded results and a [Colab notebook](https://colab.research.google.com/drive/1pHsdOVulTgBHD1ybwBt4jTmHKW_-q3rZ); Colab Run all has not been independently rechecked. Tabular/Text content and notebooks, plus PDF reports and videos for each project, are **pending**. The website is not yet a completed assignment submission; dataset requirements and suggested methods remain guidance unless supported by recorded results.
 
 ## Preview locally
 

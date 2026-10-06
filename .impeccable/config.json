@@ -1,0 +1,45 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "tiny-text",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-06T07:14:23.905Z",
+        "reason": "Agent scope decision: the approved plan preserves the existing homepage outside the Image card. Its inherited metadata typography remains unchanged; Image content and card text are now at least 14px. tiny-text has no value-specific ignore, so this exception is restricted to index.html."
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html",
+          "pages/projects/image.html"
+        ],
+        "createdAt": "2026-10-06T07:16:25.044Z",
+        "reason": "Agent verified false positives: project-hero has padding-block 38px 44px, pipeline sections 35px, homepage sections 48px 56px, card-bottom padding-top 16px, group-details padding-bottom 12px, and project-footer-nav 26px 38px. Table wrappers and tfoot deliberately delegate 12px 14px padding to cells. The desktop/mobile screenshots confirm readable insets; adding wrapper padding would double them."
+      },
+      {
+        "rule": "wide-tracking",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-06T07:16:25.110Z",
+        "reason": "Agent verified false positive: the 0.13em tracking belongs to the existing .eyebrow short uppercase labels, not body prose. The approved plan preserves the homepage outside the Image card."
+      },
+      {
+        "rule": "hero-eyebrow-chip",
+        "value": "*",
+        "files": [
+          "pages/projects/image.html"
+        ],
+        "createdAt": "2026-10-06T07:16:25.183Z",
+        "reason": "Agent scope decision: CO5177 / BÀI TẬP LỚN / IMAGE is the existing course/category label and is unchanged from HEAD. The approved plan explicitly preserves the incumbent visual style while refining Image content; this is an inherited label, not a newly added chip."
+      }
+    ]
+  }
+}
