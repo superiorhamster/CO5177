@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "docs/**"
+      - "scripts/build_site.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -26,6 +27,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
+      - name: Build shared header and footer
+        run: python3 scripts/build_site.py
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload website

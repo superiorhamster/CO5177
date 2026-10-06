@@ -6,7 +6,7 @@ Group details, datasets, notebooks, reports, and videos are **pending**. The web
 
 ## Preview locally
 
-No dependencies or build step are required. From the repository root:
+No dependencies are required. The checked-in HTML already contains the shared header/footer, so it works directly. From the repository root:
 
 ```sh
 python3 -m http.server 8000 --directory docs
@@ -18,6 +18,7 @@ Open `http://localhost:8000/`. You can also open `docs/index.html` directly. All
 
 - Homepage: `docs/index.html`; project pages: `docs/projects/{tabular,text,image}.html`.
 - Shared appearance: `docs/assets/site.css`; translations and language behavior: `docs/assets/site.js`.
+- Shared header and footer: edit `docs/partials/header.html` and `docs/partials/footer.html`, then run `python3 scripts/build_site.py`. The script updates the marked blocks in all four pages, resolving `{{root}}` to the correct relative path. Do not edit those generated blocks directly. Run `python3 scripts/build_site.py --check` to check whether they are current. GitHub Actions runs the build automatically before publishing; the rendered layout remains available when JavaScript is disabled or HTML is opened directly.
 - Replace pending group details with the registered group name and real members, MSSVs, contributions, and optional verified GitHub URLs. Keep the details consistent on all four pages. The single pending row in the homepage table is an empty-state marker; replace it with one row per actual member.
 - Edit both the default Vietnamese HTML and the matching keys in the `vi` and `en` dictionaries in `site.js`. Language switching uses `textContent`, so translated elements must contain plain text. Use new keys where repeated pending values become distinct real content; do not repurpose the shared `pending` key for a specific person or dataset.
 - Document official Vietnamese names as provided. Use meaningful English translations for descriptions and controls. Update each page’s title and description in its HTML and corresponding translation keys.
