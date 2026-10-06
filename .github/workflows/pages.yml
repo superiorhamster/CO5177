@@ -4,7 +4,9 @@ on:
   push:
     branches: [main]
     paths:
-      - "docs/**"
+      - "index.html"
+      - ".nojekyll"
+      - "pages/**"
       - "scripts/build_site.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
@@ -31,10 +33,17 @@ jobs:
         run: python3 scripts/build_site.py
       - name: Configure Pages
         uses: actions/configure-pages@v5
+      - name: Prepare website artifact
+        env:
+          SITE_DIR: ${{ runner.temp }}/github-pages-site
+        run: |
+          mkdir -p "$SITE_DIR"
+          cp index.html .nojekyll "$SITE_DIR/"
+          cp -R pages "$SITE_DIR/pages"
       - name: Upload website
         uses: actions/upload-pages-artifact@v4
         with:
-          path: docs
+          path: ${{ runner.temp }}/github-pages-site
       - name: Deploy website
         id: deployment
         uses: actions/deploy-pages@v4

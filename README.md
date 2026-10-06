@@ -9,16 +9,16 @@ Group details, datasets, notebooks, reports, and videos are **pending**. The web
 No dependencies are required. The checked-in HTML already contains the shared header/footer, so it works directly. From the repository root:
 
 ```sh
-python3 -m http.server 8000 --directory docs
+python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000/`. You can also open `docs/index.html` directly. All site assets are local; no fonts, analytics, or other third-party resources are fetched. JavaScript enables the language switch; the default Vietnamese content remains readable without it.
+Open `http://localhost:8000/`. You can also open `index.html` directly. All site assets are local; no fonts, analytics, or other third-party resources are fetched. JavaScript enables the language switch; the default Vietnamese content remains readable without it.
 
 ## Update content
 
-- Homepage: `docs/index.html`; project pages: `docs/projects/{tabular,text,image}.html`.
-- Shared appearance: `docs/assets/site.css`; translations and language behavior: `docs/assets/site.js`.
-- Shared header and footer: edit `docs/partials/header.html` and `docs/partials/footer.html`, then run `python3 scripts/build_site.py`. The script updates the marked blocks in all four pages, resolving `{{root}}` to the correct relative path. Do not edit those generated blocks directly. Run `python3 scripts/build_site.py --check` to check whether they are current. GitHub Actions runs the build automatically before publishing; the rendered layout remains available when JavaScript is disabled or HTML is opened directly.
+- Homepage: `index.html`; project pages: `pages/projects/{tabular,text,image}.html`.
+- Shared appearance: `pages/assets/site.css`; translations and language behavior: `pages/assets/site.js`.
+- Shared header and footer: edit `pages/partials/header.html` and `pages/partials/footer.html`, then run `python3 scripts/build_site.py`. The script updates the marked blocks in all four pages, resolving `{{root}}` to the repository root and `{{assets}}` to `pages/assets/`, using relative paths for each page. Do not edit those generated blocks directly. Run `python3 scripts/build_site.py --check` to check whether they are current. GitHub Actions runs the build automatically before publishing; the rendered layout remains available when JavaScript is disabled or HTML is opened directly.
 - Replace pending group details with the registered group name and real members, MSSVs, contributions, and optional verified GitHub URLs. Keep the details consistent on all four pages. The single pending row in the homepage table is an empty-state marker; replace it with one row per actual member.
 - Edit both the default Vietnamese HTML and the matching keys in the `vi` and `en` dictionaries in `site.js`. Language switching uses `textContent`, so translated elements must contain plain text. Use new keys where repeated pending values become distinct real content; do not repurpose the shared `pending` key for a specific person or dataset.
 - Document official Vietnamese names as provided. Use meaningful English translations for descriptions and controls. Update each page’s title and description in its HTML and corresponding translation keys.
@@ -39,7 +39,7 @@ Each project contains three `.resource-item` blocks. Replace its non-clickable `
 This is a **format example**, not an existing notebook. Add `open-notebook` to both translation dictionaries and use the actual URL. Do not add a link until the resource exists.
 
 - Notebook: an actual GitHub `.ipynb` URL and/or Google Colab URL. Independently verify **Run all** completes in Colab.
-- Report: add the real PDF under `docs/reports/`, then use `../reports/actual-filename.pdf` from a project page, or supply a publicly accessible external URL.
+- Report: add the real PDF under `pages/reports/`, then use `../reports/actual-filename.pdf` from a project page, or supply a publicly accessible external URL.
 - Video: an actual YouTube URL, Public or Unlisted; 5–10 minutes is recommended.
 
 Keep internal URLs relative. Leading `/` URLs bypass the repository prefix and will break assets or navigation at `/CO5177/`. Add real members’ GitHub links only when provided; no placeholder profile URLs.
@@ -50,7 +50,7 @@ Keep internal URLs relative. Leading `/` URLs bypass the repository prefix and w
 2. Push the site and `.github/workflows/pages.yml` to `main`. The workflow also supports a manual run from the Actions tab.
 3. Confirm **Deploy assignment portfolio** succeeds and use the `github-pages` environment URL. The expected project-site address is `https://superiorhamster.github.io/CO5177/`; treat it as live only after checking the deployment.
 
-The workflow uploads **only `docs/`**. The requirements document, README, repository internals, and future notebooks outside `docs/` are not included in the website artifact. GitHub Pages settings must be enabled before the first workflow run. See [GitHub’s custom workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+The workflow packages **root `index.html`, `.nojekyll`, and `pages/`** into a temporary website directory, with `index.html` at the artifact root. The requirements document, README, repository internals, and future notebooks outside `pages/` are not included in the website artifact. GitHub Pages settings must be enabled before the first workflow run. See [GitHub’s custom workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
 ## Before submitting
 

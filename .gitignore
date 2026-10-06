@@ -35,5 +35,5 @@ Thumbs.db
 Desktop.ini
 *.log
 
-# Keep docs/, its assets, shared partials, and rendered HTML tracked.
+# Keep index.html, .nojekyll, and pages/ (assets, partials, project pages) tracked.
 # GitHub Pages publishes those files directly.

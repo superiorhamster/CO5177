@@ -6,14 +6,15 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DOCS = ROOT / "docs"
+PAGES = ROOT / "pages"
 
 
 def render_page(page: Path, templates: dict[str, str]) -> str:
     html = page.read_text(encoding="utf-8")
     # Relative URLs work both locally and beneath the GitHub Pages repo prefix.
-    relative_root = Path(os.path.relpath(DOCS, page.parent)).as_posix()
+    relative_root = Path(os.path.relpath(ROOT, page.parent)).as_posix()
     root = "" if relative_root == "." else relative_root + "/"
+    assets = Path(os.path.relpath(PAGES / "assets", page.parent)).as_posix() + "/"
     for name, template in templates.items():
         pattern = re.compile(
             rf"^(?P<indent>[ \t]*)<!-- shared:{name}:start -->.*?<!-- shared:{name}:end -->",
@@ -23,7 +24,7 @@ def render_page(page: Path, templates: dict[str, str]) -> str:
         if len(matches) != 1:
             raise ValueError(f"{page.relative_to(ROOT)} needs exactly one shared:{name} marker pair.")
         indent = matches[0].group("indent")
-        body = template.strip().replace("{{root}}", root)
+        body = template.strip().replace("{{root}}", root).replace("{{assets}}", assets)
         block = "\n".join(indent + line if line else "" for line in body.splitlines())
         replacement = (
             f"{indent}<!-- shared:{name}:start -->\n"
@@ -39,10 +40,10 @@ def main() -> int:
     args = parser.parse_args()
     try:
         templates = {
-            name: (DOCS / "partials" / f"{name}.html").read_text(encoding="utf-8")
+            name: (PAGES / "partials" / f"{name}.html").read_text(encoding="utf-8")
             for name in ("header", "footer")
         }
-        pages = [DOCS / "index.html", *sorted((DOCS / "projects").rglob("*.html"))]
+        pages = [ROOT / "index.html", *sorted((PAGES / "projects").rglob("*.html"))]
         # Validate every page before writing so a missing marker cannot leave a partial build.
         rendered = {page: render_page(page, templates) for page in pages}
         changed = {
