@@ -22,57 +22,17 @@
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="index.html" aria-label="CO5177">
-          <img
-            class="brand-mark"
-            src="pages/assets/bk.png"
-            alt=""
-            width="36"
-            height="36"
-          />
-          <span
-            >CO5177<small
-              ><span data-i18n="brand">HỒ SƠ HỌC PHẦN</span></small
-            ></span
-          >
+          <img class="brand-mark" src="pages/assets/bk.png" alt="" width="36" height="36" />
+          <span>CO5177<small><span data-i18n="brand">HỒ SƠ HỌC PHẦN</span></small></span>
         </a>
-        <nav
-          class="main-nav"
-          aria-label="Điều hướng chính"
-          data-i18n-aria="nav"
-        >
-          <a href="index.html#projects"
-            ><span data-i18n="projects">Bài tập lớn</span></a
-          >
-          <a href="index.html#team"
-            ><span data-i18n="team">Nhóm thực hiện</span></a
-          >
-          <a class="repo-nav" href="https://github.com/superiorhamster/CO5177"
-            >GitHub <span aria-hidden="true">↗</span></a
-          >
+        <nav class="main-nav" aria-label="Điều hướng chính" data-i18n-aria="nav">
+          <a href="index.html#projects"><span data-i18n="projects">Bài tập lớn</span></a>
+          <a href="index.html#team"><span data-i18n="team">Nhóm thực hiện</span></a>
+          <a class="repo-nav" href="https://github.com/superiorhamster/CO5177">GitHub <span aria-hidden="true">↗</span></a>
         </nav>
-        <div
-          class="language-switch"
-          role="group"
-          aria-label="Ngôn ngữ"
-          data-i18n-aria="language"
-          hidden
-        >
-          <button
-            type="button"
-            data-language="vi"
-            aria-label="Tiếng Việt"
-            aria-pressed="true"
-          >
-            VI
-          </button>
-          <button
-            type="button"
-            data-language="en"
-            aria-label="English"
-            aria-pressed="false"
-          >
-            EN
-          </button>
+        <div class="language-switch" role="group" aria-label="Ngôn ngữ" data-i18n-aria="language" hidden>
+          <button type="button" data-language="vi" aria-label="Tiếng Việt" aria-pressed="true">VI</button>
+          <button type="button" data-language="en" aria-label="English" aria-pressed="false">EN</button>
         </div>
       </div>
     </header>
@@ -182,7 +142,7 @@
               >
             </div>
           </article>
-          <article class="project-card">
+          <article class="project-card text-project-card">
             <div class="card-top">
               <svg
                 class="data-icon"
@@ -197,21 +157,15 @@
             </div>
             <h3>
               <a class="project-link" href="pages/projects/text.html"
-                ><span data-i18n="text.name">Dữ liệu văn bản</span
-                ><span class="card-arrow" aria-hidden="true">↗</span></a
+                ><span data-i18n="text.report.card-title">Vietnamese Sentiment Analysis</span><span class="card-arrow" aria-hidden="true">↗</span></a
               >
             </h3>
             <p>
-              <span data-i18n="text.intro"
-                >Từ văn bản đến đặc trưng: khám phá ngôn ngữ và đánh giá mô hình
-                phân loại.</span
-              >
+              <span data-i18n="text.report.card-intro">Phân tích ba lớp cảm xúc tiếng Việt; so sánh TextCNN, BiLSTM, CNN+BiLSTM với PhoBERT-large, kèm EDA và tiền xử lý.</span>
             </p>
             <div class="card-bottom">
               <span class="status-dot" aria-hidden="true"></span
-              ><span data-i18n="project-pending"
-                >Nội dung đang chờ cập nhật</span
-              >
+              ><span data-i18n="text.report.card-status">Đã có kết quả và notebook; PDF/video đang chờ</span>
             </div>
           </article>
           <article class="project-card image-project-card">
@@ -309,7 +263,11 @@
                   <td>
                     <span data-i18n="team.contribution.anh">Text và Image</span>
                   </td>
-                  <td><span data-i18n="not-provided">Chưa cung cấp</span></td>
+                  <td>
+                    <a href="https://github.com/superiorhamster"
+                      >superiorhamster <span aria-hidden="true">↗</span></a
+                    >
+                  </td>
                 </tr>
                 <tr>
                   <td>Nguyễn Phan Tuấn Duy</td>
@@ -319,7 +277,11 @@
                       >Tabular và Text</span
                     >
                   </td>
-                  <td><span data-i18n="not-provided">Chưa cung cấp</span></td>
+                  <td>
+                    <a href="https://github.com/nguyenphantuanduy"
+                      >nguyenphantuanduy <span aria-hidden="true">↗</span></a
+                    >
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -331,11 +293,7 @@
         <div>
           <h2 data-i18n="completion-title">Hồ sơ đang được hoàn thiện</h2>
           <p>
-            <span data-i18n="completion-description"
-              >Thông tin nhóm SlightSeek và link notebook Colab của bài Image đã
-              được bổ sung. Nội dung Tabular/Text, notebook của hai bài này,
-              cùng PDF report và video cho từng bài vẫn đang chờ cập nhật.</span
-            >
+            <span data-i18n="completion-description">Đã bổ sung thông tin nhóm SlightSeek, kết quả Image/Text, notebook Colab Image, notebook Kaggle Text và bản tải xuống cho cả hai bài. Nội dung và notebook Tabular, PDF report và video từng bài vẫn đang chờ; chưa kiểm chứng lại Run all.</span>
           </p>
         </div>
       </aside>
@@ -348,8 +306,7 @@
           <span data-i18n="semester-short">Học kỳ 261 · 2026–2027</span>
         </p>
         <a href="https://github.com/superiorhamster/CO5177">
-          <span data-i18n="source">Kho mã nguồn</span>
-          <span aria-hidden="true">↗</span>
+          <span data-i18n="source">Kho mã nguồn</span> <span aria-hidden="true">↗</span>
         </a>
       </div>
     </footer>
