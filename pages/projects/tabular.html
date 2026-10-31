@@ -14,146 +14,81 @@
     <script src="../assets/site.js" defer></script>
   </head>
   <body>
-    <a class="skip-link" href="#main"
-      ><span data-i18n="skip">Đến nội dung chính</span></a
-    >
+    <a class="skip-link" href="#main"><span data-i18n="skip">Đến nội dung chính</span></a>
+
     <!-- shared:header:start -->
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="../../index.html" aria-label="CO5177">
-          <img
-            class="brand-mark"
-            src="../assets/bk.png"
-            alt=""
-            width="36"
-            height="36"
-          />
-          <span
-            >CO5177<small
-              ><span data-i18n="brand">HỒ SƠ HỌC PHẦN</span></small
-            ></span
-          >
+          <img class="brand-mark" src="../assets/bk.png" alt="" width="36" height="36" />
+          <span>CO5177<small><span data-i18n="brand">HỒ SƠ HỌC PHẦN</span></small></span>
         </a>
-        <nav
-          class="main-nav"
-          aria-label="Điều hướng chính"
-          data-i18n-aria="nav"
-        >
-          <a href="../../index.html#projects"
-            ><span data-i18n="projects">Bài tập lớn</span></a
-          >
-          <a href="../../index.html#team"
-            ><span data-i18n="team">Nhóm thực hiện</span></a
-          >
-          <a class="repo-nav" href="https://github.com/superiorhamster/CO5177"
-            >GitHub <span aria-hidden="true">↗</span></a
-          >
+        <nav class="main-nav" aria-label="Điều hướng chính" data-i18n-aria="nav">
+          <a href="../../index.html#projects"><span data-i18n="projects">Bài tập lớn</span></a>
+          <a href="../../index.html#team"><span data-i18n="team">Nhóm thực hiện</span></a>
+          <a class="repo-nav" href="https://github.com/superiorhamster/CO5177">GitHub <span aria-hidden="true">↗</span></a>
         </nav>
-        <div
-          class="language-switch"
-          role="group"
-          aria-label="Ngôn ngữ"
-          data-i18n-aria="language"
-          hidden
-        >
-          <button
-            type="button"
-            data-language="vi"
-            aria-label="Tiếng Việt"
-            aria-pressed="true"
-          >
-            VI
-          </button>
-          <button
-            type="button"
-            data-language="en"
-            aria-label="English"
-            aria-pressed="false"
-          >
-            EN
-          </button>
+        <div class="language-switch" role="group" aria-label="Ngôn ngữ" data-i18n-aria="language" hidden>
+          <button type="button" data-language="vi" aria-label="Tiếng Việt" aria-pressed="true">VI</button>
+          <button type="button" data-language="en" aria-label="English" aria-pressed="false">EN</button>
         </div>
       </div>
     </header>
     <!-- shared:header:end -->
+
     <main id="main" class="container image-report">
-      <nav
-        class="breadcrumb"
-        aria-label="Điều hướng phân cấp"
-        data-i18n-aria="breadcrumb"
-      >
-        <a href="../../index.html"><span data-i18n="home">Trang chủ</span></a
-        ><span aria-hidden="true">/</span><span>Tabular</span>
+      <nav class="breadcrumb" aria-label="Điều hướng phân cấp" data-i18n-aria="breadcrumb">
+        <a href="../../index.html"><span data-i18n="home">Trang chủ</span></a>
+        <span aria-hidden="true">/</span><span>Tabular</span>
       </nav>
+
       <section class="project-hero" aria-labelledby="project-title">
         <div>
-          <p class="eyebrow">
-            CO5177 / <span data-i18n="assignment">BÀI TẬP LỚN</span> / TABULAR
-          </p>
-          <h1 id="project-title">
-            Adult Census Income: EDA, Preprocessing &amp; Baseline Models
-          </h1>
+          <p class="eyebrow">CO5177 / <span data-i18n="assignment">BÀI TẬP LỚN</span> / TABULAR</p>
+          <h1 id="project-title">Adult Census Income: EDA, Preprocessing &amp; Baseline Models</h1>
           <p class="hero-description">
-            Khám phá dữ liệu Adult Census Income, xử lý dữ liệu thiếu, mã hóa
-            đặc trưng và so sánh XGBoost với MLP cho bài toán dự đoán nhóm thu
-            nhập.
+            Khám phá dữ liệu Adult Census Income, phân tích chất lượng và mối quan hệ giữa các đặc trưng,
+            tiền xử lý dữ liệu, sau đó so sánh hai mô hình XGBoost và Multi-Layer Perceptron (MLP)
+            cho bài toán dự đoán nhóm thu nhập.
           </p>
-          <span class="status-badge"
-            ><span class="status-dot" aria-hidden="true"></span>Kết quả được
-            tổng hợp từ outputs đã lưu trong notebook</span
-          >
+          <span class="status-badge">
+            <span class="status-dot" aria-hidden="true"></span>
+            Kết quả và hình ảnh được tổng hợp từ notebook
+          </span>
         </div>
       </section>
+
       <div class="project-layout">
         <article class="project-content">
-          <section
-            id="resources"
-            class="resources"
-            aria-labelledby="resources-title"
-          >
+          <section id="resources" class="resources" aria-labelledby="resources-title">
             <div class="compact-heading">
               <h2 id="resources-title">Tài liệu và kết quả</h2>
-              <p class="muted">
-                Notebook, báo cáo PDF và video trình bày của bài tập lớn.
-              </p>
+              <p class="muted">Notebook thực nghiệm và các tệp kết quả được xuất từ quá trình EDA, preprocessing và model evaluation.</p>
             </div>
             <div class="resource-item">
               <div>
                 <h3>Notebook</h3>
-                <p>
-                  Notebook thực hiện EDA, tiền xử lý dữ liệu và huấn luyện/đánh
-                  giá mô hình.
-                </p>
+                <p>Notebook thực hiện toàn bộ quy trình phân tích dữ liệu, tiền xử lý, huấn luyện và đánh giá mô hình.</p>
               </div>
-              <a
-                class="text-link"
-                href="https://colab.research.google.com/drive/1vOj6dh9bYJrLUF8qIAoCjt0COASFay8n?usp=sharing"
-                target="_blank"
-                rel="noopener"
-                >Mở Google Colab ↗</a
-              >
+              <a class="text-link" href="https://colab.research.google.com/drive/1AmPJzDTNdqtER0M-pUIYaCIHOTqXZbtW?usp=sharing" target="_blank" rel="noopener">Mở Google Colab ↗</a>
             </div>
             <div class="resource-item">
               <div>
                 <h3>PDF report</h3>
-                <p>Báo cáo riêng của bài tập lớn này</p>
+                <p>Báo cáo riêng của bài tập lớn này.</p>
               </div>
               <span class="muted">Chờ link PDF report</span>
             </div>
             <div class="resource-item">
               <div>
                 <h3>YouTube</h3>
-                <p>Video Public hoặc Unlisted · khuyến nghị 5–10 phút</p>
+                <p>Video Public hoặc Unlisted giới thiệu bài tập lớn.</p>
               </div>
               <span class="muted">Chờ link YouTube</span>
             </div>
           </section>
 
-          <section
-            id="dataset"
-            class="pipeline-section"
-            aria-labelledby="dataset-title"
-          >
+          <section id="dataset" class="pipeline-section" aria-labelledby="dataset-title">
             <div class="pipeline-heading">
               <span class="step-number" aria-hidden="true">01</span>
               <h2 id="dataset-title">Mô tả tập dữ liệu</h2>
@@ -161,589 +96,452 @@
             <dl class="dataset-facts">
               <div>
                 <dt>Nguồn</dt>
-                <dd>
-                  <a
-                    href="https://archive.ics.uci.edu/dataset/2/adult"
-                    target="_blank"
-                    rel="noopener"
-                    >UCI Machine Learning Repository — Adult ↗</a
-                  >
-                </dd>
+                <dd><a href="https://archive.ics.uci.edu/dataset/2/adult" target="_blank" rel="noopener">UCI Machine Learning Repository — Adult ↗</a></dd>
               </div>
-              <div>
-                <dt>Số mẫu ban đầu</dt>
-                <dd>48.842</dd>
-              </div>
-              <div>
-                <dt>Đặc trưng đầu vào</dt>
-                <dd>14 đặc trưng; 6 numerical và 8 categorical</dd>
-              </div>
-              <div>
-                <dt>Nhãn mục tiêu</dt>
-                <dd><code>income</code>: ≤50K hoặc &gt;50K</dd>
-              </div>
+              <div><dt>Số mẫu ban đầu</dt><dd>48.842</dd></div>
+              <div><dt>Đặc trưng đầu vào</dt><dd>14 đặc trưng: 6 numerical và 8 categorical</dd></div>
+              <div><dt>Nhãn mục tiêu</dt><dd><code>income</code>: ≤50K hoặc &gt;50K</dd></div>
+              <div><dt>Bài toán</dt><dd>Phân loại nhị phân (Binary Classification)</dd></div>
             </dl>
             <p>
-              Dataset được dùng cho bài toán phân loại nhị phân: dự đoán một
-              người thuộc nhóm thu nhập ≤50K hay &gt;50K. Notebook chuẩn hóa
-              nhãn mục tiêu bằng cách loại dấu chấm ở cuối nhãn trước khi chia
-              dữ liệu, để các biến thể như <code>&lt;=50K</code> và
-              <code>&lt;=50K.</code> được xem là cùng một lớp.
+              Mục tiêu là dự đoán một cá nhân thuộc nhóm thu nhập ≤50.000 USD hay &gt;50.000 USD
+              dựa trên các thông tin nhân khẩu học và nghề nghiệp. Nhãn mục tiêu được chuẩn hóa
+              bằng cách loại bỏ khoảng trắng và dấu chấm ở cuối nhãn (nếu có), để
+              <code>&lt;=50K</code> và <code>&lt;=50K.</code> được xem là cùng một lớp.
             </p>
-            <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/EDA_result/target_class_distribution.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở biểu đồ phân phối lớp thu nhập"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/EDA_result/target_class_distribution.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Biểu đồ số lượng hai lớp thu nhập trong tập training trước khi loại các hàng có giá trị thiếu."
-                />
-              </a>
-              <figcaption>
-                <strong
-                  >Phân phối lớp mục tiêu trong tập train trước xử lý missing
-                  values</strong
-                >
-                <p>
-                  Trong tập train ban đầu, lớp ≤50K chiếm khoảng 75,2% (23.801
-                  mẫu), còn lớp &gt;50K chiếm 24,8% (7.849 mẫu). Vì vậy dữ liệu
-                  có mất cân bằng lớp; khi đọc kết quả, cần chú ý thêm
-                  Precision, Recall và F1 của lớp thu nhập &gt;50K thay vì chỉ
-                  nhìn Accuracy.
-                </p>
-              </figcaption>
-            </figure>
+            <div class="table-wrap report-table" tabindex="0" role="region" aria-label="Tổng quan dữ liệu trước và sau khi làm sạch">
+              <table>
+                <thead><tr><th scope="col">Trạng thái dữ liệu</th><th scope="col">Số mẫu</th><th scope="col">Tỷ lệ</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Ban đầu</th><td>48.842</td><td>100%</td></tr>
+                  <tr><th scope="row">Có ít nhất một missing value</th><td>3.620</td><td>7,41%</td></tr>
+                  <tr><th scope="row">Sau khi loại missing values</th><td>45.222</td><td>92,59%</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="muted">
+              Notebook chuyển ký hiệu <code>?</code> trong dữ liệu thành <code>NaN</code>, sau đó
+              loại các hàng có ít nhất một giá trị thiếu trên toàn bộ dataset trước khi chia tập.
+              Nhãn mục tiêu được chuẩn hóa trước bước làm sạch và phân chia.
+            </p>
           </section>
 
-          <section
-            id="eda"
-            class="pipeline-section"
-            aria-labelledby="eda-title"
-          >
+          <section id="eda" class="pipeline-section" aria-labelledby="eda-title">
             <div class="pipeline-heading">
               <span class="step-number" aria-hidden="true">02</span>
               <h2 id="eda-title">Khám phá dữ liệu (EDA)</h2>
             </div>
             <p>
-              EDA được thực hiện trên dữ liệu trước tiền xử lý để kiểm tra giá
-              trị thiếu, bản ghi trùng, giá trị số ngoài phạm vi hợp lý và phân
-              phối của từng nhóm đặc trưng.
+              EDA được thực hiện theo hai giai đoạn. EDA lần 1 kiểm tra chất lượng dữ liệu trên
+              toàn bộ dataset trước khi split. Sau khi làm sạch và chia tập, EDA lần 2 chỉ sử dụng
+              Training Set để phân tích phân phối, mối quan hệ giữa các đặc trưng và mức độ liên
+              quan với biến mục tiêu.
             </p>
+
+            <h3>2.1. Kiểm tra chất lượng dữ liệu — EDA lần 1</h3>
             <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/EDA_result/missing_values_analysis.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở biểu đồ phân tích giá trị thiếu"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/EDA_result/missing_values_analysis.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Các biểu đồ tròn thể hiện tỷ lệ missing và present của các cột có giá trị thiếu cùng tỷ lệ mẫu có ít nhất một giá trị thiếu."
-                />
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/missing_values_analysis.png" target="_blank" rel="noopener" aria-label="Mở biểu đồ phân tích giá trị thiếu">
+                <img src="../assets/Adult_Census_Income_Results/EDA_result/missing_values_analysis.png" loading="lazy" decoding="async" alt="Biểu đồ tỷ lệ missing và present của workclass, occupation, native-country và tỷ lệ mẫu có ít nhất một giá trị thiếu." />
               </a>
               <figcaption>
                 <strong>Phân tích giá trị thiếu</strong>
                 <p>
-                  Biểu đồ thể hiện tỷ lệ thiếu ở từng cột và tỷ lệ bản ghi có ít
-                  nhất một giá trị thiếu. Sau khi chia train/validation/test,
-                  notebook loại các hàng thiếu riêng trong từng split: 2.539
-                  hàng ở train, 513 ở validation và 568 ở test. Việc loại hàng
-                  làm giảm dữ liệu nhưng giúp các mô hình nhận đầu vào không còn
-                  missing values.
+                  Có 3 đặc trưng chứa missing values: <code>occupation</code> có 2.809 giá trị
+                  thiếu (5,75%), <code>workclass</code> có 2.799 (5,73%) và
+                  <code>native-country</code> có 857 (1,75%). Tổng cộng 3.620 mẫu (7,41%)
+                  có ít nhất một giá trị thiếu và được loại khỏi dataset trước khi chia tập.
                 </p>
               </figcaption>
             </figure>
+
             <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/EDA_result/duplicate_records_analysis.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở biểu đồ phân tích bản ghi trùng lặp"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/EDA_result/duplicate_records_analysis.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Biểu đồ tròn so sánh số bản ghi trùng lặp và không trùng lặp trong Adult dataset."
-                />
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/duplicate_records_analysis.png" target="_blank" rel="noopener" aria-label="Mở biểu đồ phân tích bản ghi trùng lặp">
+                <img src="../assets/Adult_Census_Income_Results/EDA_result/duplicate_records_analysis.png" loading="lazy" decoding="async" alt="Biểu đồ tỷ lệ bản ghi trùng lặp và không trùng lặp trong dataset." />
               </a>
               <figcaption>
                 <strong>Phân tích bản ghi trùng lặp</strong>
                 <p>
-                  Notebook ghi nhận 29 bản ghi trùng trong tổng số 48.842 mẫu,
-                  tương đương khoảng 0,06%. Đây là kết quả kiểm tra các hàng
-                  trùng hoàn toàn theo các cột trong bảng dữ liệu; nó không tự
-                  động chứng minh rằng các bản ghi khác nhau là những cá nhân
-                  khác nhau.
+                  Notebook ghi nhận 29 bản ghi trùng lặp trong tổng số 48.842 mẫu, tương đương
+                  khoảng 0,06%. Đây là kết quả kiểm tra các hàng trùng hoàn toàn; notebook thống kê
+                  số lượng nhưng không thực hiện loại bỏ các bản ghi trùng này.
                 </p>
               </figcaption>
             </figure>
+
+            <div class="compact-heading">
+              <h3>Kiểm tra giá trị không hợp lệ</h3>
+              <p>
+                Notebook kiểm tra giá trị âm ở 6 đặc trưng số. Không có giá trị nào bị gắn cờ
+                theo các điều kiện kiểm tra được định nghĩa.
+              </p>
+            </div>
+            <div class="table-wrap report-table" tabindex="0" role="region" aria-label="Kết quả kiểm tra giá trị không hợp lệ">
+              <table>
+                <thead><tr><th scope="col">Đặc trưng</th><th scope="col">Số giá trị không hợp lệ</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row"><code>age</code></th><td>0</td></tr>
+                  <tr><th scope="row"><code>fnlwgt</code></th><td>0</td></tr>
+                  <tr><th scope="row"><code>education-num</code></th><td>0</td></tr>
+                  <tr><th scope="row"><code>capital-gain</code></th><td>0</td></tr>
+                  <tr><th scope="row"><code>capital-loss</code></th><td>0</td></tr>
+                  <tr><th scope="row"><code>hours-per-week</code></th><td>0</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>2.2. Phân tích phân phối đặc trưng — EDA lần 2</h3>
+            <p>
+              Sau khi loại missing values, dataset còn 45.222 mẫu và được chia thành Train,
+              Validation, Test. Các phân tích chuyên sâu dưới đây chỉ sử dụng Training Set.
+            </p>
             <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/EDA_result/invalid_values_analysis.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở biểu đồ phân tích giá trị không hợp lệ"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/EDA_result/invalid_values_analysis.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Biểu đồ tỷ lệ bản ghi có và không có giá trị số không hợp lệ theo các kiểm tra được định nghĩa trong notebook."
-                />
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/target_class_distribution_train.png" target="_blank" rel="noopener" aria-label="Mở biểu đồ phân phối lớp mục tiêu trên tập train">
+                <img src="../assets/Adult_Census_Income_Results/EDA_result/target_class_distribution_train.png" loading="lazy" decoding="async" alt="Biểu đồ số lượng và tỷ lệ hai lớp thu nhập trong tập training sau khi làm sạch." />
               </a>
               <figcaption>
-                <strong>Kiểm tra giá trị không hợp lệ</strong>
+                <strong>Phân phối lớp mục tiêu trên Training Set</strong>
                 <p>
-                  Theo các điều kiện kiểm tra được định nghĩa trong notebook,
-                  không có giá trị số nào bị gắn cờ là không hợp lệ: 48.842 bản
-                  ghi được giữ ở bước audit này. Kết luận chỉ áp dụng cho những
-                  quy tắc kiểm tra đã viết trong notebook, không có nghĩa dữ
-                  liệu chắc chắn không chứa mọi dạng bất thường.
+                  Training Set có 31.655 mẫu: lớp ≤50K gồm 23.809 mẫu (75,21%) và lớp &gt;50K
+                  gồm 7.846 mẫu (24,79%). Tỷ lệ lớp đa số trên lớp thiểu số là khoảng 3,03:1.
+                  Vì vậy, notebook sử dụng trọng số lớp trong cả XGBoost và MLP, đồng thời quan
+                  tâm đến Precision, Recall và F1-score của lớp &gt;50K.
                 </p>
               </figcaption>
             </figure>
+
             <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/EDA_result/numerical_feature_distributions.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở biểu đồ phân phối các đặc trưng số"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/EDA_result/numerical_feature_distributions.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Histogram và boxplot cho sáu đặc trưng số: age, fnlwgt, education-num, capital-gain, capital-loss và hours-per-week."
-                />
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/numerical_feature_distributions_train.png" target="_blank" rel="noopener" aria-label="Mở biểu đồ phân phối đặc trưng số">
+                <img src="../assets/Adult_Census_Income_Results/EDA_result/numerical_feature_distributions_train.png" loading="lazy" decoding="async" alt="Histogram và boxplot cho sáu đặc trưng số trên Training Set." />
               </a>
               <figcaption>
-                <strong
-                  >Phân phối đặc trưng số và các giá trị có khả năng là
-                  outlier</strong
-                >
+                <strong>Phân phối đặc trưng số</strong>
                 <p>
-                  Biểu đồ ghép histogram và boxplot cho sáu biến số.
-                  <code>capital-gain</code> và <code>capital-loss</code> có
-                  nhiều giá trị bằng 0 cùng một số giá trị lớn;
-                  <code>fnlwgt</code> cũng có đuôi phân phối kéo dài. Boxplot
-                  giúp nhận diện các điểm cần xem xét, nhưng điểm nằm ngoài
-                  whisker không mặc nhiên là dữ liệu sai và notebook không tự
-                  động loại outlier.
+                  Biểu đồ histogram và boxplot mô tả 6 đặc trưng số ban đầu. Các biến
+                  <code>capital-gain</code> và <code>capital-loss</code> có phân phối lệch phải
+                  mạnh, với median bằng 0; <code>fnlwgt</code> cũng có phân phối lệch phải.
+                  Boxplot hỗ trợ nhận diện các giá trị cần xem xét nhưng notebook không tự động
+                  loại outlier dựa trên biểu đồ này.
                 </p>
               </figcaption>
             </figure>
+
             <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/EDA_result/categorical_feature_distributions.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở biểu đồ phân phối các đặc trưng phân loại"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/EDA_result/categorical_feature_distributions.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Biểu đồ thanh ngang cho tám đặc trưng phân loại và tần suất các giá trị, bao gồm cả missing values."
-                />
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/categorical_feature_distributions_train.png" target="_blank" rel="noopener" aria-label="Mở biểu đồ phân phối đặc trưng phân loại">
+                <img src="../assets/Adult_Census_Income_Results/EDA_result/categorical_feature_distributions_train.png" loading="lazy" decoding="async" alt="Biểu đồ phân phối tám đặc trưng phân loại trên tập train." />
               </a>
               <figcaption>
                 <strong>Phân phối đặc trưng phân loại</strong>
                 <p>
-                  Các biểu đồ cho thấy tần suất của tám biến phân loại như
-                  workclass, education, occupation, marital-status và
-                  native-country. Các mức phổ biến không đồng đều; một số cột có
-                  nhóm missing được biểu diễn riêng. Những phân phối này giải
-                  thích vì sao notebook dùng One-Hot Encoding thay vì xem các
-                  nhãn danh mục như các con số có thứ tự.
+                  Các biểu đồ thể hiện tần suất của 8 biến categorical ban đầu. Một số nhóm chiếm
+                  tỷ lệ lớn, chẳng hạn <code>Private</code> trong <code>workclass</code> (73,54%),
+                  <code>HS-grad</code> trong <code>education</code> (32,70%) và <code>White</code>
+                  trong <code>race</code> (86,00%). Những biến này được mã hóa One-Hot ở bước
+                  preprocessing để không áp đặt thứ tự số giả tạo giữa các danh mục.
                 </p>
               </figcaption>
             </figure>
+
+            <h3>2.3. Phân tích mối quan hệ giữa các đặc trưng</h3>
+            <figure class="report-figure">
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/numerical_correlation_matrix_train.png" target="_blank" rel="noopener" aria-label="Mở ma trận tương quan các đặc trưng số">
+                <img src="../assets/Adult_Census_Income_Results/EDA_result/numerical_correlation_matrix_train.png" loading="lazy" decoding="async" alt="Ma trận tương quan Pearson giữa sáu đặc trưng số trên tập train." />
+              </a>
+              <figcaption>
+                <strong>Ma trận tương quan giữa các đặc trưng số</strong>
+                <p>
+                  Ma trận Pearson được dùng để khảo sát tương quan tuyến tính giữa các biến số.
+                  Bên cạnh đó, notebook đối chiếu <code>education</code> với
+                  <code>education-num</code> và ghi nhận 16 cặp giá trị tương ứng 1-1. Do đó,
+                  <code>education</code> được xem là đặc trưng dư thừa khi đã giữ
+                  <code>education-num</code>.
+                </p>
+              </figcaption>
+            </figure>
+
+            <h3>2.4. Phân tích mối quan hệ với biến mục tiêu</h3>
+            <figure class="report-figure">
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/numerical_vs_target_train.png" target="_blank" rel="noopener" aria-label="Mở biểu đồ đặc trưng số theo nhóm thu nhập">
+                <img src="../assets/Adult_Census_Income_Results/EDA_result/numerical_vs_target_train.png" loading="lazy" decoding="async" alt="Boxplot so sánh phân phối education-num, age, hours-per-week và capital-gain theo nhóm thu nhập." />
+              </a>
+              <figcaption>
+                <strong>Đặc trưng số theo nhóm thu nhập</strong>
+                <p>
+                  Boxplot so sánh <code>education-num</code>, <code>age</code>,
+                  <code>hours-per-week</code> và <code>capital-gain</code> giữa hai nhóm thu nhập.
+                  Kết quả hỗ trợ quan sát sự khác biệt phân phối giữa nhóm ≤50K và &gt;50K.
+                </p>
+              </figcaption>
+            </figure>
+
+            <figure class="report-figure">
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/categorical_vs_target_train.png" target="_blank" rel="noopener" aria-label="Mở biểu đồ tỷ lệ thu nhập cao theo đặc trưng phân loại">
+                <img src="../assets/Adult_Census_Income_Results/EDA_result/categorical_vs_target_train.png" loading="lazy" decoding="async" alt="Tỷ lệ cá nhân có thu nhập trên 50K theo relationship, marital-status, occupation và sex." />
+              </a>
+              <figcaption>
+                <strong>Tỷ lệ thu nhập &gt;50K theo đặc trưng phân loại</strong>
+                <p>
+                  Notebook khảo sát tỷ lệ thu nhập cao theo <code>relationship</code>,
+                  <code>marital-status</code>, <code>occupation</code> và <code>sex</code>.
+                  Các danh mục có dưới 50 mẫu được loại khỏi biểu đồ để hạn chế việc diễn giải
+                  những nhóm có quá ít quan sát.
+                </p>
+              </figcaption>
+            </figure>
+
+            <figure class="report-figure">
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/feature_importance_mi_train.png" target="_blank" rel="noopener" aria-label="Mở biểu đồ Mutual Information">
+                <img src="../assets/Adult_Census_Income_Results/EDA_result/feature_importance_mi_train.png" loading="lazy" decoding="async" alt="Xếp hạng Mutual Information Score của các đặc trưng với nhãn thu nhập." />
+              </a>
+              <figcaption>
+                <strong>Độ quan trọng đặc trưng theo Mutual Information</strong>
+                <p>
+                  Hai đặc trưng có Mutual Information cao nhất là <code>relationship</code> (0,1164)
+                  và <code>marital-status</code> (0,1101), tiếp theo là <code>capital-gain</code>
+                  (0,0803), <code>age</code> (0,0672) và <code>education-num</code> (0,0638).
+                  Điểm MI được tính trên Training Set sau khi tạm mã hóa các biến categorical
+                  bằng OrdinalEncoder để phục vụ phân tích.
+                </p>
+              </figcaption>
+            </figure>
+
+            <h3>2.5. Quyết định Feature Selection</h3>
+            <p>
+              Dựa trên EDA lần 2, notebook loại bỏ hai đặc trưng <code>education</code> và
+              <code>fnlwgt</code>. <code>education</code> có quan hệ 1-1 với
+              <code>education-num</code>; trong khi <code>fnlwgt</code> có tương quan với target
+              gần bằng 0 (r = −0,0066) và được xem là trọng số mẫu thống kê thay vì thuộc tính
+              nội tại của cá nhân.
+            </p>
+            <p>
+              Sau Feature Selection, dữ liệu còn 12 đặc trưng đầu vào: 5 numerical và 7 categorical.
+            </p>
           </section>
 
-          <section
-            id="preparation"
-            class="pipeline-section"
-            aria-labelledby="preparation-title"
-          >
+          <section id="preparation" class="pipeline-section" aria-labelledby="preparation-title">
             <div class="pipeline-heading">
               <span class="step-number" aria-hidden="true">03</span>
               <h2 id="preparation-title">Chuẩn bị dữ liệu</h2>
             </div>
             <p>
-              Notebook chia dữ liệu theo tỷ lệ 70% train, 15% validation và 15%
-              test với <code>random_state=42</code> và stratify theo nhãn. Sau
-              khi chia, các hàng có ít nhất một giá trị thiếu được loại riêng
-              trong mỗi split.
+              Sau khi loại missing values trên toàn bộ dataset, notebook chia dữ liệu theo tỷ lệ
+              70% Train, 15% Validation và 15% Test bằng Stratified Sampling với
+              <code>random_state=42</code>. Tỷ lệ hai lớp được duy trì gần như tương đương giữa
+              các tập.
             </p>
-            <div
-              class="table-wrap report-table"
-              tabindex="0"
-              role="region"
-              aria-label="Số mẫu sau xử lý missing values"
-            >
+            <div class="table-wrap report-table" tabindex="0" role="region" aria-label="Số mẫu trong các tập dữ liệu">
               <table>
                 <thead>
-                  <tr>
-                    <th scope="col">Split</th>
-                    <th scope="col">Trước xử lý</th>
-                    <th scope="col">Loại bỏ</th>
-                    <th scope="col">Còn lại</th>
-                  </tr>
+                  <tr><th scope="col">Split</th><th scope="col">Số mẫu</th><th scope="col">Tỷ lệ</th><th scope="col">≤50K</th><th scope="col">&gt;50K</th></tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">Train</th>
-                    <td>34.189</td>
-                    <td>2.539 (7,43%)</td>
-                    <td>31.650</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Validation</th>
-                    <td>7.326</td>
-                    <td>513 (7,00%)</td>
-                    <td>6.813</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Test</th>
-                    <td>7.327</td>
-                    <td>568 (7,75%)</td>
-                    <td>6.759</td>
-                  </tr>
+                  <tr><th scope="row">Train</th><td>31.655</td><td>70%</td><td>23.809</td><td>7.846</td></tr>
+                  <tr><th scope="row">Validation</th><td>6.783</td><td>15%</td><td>5.102</td><td>1.681</td></tr>
+                  <tr><th scope="row">Test</th><td>6.784</td><td>15%</td><td>5.103</td><td>1.681</td></tr>
+                  <tr><th scope="row">Tổng</th><td>45.222</td><td>100%</td><td>34.014</td><td>11.208</td></tr>
                 </tbody>
               </table>
             </div>
             <p>
-              Notebook dùng One-Hot Encoding cho 8 biến phân loại, fit encoder
-              trên train rồi áp dụng cho validation/test. Sau encoding, mỗi
-              split có 104 đặc trưng. Với MLP, sáu đặc trưng số được chuẩn hóa
-              bằng <code>StandardScaler</code> fit trên train; các cột one-hot
-              giữ nguyên. XGBoost dùng đặc trưng đã encode mà không cần scaling.
+              One-Hot Encoding được áp dụng cho 7 biến categorical. Encoder chỉ được fit trên
+              Training Set, sau đó transform Validation và Test với
+              <code>handle_unknown="ignore"</code>. Kết hợp 5 biến numerical, mỗi tập có
+              <strong>87 đặc trưng</strong> sau encoding.
+            </p>
+            <p>
+              Nhãn mục tiêu được mã hóa <code>≤50K → 0</code> và <code>&gt;50K → 1</code>.
+              Với MLP, 5 đặc trưng số (<code>age</code>, <code>education-num</code>,
+              <code>capital-gain</code>, <code>capital-loss</code>, <code>hours-per-week</code>)
+              được chuẩn hóa bằng StandardScaler. Scaler chỉ fit trên Train; các cột One-Hot
+              giữ nguyên. XGBoost sử dụng dữ liệu đã One-Hot Encoding mà không cần scaling.
             </p>
             <p class="muted">
-              Lưu ý về quy trình: notebook chia dữ liệu trước khi loại hàng
-              missing. Do đó các mẫu bị loại khỏi từng split không được chuyển
-              sang split khác. Test cũng bị loại hàng missing trước khi đánh
-              giá, nên metric cuối phản ánh 6.759 mẫu test còn lại, không phải
-              toàn bộ 7.327 mẫu ban đầu.
+              Test Set được giữ riêng cho đánh giá cuối cùng. Các tham số của One-Hot Encoder
+              và StandardScaler đều được học từ Training Set để hạn chế data leakage.
             </p>
           </section>
 
-          <section
-            id="analysis"
-            class="pipeline-section"
-            aria-labelledby="analysis-title"
-          >
+          <section id="analysis" class="pipeline-section" aria-labelledby="analysis-title">
             <div class="pipeline-heading">
               <span class="step-number" aria-hidden="true">04</span>
               <h2 id="analysis-title">Phân tích và mô hình hóa</h2>
             </div>
             <p>
-              Notebook so sánh hai baseline: XGBoost với 300 cây, learning rate
-              0,05, max depth 6; và MLP gồm hai hidden layers 256/128, ReLU và
-              Dropout 0,2. MLP dùng Adam, learning rate 0,001, weight decay
-              0,0001, tối đa 50 epoch và early stopping theo validation loss với
-              patience 5.
+              Notebook xây dựng và so sánh hai baseline: XGBoost (mô hình ensemble dựa trên cây)
+              và Multi-Layer Perceptron (mạng nơ-ron truyền thẳng). Cả hai sử dụng trọng số để
+              xử lý mất cân bằng lớp, với tỷ lệ lớp đa số/thiểu số xấp xỉ 3,03:1.
             </p>
-            <h3>Kết quả trên tập validation</h3>
-            <div
-              class="table-wrap report-table"
-              tabindex="0"
-              role="region"
-              aria-label="So sánh metric validation"
-            >
+            <h3>4.1. Cấu hình mô hình</h3>
+            <div class="table-wrap report-table" tabindex="0" role="region" aria-label="Cấu hình hai mô hình">
+              <table>
+                <thead><tr><th scope="col">Thành phần</th><th scope="col">XGBoost</th><th scope="col">MLP</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Kiến trúc</th><td>300 estimators, max depth 6</td><td>87 → 256 → 128 → 1</td></tr>
+                  <tr><th scope="row">Learning rate</th><td>0,05</td><td>0,001</td></tr>
+                  <tr><th scope="row">Regularization</th><td>Subsample 0,8; colsample_bytree 0,8</td><td>Dropout 0,2; weight decay 0,0001</td></tr>
+                  <tr><th scope="row">Imbalance handling</th><td><code>scale_pos_weight ≈ 3,03</code></td><td><code>BCEWithLogitsLoss(pos_weight ≈ 3,03)</code></td></tr>
+                  <tr><th scope="row">Training</th><td>300 estimators</td><td>Adam, batch size 256, tối đa 50 epochs</td></tr>
+                  <tr><th scope="row">Early stopping</th><td>Không thiết lập trong notebook</td><td>Patience 5 theo validation loss</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>4.2. Kết quả trên tập Validation</h3>
+            <p>
+              Các chỉ số Precision, Recall và F1-score trong bảng được tính cho lớp dương
+              <code>&gt;50K</code> (label 1). ROC-AUC được tính từ xác suất dự đoán.
+            </p>
+            <div class="table-wrap report-table" tabindex="0" role="region" aria-label="So sánh metric validation">
               <table>
                 <thead>
-                  <tr>
-                    <th scope="col">Model</th>
-                    <th scope="col">Accuracy</th>
-                    <th scope="col">Precision (&gt;50K)</th>
-                    <th scope="col">Recall (&gt;50K)</th>
-                    <th scope="col">F1-score (&gt;50K)</th>
-                    <th scope="col">ROC-AUC</th>
-                  </tr>
+                  <tr><th scope="col">Model</th><th scope="col">Accuracy</th><th scope="col">Precision (&gt;50K)</th><th scope="col">Recall (&gt;50K)</th><th scope="col">F1-score (&gt;50K)</th><th scope="col">ROC-AUC</th></tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">XGBoost</th>
-                    <td>0,8738</td>
-                    <td>0,7938</td>
-                    <td>0,6631</td>
-                    <td>0,7226</td>
-                    <td>0,9302</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">MLP</th>
-                    <td>0,8573</td>
-                    <td>0,7654</td>
-                    <td>0,6122</td>
-                    <td>0,6803</td>
-                    <td>0,9137</td>
-                  </tr>
+                  <tr><th scope="row">XGBoost</th><td>0,8278</td><td>0,6079</td><td>0,8596</td><td>0,7122</td><td>0,9264</td></tr>
+                  <tr><th scope="row">MLP</th><td>0,8107</td><td>0,5794</td><td>0,8620</td><td>0,6930</td><td>0,9127</td></tr>
                 </tbody>
               </table>
             </div>
             <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/Model_result/xgboost_validation_confusion_matrix.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở confusion matrix XGBoost validation"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/Model_result/xgboost_validation_confusion_matrix.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Confusion matrix của XGBoost trên tập validation với hai lớp thu nhập <=50K và >50K."
-                />
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/Model_result/xgboost_validation_confusion_matrix.png" target="_blank" rel="noopener" aria-label="Mở confusion matrix XGBoost validation">
+                <img src="../assets/Adult_Census_Income_Results/Model_result/xgboost_validation_confusion_matrix.png" loading="lazy" decoding="async" alt="Confusion matrix của XGBoost trên tập validation với hai lớp thu nhập." />
               </a>
               <figcaption>
-                <strong>Confusion matrix — XGBoost trên validation</strong>
+                <strong>Confusion Matrix — XGBoost trên Validation</strong>
                 <p>
-                  XGBoost đạt accuracy 87,38% và F1-score 0,7226 cho lớp
-                  &gt;50K. Recall 0,6631 cho thấy mô hình nhận diện được khoảng
-                  hai phần ba mẫu thuộc lớp thu nhập cao; vẫn còn mẫu dương tính
-                  bị dự đoán thành ≤50K.
+                  XGBoost đạt Accuracy 82,78%, F1-score 0,7122 và Recall 0,8596 cho lớp &gt;50K.
+                  Kết quả cho thấy mô hình nhận diện được phần lớn mẫu thuộc lớp thu nhập cao,
+                  đồng thời vẫn có các trường hợp dự đoán nhầm giữa hai lớp.
                 </p>
-                <p>
-                  <a
-                    class="text-link"
-                    href="../assets/Adult_Census_Income_Results/Model_result/xgboost_validation_metrics.csv"
-                    target="_blank"
-                    rel="noopener"
-                    >Xem đầy đủ validation metrics (CSV) ↗</a
-                  >
-                </p>
+                <p><a class="text-link" href="../assets/Adult_Census_Income_Results/Model_result/xgboost_validation_metrics.csv" target="_blank" rel="noopener">Xem validation metrics (CSV) ↗</a></p>
               </figcaption>
             </figure>
+
             <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/Model_result/mlp_training_curves.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở đường cong loss của MLP"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/Model_result/mlp_training_curves.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Đường cong training loss và validation loss của MLP theo epoch."
-                />
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/Model_result/mlp_training_curves.png" target="_blank" rel="noopener" aria-label="Mở đường cong huấn luyện MLP">
+                <img src="../assets/Adult_Census_Income_Results/Model_result/mlp_training_curves.png" loading="lazy" decoding="async" alt="Đường cong training loss và validation loss của MLP theo epoch." />
               </a>
               <figcaption>
                 <strong>Đường cong huấn luyện MLP</strong>
                 <p>
-                  Validation loss tốt nhất được ghi nhận là 0,3107 ở epoch 5;
-                  early stopping dừng quá trình ở epoch 10 khi validation loss
-                  không cải thiện đủ lâu. Khoảng cách giữa training loss và
-                  validation loss về cuối cho thấy cần theo dõi khả năng khái
-                  quát hóa, nhưng riêng đường loss chưa đủ để kết luận chắc chắn
-                  mức độ overfitting.
+                  MLP được huấn luyện với tối đa 50 epochs và Early Stopping có patience bằng 5.
+                  Quá trình dừng tại epoch 11; validation loss tốt nhất là 0,5549 ở epoch 6.
+                  Mô hình được khôi phục về checkpoint có validation loss tốt nhất trước khi
+                  đánh giá.
                 </p>
               </figcaption>
             </figure>
+
             <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/Model_result/mlp_validation_confusion_matrix.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở confusion matrix MLP validation"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/Model_result/mlp_validation_confusion_matrix.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Confusion matrix của MLP trên tập validation cho hai lớp thu nhập."
-                />
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/Model_result/mlp_validation_confusion_matrix.png" target="_blank" rel="noopener" aria-label="Mở confusion matrix MLP validation">
+                <img src="../assets/Adult_Census_Income_Results/Model_result/mlp_validation_confusion_matrix.png" loading="lazy" decoding="async" alt="Confusion matrix của MLP trên tập validation cho hai lớp thu nhập." />
               </a>
               <figcaption>
-                <strong>Confusion matrix — MLP trên validation</strong>
+                <strong>Confusion Matrix — MLP trên Validation</strong>
                 <p>
-                  MLP đạt accuracy 85,73%, thấp hơn XGBoost trong lần chạy này.
-                  F1-score lớp &gt;50K là 0,6803 và recall là 0,6122, cho thấy
-                  MLP bỏ sót nhiều mẫu thu nhập cao hơn XGBoost ở ngưỡng phân
-                  loại mặc định.
+                  MLP đạt Accuracy 81,07%, F1-score 0,6930 và Recall 0,8620 cho lớp &gt;50K.
+                  Recall của MLP nhỉnh hơn XGBoost một chút trên validation, trong khi Accuracy,
+                  Precision, F1-score và ROC-AUC thấp hơn.
                 </p>
-                <p>
-                  <a
-                    class="text-link"
-                    href="../assets/Adult_Census_Income_Results/Model_result/mlp_validation_metrics.csv"
-                    target="_blank"
-                    rel="noopener"
-                    >Xem đầy đủ validation metrics (CSV) ↗</a
-                  >
-                </p>
+                <p><a class="text-link" href="../assets/Adult_Census_Income_Results/Model_result/mlp_validation_metrics.csv" target="_blank" rel="noopener">Xem validation metrics (CSV) ↗</a></p>
               </figcaption>
             </figure>
-            <h3>Kết quả đánh giá cuối trên test</h3>
+
+            <h3>4.3. Kết quả đánh giá cuối trên tập Test</h3>
             <p>
-              Test được dùng để so sánh cuối cùng sau khi đã huấn luyện các mô
-              hình. Kết quả dưới đây lấy từ file
-              <code>baseline_test_comparison.csv</code> đã được notebook xuất.
+              Sau khi huấn luyện và đánh giá trên Validation, hai mô hình được so sánh trên cùng
+              Test Set gồm 6.784 mẫu. Đây là kết quả đánh giá cuối cùng được lưu trong notebook.
             </p>
-            <div
-              class="table-wrap report-table"
-              tabindex="0"
-              role="region"
-              aria-label="So sánh kết quả test giữa XGBoost và MLP"
-            >
+            <div class="table-wrap report-table" tabindex="0" role="region" aria-label="So sánh kết quả test giữa XGBoost và MLP">
               <table>
                 <thead>
-                  <tr>
-                    <th scope="col">Model</th>
-                    <th scope="col">Accuracy</th>
-                    <th scope="col">Precision (&gt;50K)</th>
-                    <th scope="col">Recall (&gt;50K)</th>
-                    <th scope="col">F1-score (&gt;50K)</th>
-                    <th scope="col">ROC-AUC</th>
-                  </tr>
+                  <tr><th scope="col">Model</th><th scope="col">Accuracy</th><th scope="col">Precision (&gt;50K)</th><th scope="col">Recall (&gt;50K)</th><th scope="col">F1-score (&gt;50K)</th><th scope="col">ROC-AUC</th></tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">XGBoost</th>
-                    <td>87,45%</td>
-                    <td>0,7915</td>
-                    <td>0,6683</td>
-                    <td>0,7247</td>
-                    <td>0,9282</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">MLP</th>
-                    <td>85,23%</td>
-                    <td>0,7467</td>
-                    <td>0,6090</td>
-                    <td>0,6708</td>
-                    <td>0,9097</td>
-                  </tr>
+                  <tr><th scope="row">XGBoost</th><td>0,8297</td><td>0,6094</td><td>0,8715</td><td>0,7173</td><td>0,9261</td></tr>
+                  <tr><th scope="row">MLP</th><td>0,8062</td><td>0,5713</td><td>0,8721</td><td>0,6904</td><td>0,9093</td></tr>
                 </tbody>
               </table>
             </div>
             <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/Model_result/baseline_test_confusion_matrices.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở confusion matrices của hai mô hình trên test"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/Model_result/baseline_test_confusion_matrices.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Hai confusion matrix đặt cạnh nhau cho XGBoost và MLP trên cùng tập test."
-                />
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/Model_result/baseline_test_confusion_matrices.png" target="_blank" rel="noopener" aria-label="Mở confusion matrices của hai mô hình trên test">
+                <img src="../assets/Adult_Census_Income_Results/Model_result/baseline_test_confusion_matrices.png" loading="lazy" decoding="async" alt="Hai confusion matrix đặt cạnh nhau cho XGBoost và MLP trên cùng tập test." />
               </a>
               <figcaption>
-                <strong>Confusion matrices trên test</strong>
+                <strong>Confusion Matrices trên Test Set</strong>
                 <p>
-                  Hai mô hình được đánh giá trên cùng 6.759 mẫu test còn lại sau
-                  khi loại missing rows. So sánh ma trận nhầm lẫn giúp xem không
-                  chỉ tổng số dự đoán đúng mà còn các trường hợp lớp &gt;50K bị
-                  bỏ sót hoặc dự đoán nhầm.
+                  Hai mô hình được đánh giá trên cùng 6.784 mẫu test, gồm 5.103 mẫu ≤50K và
+                  1.681 mẫu &gt;50K. Ma trận nhầm lẫn cho thấy số lượng dự đoán đúng và các
+                  trường hợp mô hình bỏ sót hoặc phân loại nhầm từng nhóm thu nhập.
                 </p>
               </figcaption>
             </figure>
+
             <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/Model_result/baseline_test_metrics_comparison.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở biểu đồ so sánh metric test"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/Model_result/baseline_test_metrics_comparison.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Biểu đồ so sánh Accuracy, Precision, Recall, F1-score của lớp >50K và ROC-AUC giữa XGBoost và MLP."
-                />
+              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/Model_result/baseline_test_metrics_comparison.png" target="_blank" rel="noopener" aria-label="Mở biểu đồ so sánh metric test">
+                <img src="../assets/Adult_Census_Income_Results/Model_result/baseline_test_metrics_comparison.png" loading="lazy" decoding="async" alt="Biểu đồ so sánh Accuracy, Precision, Recall, F1-score của lớp trên 50K và ROC-AUC giữa XGBoost và MLP." />
               </a>
               <figcaption>
-                <strong>So sánh hiệu năng XGBoost và MLP trên test</strong>
+                <strong>So sánh hiệu năng XGBoost và MLP trên Test</strong>
                 <p>
-                  XGBoost có kết quả cao hơn MLP ở cả năm metric được vẽ. Khác
-                  biệt đáng chú ý nằm ở Recall lớp &gt;50K (0,6683 so với
-                  0,6090) và F1-score lớp &gt;50K (0,7247 so với 0,6708). Đây là
-                  kết quả của lần chạy hiện tại, không phải khẳng định XGBoost
-                  luôn vượt trội trong mọi cấu hình.
+                  XGBoost có Accuracy (0,8297), Precision (0,6094), F1-score (0,7173) và ROC-AUC
+                  (0,9261) cao hơn MLP. MLP có Recall lớp &gt;50K nhỉnh hơn rất nhẹ (0,8721 so
+                  với 0,8715). Như vậy, XGBoost có kết quả tổng thể tốt hơn trong lần thực nghiệm
+                  này, còn MLP đạt Recall cao hơn không đáng kể.
                 </p>
-                <p>
-                  <a
-                    class="text-link"
-                    href="../assets/Adult_Census_Income_Results/Model_result/baseline_test_comparison.csv"
-                    target="_blank"
-                    rel="noopener"
-                    >Mở bảng metric test (CSV) ↗</a
-                  >
-                </p>
+                <p><a class="text-link" href="../assets/Adult_Census_Income_Results/Model_result/baseline_test_comparison.csv" target="_blank" rel="noopener">Mở bảng so sánh metric test (CSV) ↗</a></p>
               </figcaption>
             </figure>
           </section>
 
-          <section
-            id="conclusions"
-            class="pipeline-section"
-            aria-labelledby="conclusions-title"
-          >
+          <section id="conclusions" class="pipeline-section" aria-labelledby="conclusions-title">
             <div class="pipeline-heading">
               <span class="step-number" aria-hidden="true">05</span>
               <h2 id="conclusions-title">Tổng kết</h2>
             </div>
             <p>
-              Trong lần chạy được lưu trong notebook, XGBoost đạt test accuracy
-              87,45%, F1-score 0,7247 cho lớp &gt;50K và ROC-AUC 0,9282; các chỉ
-              số tương ứng của MLP là 85,23%, 0,6708 và 0,9097. Vì vậy XGBoost
-              là baseline tốt hơn trong so sánh này.
+              Trong lần thực nghiệm được lưu trong notebook, XGBoost đạt Accuracy 82,97%,
+              F1-score 0,7173 cho lớp &gt;50K và ROC-AUC 0,9261 trên Test Set. MLP đạt lần lượt
+              80,62%, 0,6904 và 0,9093. XGBoost có kết quả tốt hơn ở phần lớn chỉ số đánh giá;
+              MLP có Recall lớp &gt;50K cao hơn rất nhẹ (0,8721 so với 0,8715).
             </p>
             <p>
-              Hai điểm cần lưu ý khi diễn giải: dữ liệu có mất cân bằng lớp, và
-              các hàng có missing values được loại bỏ sau bước chia tập. Hướng
-              cải tiến hợp lý là kiểm tra thêm precision-recall trade-off cho
-              lớp &gt;50K, thử class weighting hoặc threshold tuning trên
-              validation, và báo cáo kết quả test chỉ sau khi lựa chọn mô hình
-              đã cố định. Đây là đề xuất mở rộng, chưa phải thí nghiệm đã chạy
-              trong notebook.
+              Quy trình thực hiện gồm kiểm tra chất lượng dữ liệu, loại bỏ missing values trước
+              khi split, EDA chuyên sâu trên Training Set, Feature Selection, One-Hot Encoding,
+              StandardScaler cho MLP và xử lý mất cân bằng lớp bằng trọng số. Các kết quả cho
+              thấy việc đánh giá riêng Precision, Recall và F1-score của lớp &gt;50K là cần thiết,
+              thay vì chỉ dựa vào Accuracy.
+            </p>
+            <p>
+              Hướng cải tiến có thể khảo sát thêm là điều chỉnh decision threshold và phân tích
+              Precision–Recall trade-off trên Validation Set. Đây là đề xuất mở rộng, chưa phải
+              thí nghiệm đã được thực hiện trong notebook.
             </p>
             <aside class="report-source-note">
               <h3>Nguồn kết quả</h3>
               <p>
-                <code>Adult_Census_Income_EDA_Preprocessing.ipynb</code> — các
-                hình và metrics được tạo trong notebook và lưu vào thư mục
-                <code>EDA_result/</code>, <code>Model_result/</code>.
+                <code>Adult_Census_Income_EDA_Preprocessing.ipynb</code>. Các hình và bảng metrics
+                được xuất từ notebook vào hai thư mục <code>EDA_result/</code> và
+                <code>Model_result/</code>, nằm trong
+                <code>../assets/Adult_Census_Income_Results/</code>.
               </p>
               <p class="muted">
-                Trang này diễn giải outputs đã lưu; chưa chạy lại toàn bộ
-                notebook để xác minh độc lập kết quả.
+                Nội dung trang được đối chiếu với code và outputs đã lưu trong notebook; không
+                chạy lại quá trình huấn luyện để tái tạo kết quả.
               </p>
             </aside>
           </section>
         </article>
+
         <aside class="project-sidebar">
           <section class="sidebar-block">
             <h2 class="eyebrow">TRONG BÀI NÀY</h2>
             <nav aria-label="Mục lục bài tập">
-              <a href="#resources">Tài liệu và kết quả</a
-              ><a href="#dataset">Mô tả tập dữ liệu</a
-              ><a href="#eda">Khám phá dữ liệu (EDA)</a
-              ><a href="#preparation">Chuẩn bị dữ liệu</a
-              ><a href="#analysis">Phân tích và mô hình hóa</a
-              ><a href="#conclusions">Tổng kết</a>
+              <a href="#resources">Tài liệu và kết quả</a>
+              <a href="#dataset">Mô tả tập dữ liệu</a>
+              <a href="#eda">Khám phá dữ liệu (EDA)</a>
+              <a href="#preparation">Chuẩn bị dữ liệu</a>
+              <a href="#analysis">Phân tích và mô hình hóa</a>
+              <a href="#conclusions">Tổng kết</a>
             </nav>
           </section>
           <section class="sidebar-block group-block">
@@ -757,15 +555,8 @@
                 <dt>Danh sách thành viên</dt>
                 <dd>
                   <ul class="member-summary">
-                    <li>
-                      <strong>Phạm Duy Anh</strong><span>MSSV: 2310139</span
-                      ><span>Đóng góp chính: Text và Image</span>
-                    </li>
-                    <li>
-                      <strong>Nguyễn Phan Tuấn Duy</strong
-                      ><span>MSSV: 2310491</span
-                      ><span>Đóng góp chính: Tabular và Text</span>
-                    </li>
+                    <li><strong>Phạm Duy Anh</strong><span>MSSV: 2310139</span><span>Đóng góp chính: Text và Image</span></li>
+                    <li><strong>Nguyễn Phan Tuấn Duy</strong><span>MSSV: 2310491</span><span>Đóng góp chính: Tabular và Text</span></li>
                   </ul>
                 </dd>
               </div>
@@ -776,26 +567,26 @@
             <h2>Phạm vi thực hiện</h2>
             <ul>
               <li>EDA và kiểm tra chất lượng dữ liệu</li>
+              <li>Phân tích mối quan hệ và Feature Selection</li>
               <li>One-Hot Encoding cho biến categorical</li>
               <li>StandardScaler cho đặc trưng số của MLP</li>
-              <li>So sánh XGBoost và MLP bằng metrics trên validation/test</li>
+              <li>Xử lý mất cân bằng lớp bằng class weighting</li>
+              <li>So sánh XGBoost và MLP trên Validation/Test</li>
             </ul>
           </section>
         </aside>
       </div>
+
       <div class="project-footer-nav">
-        <a href="../../index.html#projects">← Tất cả bài tập lớn</a
-        ><a href="text.html">Bài tiếp theo →</a>
+        <a href="../../index.html#projects">← Tất cả bài tập lớn</a>
+        <a href="text.html">Bài tiếp theo →</a>
       </div>
     </main>
 
     <!-- shared:footer:start -->
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>
-          <strong>CO5177</strong> <span aria-hidden="true">/</span>
-          <span data-i18n="semester-short">Học kỳ 261 · 2026–2027</span>
-        </p>
+        <p><strong>CO5177</strong> <span aria-hidden="true">/</span> <span data-i18n="semester-short">Học kỳ 261 · 2026–2027</span></p>
         <a href="https://github.com/superiorhamster/CO5177">
           <span data-i18n="source">Kho mã nguồn</span>
           <span aria-hidden="true">↗</span>
