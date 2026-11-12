@@ -114,7 +114,7 @@
               </div>
               <a
                 class="text-link"
-                href="https://colab.research.google.com/drive/1DOCJMe76k-Dh7n_03DuHsEF8RMS3aZC9?usp=sharing"
+                href="https://colab.research.google.com/drive/1szGRX6NRKhscyCBev3z_BgQNJdEG6rPd?usp=sharing"
                 target="_blank"
                 rel="noopener"
               >
@@ -847,7 +847,7 @@
 
             <p>
               Hai Features <code>capital-gain</code> và
-              <code>capital-loss</code> có phân phối lệch phải mạnh,
+              <code>capital-loss</code> có right-skewed mạnh,
               thể hiện qua Skewness lần lượt là 11,63 và 4,47.
               Median của cả hai Feature đều bằng 0, cho thấy
               phần lớn quan sát không ghi nhận Capital Gain
@@ -855,7 +855,7 @@
             </p>
 
             <p>
-              <code>fnlwgt</code> cũng có phân phối lệch phải,
+              <code>fnlwgt</code> cũng có right-skewed,
               trong khi <code>age</code> và
               <code>hours-per-week</code> có phân phối ít lệch hơn.
             </p>
@@ -959,95 +959,7 @@
             </div>
 
 
-            <h3>4.4. Correlation Analysis</h3>
-
-            <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/EDA_result/numerical_correlation_matrix_train.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở Numerical Correlation Matrix"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/EDA_result/numerical_correlation_matrix_train.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Ma trận tương quan giữa các Numerical Features trên Training Set."
-                />
-              </a>
-
-              <figcaption>
-                <strong>Numerical Correlation Matrix</strong>
-                <p>
-                  Correlation Matrix được sử dụng để khảo sát
-                  mức độ tương quan tuyến tính giữa các Numerical Features.
-                  Kết quả cung cấp thêm thông tin về mức độ liên hệ
-                  giữa các biến số trong Dataset.
-                </p>
-              </figcaption>
-            </figure>
-
-
-            <h3>4.5. Mối quan hệ giữa Features và Target</h3>
-
-            <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/EDA_result/numerical_vs_target_train.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở biểu đồ Numerical Features theo Target"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/EDA_result/numerical_vs_target_train.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Biểu đồ phân tích Numerical Features theo nhóm thu nhập."
-                />
-              </a>
-
-              <figcaption>
-                <strong>Numerical Features theo Income Class</strong>
-                <p>
-                  Các biểu đồ so sánh phân phối Numerical Features
-                  giữa hai nhóm thu nhập. Sự khác biệt trong phân phối
-                  cung cấp góc nhìn trực quan về khả năng phân biệt
-                  hai Target Classes của từng Feature.
-                </p>
-              </figcaption>
-            </figure>
-
-            <figure class="report-figure">
-              <a
-                class="figure-image-link"
-                href="../assets/Adult_Census_Income_Results/EDA_result/categorical_vs_target_train.png"
-                target="_blank"
-                rel="noopener"
-                aria-label="Mở biểu đồ Categorical Features theo Target"
-              >
-                <img
-                  src="../assets/Adult_Census_Income_Results/EDA_result/categorical_vs_target_train.png"
-                  loading="lazy"
-                  decoding="async"
-                  alt="Biểu đồ phân tích Categorical Features theo nhóm thu nhập."
-                />
-              </a>
-
-              <figcaption>
-                <strong>Categorical Features theo Income Class</strong>
-                <p>
-                  Các biểu đồ khảo sát tỷ lệ thu nhập &gt;50K
-                  theo những Categorical Features. Những Category
-                  có ít hơn 50 quan sát được loại khỏi biểu đồ
-                  để hạn chế việc diễn giải các nhóm có kích thước
-                  mẫu quá nhỏ.
-                </p>
-              </figcaption>
-            </figure>
-
-
-            <h3>4.6. Outlier Analysis</h3>
+            <h3>4.4. Outlier Analysis</h3>
 
             <p>
               Phương pháp Interquartile Range (IQR) với ngưỡng mở rộng
@@ -1111,15 +1023,148 @@
             </p>
 
             <p>
-              Theo quy tắc xử lý được sử dụng trong notebook,
-              chỉ loại bỏ Outliers khi tỷ lệ tổng hợp nhỏ hơn 10%.
-              Do tỷ lệ quan sát bị đánh dấu là 12,91%,
-              các quan sát này được giữ lại.
-              Training Set tiếp tục có 31.655 mẫu.
+              Trong Machine Learning, nguyên tắc làm sạch mẫu (Sample Pruning) an toàn
+              chỉ cho phép loại bỏ tối đa <strong>2,0%</strong> dữ liệu huấn luyện
+              (<code>OUTLIER_REMOVAL_THRESHOLD = 2.0%</code>) nhằm tránh làm méo mó phân phối dữ liệu.
+              Do tỷ lệ quan sát bị đánh dấu đạt 12,91% (chủ yếu do sự phân hóa tự nhiên
+              của số giờ làm việc bán thời gian và làm thêm giờ trong thị trường lao động),
+              hệ thống quyết định <strong>không tự động loại bỏ</strong> để bảo toàn toàn bộ
+              phân phối dân số tự nhiên và tránh mất mát các trường hợp biên của lớp thiểu số.
+              Training Set tiếp tục giữ nguyên 31.655 mẫu.
             </p>
 
 
-            <h3>4.7. Feature Selection</h3>
+            <h3>4.5. Correlation Analysis — Ma trận tương quan toàn diện</h3>
+
+            <figure class="report-figure">
+              <a
+                class="figure-image-link"
+                href="../assets/Adult_Census_Income_Results/EDA_result/full_feature_correlation_matrix_train.png"
+                target="_blank"
+                rel="noopener"
+                aria-label="Mở Ma trận tương quan toàn diện cho tất cả đặc trưng"
+              >
+                <img
+                  src="../assets/Adult_Census_Income_Results/EDA_result/full_feature_correlation_matrix_train.png"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Ma trận tương quan Pearson toàn diện cho tất cả các đặc trưng trên Training Set."
+                />
+              </a>
+
+              <figcaption>
+                <strong>Full Feature Correlation Matrix (Toàn bộ 14 đặc trưng)</strong>
+                <p>
+                  Ma trận tương quan Pearson được mở rộng tính toán trên toàn bộ 14 đặc trưng
+                  (bao gồm cả các biến phân loại đã được số hóa mã định danh).
+                  Kết quả giúp nhận diện hiện tượng đa cộng tuyến (Multicollinearity) và
+                  phát hiện sự trùng lặp thông tin hoàn toàn (Redundancy) giữa các thuộc tính.
+                </p>
+              </figcaption>
+            </figure>
+
+            <p>
+              Ma trận tương quan Pearson toàn diện mở rộng tính toán trên tất cả các đặc trưng cho thấy
+              không có cặp thuộc tính nào có hiện tượng đa cộng tuyến nghiêm trọng (|r| &ge; 0,70). Cặp
+              <code>relationship</code> và <code>marital-status</code> có mức tương quan vừa phải (|r| &approx; 0,58)
+              do có sự liên đới về ý niệm quan hệ gia đình, song mỗi biến vẫn mang các sắc thái thông tin bổ trợ riêng biệt.
+            </p>
+            <p>
+              Riêng đối với cặp <code>education</code> và <code>education-num</code>, sự trùng lặp thông tin hoàn toàn
+              không phụ thuộc vào ma trận tương quan mà được xác lập chặt chẽ thông qua <strong>bảng đối chiếu quan hệ song ánh 1-1</strong>
+              (16 giá trị phân biệt dạng chuỗi của <code>education</code> ánh xạ 1-1 tuyệt đối với 16 cấp độ số nguyên từ 1 đến 16 của
+              <code>education-num</code>, ví dụ <code>Preschool</code> ứng với 1, <code>Bachelors</code> ứng với 13, <code>Doctorate</code> ứng với 16).
+              Việc nhận diện sự dư thừa này xuất phát từ bản chất toán học của quan hệ song ánh (bijection), tránh được việc hiểu nhầm do cách mã hóa nhãn phân loại tùy ý.
+            </p>
+
+
+            <h3>4.6. Mối quan hệ giữa Features và Target</h3>
+
+            <figure class="report-figure">
+              <a
+                class="figure-image-link"
+                href="../assets/Adult_Census_Income_Results/EDA_result/all_features_vs_target_corr.png"
+                target="_blank"
+                rel="noopener"
+                aria-label="Mở biểu đồ tương quan tuyến tính của tất cả các đặc trưng với biến mục tiêu"
+              >
+                <img
+                  src="../assets/Adult_Census_Income_Results/EDA_result/all_features_vs_target_corr.png"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Biểu đồ hệ số tương quan tuyến tính Pearson của tất cả đặc trưng với nhãn mục tiêu (>50K)."
+                />
+              </a>
+
+              <figcaption>
+                <strong>Tương quan Tuyến tính (Pearson) của Tất cả Đặc trưng với Biến Mục tiêu</strong>
+                <p>
+                  Biểu đồ thanh ngang thể hiện hệ số tương quan tuyến tính giữa từng đặc trưng
+                  và nhãn thu nhập nhị phân (<code>&gt;50K</code> = 1, <code>&lt;=50K</code> = 0).
+                  Các đặc trưng như <code>education-num</code>, <code>hours-per-week</code>,
+                  <code>age</code>, <code>capital-gain</code> có tương quan dương mạnh nhất,
+                  trong khi <code>fnlwgt</code> có tương quan xấp xỉ bằng 0 (-0,0066).
+                </p>
+              </figcaption>
+            </figure>
+
+            <figure class="report-figure">
+              <a
+                class="figure-image-link"
+                href="../assets/Adult_Census_Income_Results/EDA_result/numerical_vs_target_train.png"
+                target="_blank"
+                rel="noopener"
+                aria-label="Mở biểu đồ Numerical Features theo Target"
+              >
+                <img
+                  src="../assets/Adult_Census_Income_Results/EDA_result/numerical_vs_target_train.png"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Biểu đồ phân tích Numerical Features theo nhóm thu nhập."
+                />
+              </a>
+
+              <figcaption>
+                <strong>Numerical Features theo Income Class</strong>
+                <p>
+                  Các biểu đồ so sánh phân phối Numerical Features
+                  giữa hai nhóm thu nhập. Sự khác biệt trong phân phối
+                  cung cấp góc nhìn trực quan về khả năng phân biệt
+                  hai Target Classes của từng Feature.
+                </p>
+              </figcaption>
+            </figure>
+
+            <figure class="report-figure">
+              <a
+                class="figure-image-link"
+                href="../assets/Adult_Census_Income_Results/EDA_result/categorical_vs_target_train.png"
+                target="_blank"
+                rel="noopener"
+                aria-label="Mở biểu đồ Categorical Features theo Target"
+              >
+                <img
+                  src="../assets/Adult_Census_Income_Results/EDA_result/categorical_vs_target_train.png"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Biểu đồ phân tích Categorical Features theo nhóm thu nhập."
+                />
+              </a>
+
+              <figcaption>
+                <strong>Categorical Features theo Income Class</strong>
+                <p>
+                  Các biểu đồ khảo sát tỷ lệ thu nhập &gt;50K
+                  theo những Categorical Features. Những Category
+                  có ít hơn 50 quan sát được loại khỏi biểu đồ
+                  để hạn chế việc diễn giải các nhóm có kích thước
+                  mẫu quá nhỏ.
+                </p>
+              </figcaption>
+            </figure>
+
+
+            <h3>4.7. Feature Selection có điều kiện (Optional Feature Selection)</h3>
 
             <p>
               Feature Selection được thực hiện dựa trên Mutual Information
@@ -1188,28 +1233,41 @@
             </div>
 
             <p>
-              Ngưỡng Mutual Information được đặt ở mức 0,005.
-              Không có Feature nào có điểm số thấp hơn ngưỡng này.
-              Do đó, không loại bỏ Feature nào chỉ dựa trên
-              tiêu chí Mutual Information.
+              Quy trình lựa chọn đặc trưng được áp dụng theo cơ chế tùy chọn có điều kiện (Optional)
+              dựa trên hai tiêu chí định lượng:
+            </p>
+
+            <ul>
+              <li>
+                <strong>Tiêu chí 1 — Loại bỏ đặc trưng dư thừa (Redundancy):</strong>
+                Dựa trên việc <strong>xét quan hệ song ánh 1-1</strong> (bijection) giữa <code>education</code> và
+                <code>education-num</code> (16 bậc học tương ứng 1-1 hoàn hảo với 16 số nguyên từ 1 đến 16).
+                Đặc trưng <code>education</code> được loại bỏ để tránh sinh ra 16 cột nhị phân dư thừa sau One-Hot Encoding,
+                trong khi <code>education-num</code> được giữ lại vì đã bảo toàn đầy đủ thứ bậc giáo dục dưới dạng số ordinal tự nhiên.
+                Cần nhấn mạnh rằng quyết định này dựa trên bằng chứng song ánh thực nghiệm chứ không dựa trên ma trận tương quan.
+              </li>
+              <li>
+                <strong>Tiêu chí 2 — Loại bỏ đặc trưng có mức độ liên quan quá thấp (Low Relevance):</strong>
+                Đặc trưng chỉ bị loại bỏ nếu <strong>đồng thời thỏa mãn cả hai điều kiện</strong>: hệ số tương quan tuyến tính
+                với Target |r| &lt; 0,05 và thông tin tương hỗ phi tuyến MI &lt; 0,010.
+                Đặc trưng <code>native-country</code> thỏa mãn cả hai điều kiện (|r| = 0,0199 và MI = 0,0063), do đó được
+                quyết định loại bỏ nhằm cắt giảm hơn 40 cột sau One-Hot Encoding, giảm nguy cơ overfitting.
+              </li>
+              <li>
+                <strong>Đặc trưng <code>fnlwgt</code> được giữ lại:</strong>
+                Mặc dù <code>fnlwgt</code> có tương quan tuyến tính rất thấp (|r| = 0,0066 &lt; 0,05), nhưng điểm Mutual Information
+                đạt MI = 0,0268 &ge; 0,010 (xếp thứ 10/14 thuộc tính). Vì không thỏa mãn đồng thời cả hai tiêu chuẩn loại bỏ,
+                <code>fnlwgt</code> được giữ lại nhằm bảo tồn các mối liên hệ phi tuyến có thể có đối với bài toán.
+              </li>
+            </ul>
+
+            <p>
+              Việc loại bỏ mang tính chất tùy chọn có điều kiện (Optional) và chỉ thực thi khi thỏa mãn đầy đủ căn cứ định lượng,
+              giúp không gian đặc trưng tinh gọn, tránh làm loãng dữ liệu mà không làm mất mát các tín hiệu dự báo quan trọng.
             </p>
 
             <p>
-              Tuy nhiên, <code>education</code> và
-              <code>education-num</code> có quan hệ ánh xạ một-một
-              với 16 mức trình độ học vấn tương ứng.
-              Hai Features cùng biểu diễn một loại thông tin
-              dưới hai dạng dữ liệu khác nhau.
-            </p>
-
-            <p>
-              Vì vậy, <code>education</code> được loại bỏ
-              để tránh lưu giữ thông tin trùng lặp,
-              trong khi <code>education-num</code> được giữ lại.
-            </p>
-
-            <p>
-              Sau Feature Selection, Dataset còn lại 13 Input Features:
+              Sau Feature Selection, Dataset còn lại <strong>12 Input Features</strong> (loại bỏ <code>education</code> và <code>native-country</code>):
             </p>
 
             <p>
@@ -1224,8 +1282,7 @@
               <code>sex</code>,
               <code>capital-gain</code>,
               <code>capital-loss</code>,
-              <code>hours-per-week</code>,
-              <code>native-country</code>.
+              <code>hours-per-week</code>.
             </p>
 
           </section>
@@ -1239,7 +1296,7 @@
             </div>
 
             <p>
-              Sau Feature Selection, 13 Features còn lại được chuyển đổi
+              Sau Feature Selection, 12 Features còn lại được chuyển đổi
               sang dạng biểu diễn phù hợp với đầu vào của các thuật toán
               Machine Learning.
             </p>
@@ -1259,11 +1316,11 @@
                 <code>capital-loss</code> và <code>hours-per-week</code>.
               </li>
               <li>
-                <strong>Categorical Features (7):</strong>
+                <strong>Categorical Features (6):</strong>
                 <code>workclass</code>, <code>marital-status</code>,
                 <code>occupation</code>, <code>relationship</code>,
-                <code>race</code>, <code>sex</code> và
-                <code>native-country</code>.
+                <code>race</code> và <code>sex</code>.
+                (Đặc trưng <code>native-country</code> đã được loại bỏ ở bước Feature Selection).
               </li>
             </ul>
 
@@ -1271,7 +1328,7 @@
             <h3>5.2. One-Hot Encoding</h3>
 
             <p>
-              One-Hot Encoding được áp dụng cho 7 Categorical Features.
+              One-Hot Encoding được áp dụng cho 6 Categorical Features.
               Mỗi Category được chuyển thành một cột nhị phân riêng biệt,
               giúp mô hình tiếp nhận dữ liệu phân loại dưới dạng Numerical.
             </p>
@@ -1289,9 +1346,9 @@
             </p>
 
             <p>
-              Kết hợp 6 Numerical Features và các cột sinh ra từ
-              One-Hot Encoding, mỗi quan sát có tổng cộng
-              <strong>88 chiều Features</strong>.
+              Kết hợp 6 Numerical Features và 41 cột nhị phân sinh ra từ
+              One-Hot Encoding của 6 biến phân loại, mỗi quan sát có tổng cộng
+              <strong>47 chiều Features</strong> (thay vì 88 chiều như trước khi loại bỏ <code>native-country</code>).
             </p>
 
 
@@ -1655,7 +1712,7 @@
 
             <p>
               <strong>Kiến trúc:</strong>
-              Input (88) → Linear (256) → ReLU → Dropout (0.2)
+              Input (47) → Linear (256) → ReLU → Dropout (0.2)
               → Linear (128) → ReLU → Dropout (0.2) → Linear (1).
             </p>
 
@@ -1789,11 +1846,11 @@
                 <tbody>
                   <tr>
                     <th scope="row">KNN</th>
-                    <td>0,7836</td>
-                    <td>0,5447</td>
-                    <td>0,7722</td>
-                    <td>0,6388</td>
-                    <td>0,8541</td>
+                    <td>0,7825</td>
+                    <td>0,5433</td>
+                    <td>0,7692</td>
+                    <td>0,6368</td>
+                    <td>0,8535</td>
                   </tr>
                   <tr>
                     <th scope="row">Gaussian NB</th>
@@ -1805,27 +1862,27 @@
                   </tr>
                   <tr>
                     <th scope="row">SVM</th>
-                    <td>0,8079</td>
-                    <td>0,5752</td>
-                    <td>0,8596</td>
-                    <td>0,6892</td>
-                    <td>0,9032</td>
+                    <td>0,8082</td>
+                    <td>0,5755</td>
+                    <td>0,8620</td>
+                    <td>0,6902</td>
+                    <td>0,9026</td>
                   </tr>
                   <tr>
                     <th scope="row">XGBoost</th>
-                    <td>0,8322</td>
-                    <td>0,6155</td>
-                    <td>0,8608</td>
-                    <td>0,7178</td>
-                    <td>0,9270</td>
+                    <td>0,8312</td>
+                    <td>0,6144</td>
+                    <td>0,8560</td>
+                    <td>0,7154</td>
+                    <td>0,9261</td>
                   </tr>
                   <tr>
                     <th scope="row">MLP</th>
-                    <td>0,8072</td>
-                    <td>0,5738</td>
-                    <td>0,8626</td>
-                    <td>0,6892</td>
-                    <td>0,9123</td>
+                    <td>0,8094</td>
+                    <td>0,5780</td>
+                    <td>0,8554</td>
+                    <td>0,6899</td>
+                    <td>0,9133</td>
                   </tr>
                 </tbody>
               </table>
@@ -1858,10 +1915,10 @@
             </figure>
 
             <p>
-              XGBoost đạt Accuracy cao nhất (0,8322), F1-score cao nhất
-              (0,7178) và ROC-AUC cao nhất (0,9270).
-              MLP đạt Recall cao nhất (0,8626), nhỉnh hơn XGBoost
-              (0,8608).
+              XGBoost đạt Accuracy cao nhất (0,8312), F1-score cao nhất
+              (0,7154) và ROC-AUC cao nhất (0,9261).
+              SVM đạt Recall cao nhất (0,8620), theo sau sát sao là
+              XGBoost (0,8560) và MLP (0,8554).
             </p>
 
             <p>
@@ -1900,11 +1957,11 @@
                 <tbody>
                   <tr>
                     <th scope="row">KNN</th>
-                    <td>0,7833</td>
-                    <td>0,5443</td>
-                    <td>0,7710</td>
-                    <td>0,6381</td>
-                    <td>0,8579</td>
+                    <td>0,7836</td>
+                    <td>0,5450</td>
+                    <td>0,7680</td>
+                    <td>0,6375</td>
+                    <td>0,8571</td>
                   </tr>
                   <tr>
                     <th scope="row">Gaussian NB</th>
@@ -1916,27 +1973,27 @@
                   </tr>
                   <tr>
                     <th scope="row">SVM</th>
-                    <td>0,8025</td>
-                    <td>0,5661</td>
-                    <td>0,8691</td>
-                    <td>0,6856</td>
-                    <td>0,8997</td>
+                    <td>0,8029</td>
+                    <td>0,5665</td>
+                    <td>0,8721</td>
+                    <td>0,6868</td>
+                    <td>0,8987</td>
                   </tr>
                   <tr>
                     <th scope="row">XGBoost</th>
-                    <td>0,8302</td>
-                    <td>0,6111</td>
-                    <td>0,8656</td>
-                    <td>0,7164</td>
-                    <td>0,9265</td>
+                    <td>0,8336</td>
+                    <td>0,6164</td>
+                    <td>0,8697</td>
+                    <td>0,7214</td>
+                    <td>0,9267</td>
                   </tr>
                   <tr>
                     <th scope="row">MLP</th>
-                    <td>0,8056</td>
-                    <td>0,5708</td>
-                    <td>0,8679</td>
-                    <td>0,6887</td>
-                    <td>0,9093</td>
+                    <td>0,8091</td>
+                    <td>0,5760</td>
+                    <td>0,8697</td>
+                    <td>0,6931</td>
+                    <td>0,9095</td>
                   </tr>
                 </tbody>
               </table>
@@ -2009,17 +2066,16 @@
 
             <p>
               XGBoost đạt hiệu năng tổng thể tốt nhất trong lần thực nghiệm:
-              Accuracy đạt 0,8302, F1-score đạt 0,7164 và ROC-AUC đạt 0,9265.
-              Các kết quả này cho thấy XGBoost có khả năng phân loại
-              và phân biệt hai Income Classes tốt nhất trong số
-              năm mô hình được thử nghiệm.
+              Accuracy đạt 0,8336 (83,36%), F1-score đạt 0,7214 (72,14%) và ROC-AUC đạt 0,9267 (92,67%).
+              Các kết quả này khẳng định ưu thế vượt trội của thuật toán Gradient Boosted Trees
+              đối với bài toán phân loại trên dữ liệu bảng.
             </p>
 
             <p>
-              SVM đạt Recall cao nhất (0,8691), theo sau là MLP (0,8679)
-              và XGBoost (0,8656). Điều này cho thấy ba mô hình đều
-              nhận diện được tỷ lệ tương đối cao các quan sát thực sự
-              thuộc lớp thu nhập trên 50.000 USD.
+              SVM đạt Recall cao nhất (0,8721 — 87,21%), theo sau sát sao là MLP và XGBoost
+              đều đạt 0,8697 (86,97%). Điều này chứng minh các cơ chế xử lý mất cân bằng lớp
+              (class-weighting và pos_weight) đã phát huy hiệu quả mạnh mẽ, giúp cả ba mô hình
+              bắt trúng gần 87% các trường hợp thực sự có thu nhập trên 50.000 USD.
             </p>
 
             <p>
@@ -2078,11 +2134,13 @@
             <p>
               EDA Round 2 được thực hiện trên Training Set.
               Sau khi phân tích phân phối dữ liệu, Outliers,
-              Mutual Information và mối quan hệ giữa các Features,
-              <code>education</code> được loại bỏ do có thông tin
-              trùng lặp với <code>education-num</code>.
-              Tổng cộng 13 Features được giữ lại cho quá trình
-              Data Preprocessing và Model Training.
+              Mutual Information và quan hệ song ánh 1-1, đặc trưng
+              <code>education</code> được loại bỏ do có quan hệ song ánh 1-1 hoàn hảo với <code>education-num</code>
+              (chứ không phải dựa vào ma trận tương quan), và <code>native-country</code> được loại bỏ
+              do mức độ liên quan tuyến tính lẫn phi tuyến với Target đều quá thấp.
+              Đặc trưng <code>fnlwgt</code> được giữ lại do điểm Mutual Information đạt 0,0268.
+              Tổng cộng 12 Features (6 Numerical và 6 Categorical) được giữ lại, tạo ra 47 chiều
+              không gian đầu vào sau One-Hot Encoding cho quá trình Data Preprocessing và Model Training.
             </p>
 
             <p>
@@ -2094,10 +2152,10 @@
             </p>
 
             <p>
-              Trên Test Set, XGBoost đạt Accuracy 0,8302,
-              F1-score 0,7164 và ROC-AUC 0,9265,
+              Trên Test Set, XGBoost đạt Accuracy 0,8336 (83,36%),
+              F1-score 0,7214 (72,14%) và ROC-AUC 0,9267 (92,67%),
               cao nhất trong năm mô hình. SVM đạt Recall cao nhất
-              với giá trị 0,8691.
+              với giá trị 0,8721 (87,21%).
             </p>
 
             <p>
