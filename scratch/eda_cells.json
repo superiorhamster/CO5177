@@ -1,0 +1,405 @@
+[
+ {
+  "cell_type": "markdown",
+  "source": [
+   "# Phân tích Cảm xúc Văn bản Tiếng Việt: Word2Vec và PhoBERT-large\n",
+   "**Môn học:** CO5177 — Nền tảng lập trình cho phân tích và trực quan dữ liệu  \n",
+   "**Học kỳ:** 261 | **Năm học:** 2026–2027  \n",
+   "**Giảng viên hướng dẫn:** TS. Lê Thành Sách  \n",
+   "**Nhóm sinh viên thực hiện:** SlightSeek  \n",
+   "\n",
+   "---\n",
+   "*Notebook thực nghiệm so sánh các kiến trúc Deep Learning truyền thống (TextCNN, BiLSTM, CNN+BiLSTM kết hợp Word2Vec CBOW 400d) và mô hình ngôn ngữ ngữ cảnh hóa tiền huấn luyện (PhoBERT-large) trên bộ dữ liệu VLSP 2016.*"
+  ],
+  "metadata": {}
+ },
+ {
+  "cell_type": "markdown",
+  "source": "## Imports",
+  "metadata": {}
+ },
+ {
+  "cell_type": "code",
+  "source": [
+   "# Cài đặt các thư viện cần thiết khi chạy trên Google Colab / Kaggle\n!pip install -q pyvi gensim datasets transformers accelerate kagglehub"
+  ],
+  "metadata": {
+   "trusted": true,
+   "execution": {
+    "iopub.status.busy": "2026-04-12T15:32:52.746082Z",
+    "iopub.execute_input": "2026-04-12T15:32:52.746491Z",
+    "iopub.status.idle": "2026-04-12T15:32:52.870466Z",
+    "shell.execute_reply.started": "2026-04-12T15:32:52.746455Z",
+    "shell.execute_reply": "2026-04-12T15:32:52.869363Z"
+   }
+  },
+  "outputs": [],
+  "execution_count": 1
+ },
+ {
+  "cell_type": "code",
+  "execution_count": null,
+  "metadata": {},
+  "outputs": [],
+  "source": [
+   "import os\n",
+   "import sys\n",
+   "from pathlib import Path\n",
+   "\n",
+   "def resolve_dataset_dir():\n",
+   "    \"\"\"\n",
+   "    Tự động phát hiện môi trường thực thi và đường dẫn dữ liệu:\n",
+   "    1. Kiểm tra môi trường Kaggle (/kaggle/input/...)\n",
+   "    2. Kiểm tra thư mục cục bộ (./data, .)\n",
+   "    3. Tải tự động qua kagglehub nếu chạy trên Google Colab hoặc máy mới\n",
+   "    \"\"\"\n",
+   "    # 1. Kaggle paths\n",
+   "    kaggle_paths = [\n",
+   "        Path('/kaggle/input/datasets/anhphmduy/vlsp-sentiment-dataset'),\n",
+   "        Path('/kaggle/input/vlsp-sentiment-dataset'),\n",
+   "    ]\n",
+   "    for p in kaggle_paths:\n",
+   "        if p.exists() and (p / 'vlsp_sentiment_train.csv').exists():\n",
+   "            print(f\"[📦 Data Engine] Phát hiện dữ liệu tại đường dẫn Kaggle: {p}\")\n",
+   "            return p\n",
+   "\n",
+   "    # 2. Local relative paths\n",
+   "    local_paths = [\n",
+   "        Path('./data'),\n",
+   "        Path('.'),\n",
+   "        Path('../data'),\n",
+   "    ]\n",
+   "    for p in local_paths:\n",
+   "        if p.exists() and (p / 'vlsp_sentiment_train.csv').exists():\n",
+   "            print(f\"[📦 Data Engine] Phát hiện dữ liệu tại đường dẫn cục bộ: {p.resolve()}\")\n",
+   "            return p.resolve()\n",
+   "\n",
+   "    # 3. Google Colab / Remote download via kagglehub\n",
+   "    print(\"[📦 Data Engine] Đang tải bộ dữ liệu 'anhphmduy/vlsp-sentiment-dataset' từ Kaggle Hub...\")\n",
+   "    try:\n",
+   "        import kagglehub\n",
+   "        path = kagglehub.dataset_download(\"anhphmduy/vlsp-sentiment-dataset\")\n",
+   "        print(f\"[📦 Data Engine] Đã tải dữ liệu thành công về: {path}\")\n",
+   "        return Path(path)\n",
+   "    except Exception as e:\n",
+   "        raise RuntimeError(\n",
+   "            f\"[📦 Data Engine] Không thể tải tự động bộ dữ liệu: {e}. \"\n",
+   "            \"Vui lòng tải thủ công từ https://www.kaggle.com/datasets/anhphmduy/vlsp-sentiment-dataset \"\n",
+   "            \"và đặt vào thư mục './data'.\"\n",
+   "        )\n",
+   "\n",
+   "DATA_DIR = resolve_dataset_dir()\n",
+   "print(f\"[📦 Data Engine] Thư mục dữ liệu: {DATA_DIR}\")"
+  ]
+ },
+ {
+  "cell_type": "code",
+  "source": [
+   "import re\n",
+   "import torch\n",
+   "import torch.nn as nn\n",
+   "import torch.nn.functional as F\n",
+   "import torch.optim as optim\n",
+   "from torch.utils.data import TensorDataset, DataLoader\n",
+   "import matplotlib.pyplot as plt\n",
+   "import seaborn as sns\n",
+   "import pandas as pd\n",
+   "import numpy as np\n",
+   "import gensim\n",
+   "from gensim.models.keyedvectors import KeyedVectors\n",
+   "from pyvi import ViTokenizer\n",
+   "from string import digits\n",
+   "from collections import Counter\n",
+   "from sklearn.metrics import accuracy_score\n",
+   "import unicodedata\n",
+   "%matplotlib inline\n",
+   "\n",
+   "from datasets import Dataset\n",
+   "from transformers import AutoTokenizer\n",
+   "\n",
+   "from transformers import AutoModelForSequenceClassification, TrainingArguments, Trainer\n",
+   "from sklearn.metrics import accuracy_score, f1_score\n",
+   "# Kiểm tra thiết bị (Sử dụng GPU nếu có)\n",
+   "device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')\n",
+   "print(f\"Đang sử dụng thiết bị: {device}\")\n",
+   "# Thiết lập hạt giống ngẫu nhiên để đảm bảo tính tái lập (Reproducibility)\n",
+   "torch.manual_seed(42)\n",
+   "if torch.cuda.is_available():\n",
+   "    torch.cuda.manual_seed_all(42)\n",
+   "np.random.seed(42)\n",
+   ""
+  ],
+  "metadata": {
+   "trusted": true,
+   "execution": {
+    "iopub.status.busy": "2026-04-12T15:32:57.771347Z",
+    "iopub.execute_input": "2026-04-12T15:32:57.771639Z",
+    "iopub.status.idle": "2026-04-12T15:34:05.592012Z",
+    "shell.execute_reply.started": "2026-04-12T15:32:57.771611Z",
+    "shell.execute_reply": "2026-04-12T15:34:05.591341Z"
+   }
+  },
+  "outputs": [
+   {
+    "name": "stdout",
+    "text": "Đang sử dụng thiết bị: cuda\n",
+    "output_type": "stream"
+   }
+  ],
+  "execution_count": 3
+ },
+ {
+  "cell_type": "markdown",
+  "metadata": {},
+  "source": [
+   "## EDA — Khám phá và Phân tích Dữ liệu (Exploratory Data Analysis)"
+  ]
+ },
+ {
+  "cell_type": "markdown",
+  "metadata": {},
+  "source": [
+   "### 📦 Data Engine: Truy xuất và Tải Dữ liệu (Data Loading & Path Resolving)\n",
+   "\n",
+   "- **What this step does:** Nạp các tập dữ liệu huấn luyện (`vlsp_sentiment_train.csv`) và kiểm thử (`vlsp_sentiment_test.csv`) thông qua đối tượng đường dẫn an toàn `DATA_DIR`, hiển thị kích thước ma trận (`shape`) và 5 bản ghi mẫu đầu tiên của từng phân vùng dữ liệu.\n",
+   "- **Why it matters:** Đảm bảo luồng đọc dữ liệu định dạng phân cách bằng tab (`\\t`) và bảng mã ký tự tiếng Việt (UTF-8) hoạt động ổn định và nhất quán trên đa môi trường (Kaggle, Colab, Local); xác nhận tính toàn vẹn của tệp dữ liệu thô trước khi thực hiện các phân tích sâu hơn.\n",
+   "- **Questions it answers:**\n",
+   "  - Dữ liệu thô có được tải thành công từ đúng phân vùng lưu trữ vào DataFrame hay không?\n",
+   "  - Kích thước tập Train và tập Test là bao nhiêu (số dòng, số cột)?\n",
+   "  - Cấu trúc mẫu ban đầu của các cột `Class` (nhãn) và `Data` (văn bản) trông như thế nào?\n",
+   "\n",
+   "> *Ghi chú:* Tệp `vlsp_sentiment_train_augmented.csv` (dữ liệu tăng cường) được cung cấp sẵn trong kho dữ liệu sẽ không sử dụng ở giai đoạn này mà được bảo lưu dành riêng cho phần thực nghiệm nâng cao với PhoBERT-large."
+  ]
+ },
+ {
+  "cell_type": "code",
+  "execution_count": null,
+  "metadata": {},
+  "outputs": [],
+  "source": [
+   "train_df = pd.read_csv(DATA_DIR / 'vlsp_sentiment_train.csv', sep='\\t')\n",
+   "test_df = pd.read_csv(DATA_DIR / 'vlsp_sentiment_test.csv', sep='\\t')\n",
+   "\n",
+   "# Xem kích thước và 5 dòng đầu tiên của dữ liệu\n",
+   "print(f\"[📦 Data Engine] Kích thước tập Train: {train_df.shape}\")\n",
+   "print(f\"[📦 Data Engine] Kích thước tập Test : {test_df.shape}\")\n",
+   "print(\"\\n[📦 Data Engine] 5 dòng đầu tập Train:\")\n",
+   "display(train_df.head())\n",
+   "print(\"\\n[📦 Data Engine] 5 dòng đầu tập Test:\")\n",
+   "display(test_df.head())"
+  ]
+ },
+ {
+  "cell_type": "markdown",
+  "metadata": {},
+  "source": [
+   "### 🔍 Integrity: Kiểm tra Tính Toàn vẹn và Giá trị Thiếu (Missing Values & Dtypes)\n",
+   "\n",
+   "- **What this step does:** Kiểm tra cấu trúc kiểu dữ liệu (`dtypes`) của từng trường thông tin, kiểm tra tính đầy đủ và phát hiện các giá trị khuyết thiếu (`null` / `NaN`) trên cả tập huấn luyện và kiểm thử.\n",
+   "- **Why it matters:** Đảm bảo dữ liệu đầu vào sạch về mặt cấu trúc (structural integrity). Dữ liệu văn bản chứa `NaN` hoặc sai lệch kiểu dữ liệu sẽ gây lỗi runtime nghiêm trọng trong pipeline chuẩn hóa xâu ký tự và vector hóa; kiểm tra sớm giúp xác định xem có cần áp dụng thao tác loại bỏ (`dropna`) hay không.\n",
+   "- **Questions it answers:**\n",
+   "  - Tập dữ liệu có chứa bản ghi nào bị rỗng hoặc mất mát thông tin (`NaN`) không?\n",
+   "  - Kiểu dữ liệu của các cột đã đúng chuẩn mong đợi (`int64` cho nhãn `Class`, `object`/chuỗi cho văn bản `Data`) chưa?\n",
+   "  - Bộ dữ liệu có sẵn sàng cho phân tích sâu mà không cần can thiệp xử lý giá trị rỗng không?"
+  ]
+ },
+ {
+  "cell_type": "code",
+  "execution_count": null,
+  "metadata": {},
+  "outputs": [],
+  "source": [
+   "print(\"[🔍 Integrity] === TRAIN SET SCHEMA ===\")\n",
+   "print(f\"Shape: {train_df.shape}\")\n",
+   "print(\"Data types:\\n\", train_df.dtypes)\n",
+   "print(\"\\n[🔍 Integrity] === TEST SET SCHEMA ===\")\n",
+   "print(f\"Shape: {test_df.shape}\")\n",
+   "print(\"Data types:\\n\", test_df.dtypes)\n",
+   "\n",
+   "# Kiểm tra missing values\n",
+   "print(\"\\n[🔍 Integrity] Missing values (Train):\")\n",
+   "print(train_df.isnull().sum())\n",
+   "\n",
+   "print(\"\\n[🔍 Integrity] Missing values (Test):\")\n",
+   "print(test_df.isnull().sum())"
+  ]
+ },
+ {
+  "cell_type": "markdown",
+  "metadata": {},
+  "source": [
+   "### 🏷️ Labels: Phân tích Phân phối và Cân bằng Lớp (Class Distribution)\n",
+   "\n",
+   "- **What this step does:** Thống kê số lượng quan sát tuyệt đối và tỷ lệ phần trăm phân bố của từng lớp nhãn cảm xúc (-1: Tiêu cực, 0: Trung lập, 1: Tích cực) trên cả tập Train và Test; trực quan hóa so sánh bằng biểu đồ cột (bar plot).\n",
+   "- **Why it matters:** Đánh giá mức độ cân bằng lớp (class balance) là yếu tố quyết định chiến lược xây dựng mô hình: xác định có cần kỹ thuật bù mẫu (oversampling/SMOTE), điều chỉnh trọng số hàm mất mát (class-weighted cross entropy), cũng như khẳng định tính phù hợp của độ đo Macro F1 và Accuracy.\n",
+   "- **Questions it answers:**\n",
+   "  - Tỷ lệ phân bố giữa ba lớp nhãn (-1, 0, 1) trong tập huấn luyện có cân bằng không?\n",
+   "  - Phân phối nhãn ở tập kiểm thử (Test) có đồng nhất với tập huấn luyện (Train) không?\n",
+   "  - Kết luận về sự cân bằng dữ liệu: Có cần can thiệp xử lý mất cân bằng lớp ở giai đoạn tiền xử lý không?"
+  ]
+ },
+ {
+  "cell_type": "code",
+  "execution_count": null,
+  "metadata": {},
+  "outputs": [],
+  "source": [
+   "# Đếm số lượng từng class\n",
+   "print(\"[🏷️ Labels] Class distribution (Train):\")\n",
+   "print(train_df['Class'].value_counts())\n",
+   "print(\"\\n[🏷️ Labels] Tỷ lệ phần trăm (Train):\")\n",
+   "print(train_df['Class'].value_counts(normalize=True))\n",
+   "\n",
+   "# Trực quan hóa đối sánh Train vs Test\n",
+   "fig, axes = plt.subplots(1, 2, figsize=(12, 4))\n",
+   "\n",
+   "train_df['Class'].value_counts().sort_index().plot(\n",
+   "    kind='bar', ax=axes[0], color=['#e74c3c', '#95a5a6', '#2ecc71']\n",
+   ")\n",
+   "axes[0].set_title('Train - Class Distribution')\n",
+   "axes[0].set_xlabel('Class (-1: Negative, 0: Neutral, 1: Positive)')\n",
+   "axes[0].set_ylabel('Count')\n",
+   "\n",
+   "test_df['Class'].value_counts().sort_index().plot(\n",
+   "    kind='bar', ax=axes[1], color=['#e74c3c', '#95a5a6', '#2ecc71']\n",
+   ")\n",
+   "axes[1].set_title('Test - Class Distribution')\n",
+   "axes[1].set_xlabel('Class (-1: Negative, 0: Neutral, 1: Positive)')\n",
+   "axes[1].set_ylabel('Count')\n",
+   "\n",
+   "plt.tight_layout()\n",
+   "plt.show()\n",
+   "\n",
+   "# Thống kê định lượng tỷ lệ mẫu\n",
+   "total_train = len(train_df)\n",
+   "print(\"[🏷️ Labels] Chi tiết phân bố tập Train:\")\n",
+   "for cls, cnt in train_df['Class'].value_counts().sort_index().items():\n",
+   "    print(f\"  Class {cls:2d}: {cnt:5d} mẫu ({cnt / total_train * 100:.2f}%)\")\n",
+   "\n",
+   "total_test = len(test_df)\n",
+   "print(\"\\n[🏷️ Labels] Chi tiết phân bố tập Test:\")\n",
+   "for cls, cnt in test_df['Class'].value_counts().sort_index().items():\n",
+   "    print(f\"  Class {cls:2d}: {cnt:5d} mẫu ({cnt / total_test * 100:.2f}%)\")"
+  ]
+ },
+ {
+  "cell_type": "markdown",
+  "metadata": {},
+  "source": [
+   "### 📐 Dimensions: Khảo sát Phân phối Độ dài Văn bản (Text & Sequence Length)\n",
+   "\n",
+   "- **What this step does:** Đo lường độ dài văn bản theo số lượng ký tự (`char_length`) và số lượng từ đơn (`word_count`) cho từng bản ghi; tính toán các chỉ số thống kê mô tả (mean, median, std, min, max, phân vị); trực quan hóa phân phối qua biểu đồ Histogram và Boxplot theo từng lớp; dò quét các mẫu ngoại lai (câu cực ngắn < 10 ký tự hoặc câu cực dài > 500 ký tự).\n",
+   "- **Why it matters:** Phân phối độ dài chuỗi cung cấp căn cứ định lượng then chốt để thiết lập siêu tham số cắt cụt chuỗi (`MAX_SEQUENCE_LENGTH` cho mô hình Word2Vec CBOW và `max_length` cho PhoBERT Tokenizer). Ngưỡng tối ưu phải vừa bao quát đại đa số ngữ cảnh (>99% câu) vừa tiết kiệm bộ nhớ tính toán GPU.\n",
+   "- **Questions it answers:**\n",
+   "  - Phân phối độ dài câu có dạng lệch phải (right-skewed) điển hình của ngôn ngữ tự nhiên không?\n",
+   "  - Độ dài câu trung bình, trung vị và khoảng tứ phân vị (IQR) là bao nhiêu?\n",
+   "  - Giữa các lớp cảm xúc (-1, 0, 1), độ dài văn bản có sự chênh lệch đáng kể nào không?\n",
+   "  - Có bao nhiêu quan sát ngoại lai (rất ngắn < 10 ký tự hoặc rất dài > 500 ký tự) và nên thiết lập ngưỡng cắt cụt (truncation) ở giá trị nào để bao phủ trên 95%-99% dữ liệu?"
+  ]
+ },
+ {
+  "cell_type": "code",
+  "execution_count": null,
+  "metadata": {},
+  "outputs": [],
+  "source": [
+   "# Tính độ dài theo ký tự và từ\n",
+   "train_df['char_length'] = train_df['Data'].str.len()\n",
+   "train_df['word_count']  = train_df['Data'].str.split().str.len()\n",
+   "\n",
+   "test_df['char_length'] = test_df['Data'].str.len()\n",
+   "test_df['word_count']  = test_df['Data'].str.split().str.len()\n",
+   "\n",
+   "# Thống kê mô tả\n",
+   "print(\"[📐 Dimensions] === Thống kê độ dài văn bản (Train Set) ===\")\n",
+   "print(train_df[['char_length', 'word_count']].describe())\n",
+   "\n",
+   "# Trực quan hóa phân phối độ dài theo class\n",
+   "fig, axes = plt.subplots(2, 2, figsize=(14, 8))\n",
+   "\n",
+   "for i, col in enumerate(['char_length', 'word_count']):\n",
+   "    # Histogram phân phối tổng\n",
+   "    train_df[col].hist(bins=50, ax=axes[0][i], color='steelblue', alpha=0.7, edgecolor='black')\n",
+   "    axes[0][i].set_title(f'Phân phối tổng thể {col}')\n",
+   "    axes[0][i].set_xlabel(col)\n",
+   "    axes[0][i].set_ylabel('Tần số')\n",
+   "\n",
+   "    # Boxplot theo từng Class\n",
+   "    train_df.boxplot(column=col, by='Class', ax=axes[1][i])\n",
+   "    axes[1][i].set_title(f'{col} phân rã theo nhãn cảm xúc')\n",
+   "    axes[1][i].set_xlabel('Class')\n",
+   "    axes[1][i].set_ylabel(col)\n",
+   "\n",
+   "plt.suptitle('')  # Xóa tiêu đề mặc định của boxplot\n",
+   "plt.tight_layout()\n",
+   "plt.show()\n",
+   "\n",
+   "# Phát hiện các mẫu ngoại lai (outliers)\n",
+   "short_samples = train_df[train_df['char_length'] < 10]\n",
+   "long_samples = train_df[train_df['char_length'] > 500]\n",
+   "print(f\"[📐 Dimensions] Số mẫu rất ngắn (< 10 ký tự): {len(short_samples)}\")\n",
+   "if len(short_samples) > 0:\n",
+   "    print(\"  Ví dụ mẫu rất ngắn:\", short_samples['Data'].values[:5])\n",
+   "\n",
+   "print(f\"\\n[📐 Dimensions] Số mẫu rất dài (> 500 ký tự): {len(long_samples)} ({len(long_samples)/len(train_df)*100:.2f}%)\")\n",
+   "print(f\"[📐 Dimensions] 99th percentile word count: {train_df['word_count'].quantile(0.99):.1f} từ\")"
+  ]
+ },
+ {
+  "cell_type": "markdown",
+  "metadata": {},
+  "source": [
+   "### 🔤 Lexicon: Phân tích Tần suất Từ vựng và Teencode (Vocabulary & Teencode Analysis)\n",
+   "\n",
+   "- **What this step does:** Khảo sát quy mô tập từ vựng thô (tổng số lượng tokens và số lượng tokens phân biệt); trích xuất Top 20 từ có tần số xuất hiện cao nhất toàn tập dữ liệu và Top 15 từ đặc trưng cho từng lớp nhãn cảm xúc (-1, 0, 1).\n",
+   "- **Why it matters:** Dữ liệu đánh giá người dùng trên mạng xã hội chứa tỷ lệ rất cao teencode, tiếng lóng, từ viết tắt, ký tự kéo dài, emoticon, và stopwords. Phân tích từ vựng giúp định hình cấu trúc từ điển chuẩn hóa (dictionary mapping) và quy tắc làm sạch dữ liệu trong pipeline tiền xử lý (Preprocessing).\n",
+   "- **Questions it answers:**\n",
+   "  - Quy mô từ vựng thô là bao nhiêu tokens và mật độ từ hiếm (sparse vocabulary) như thế nào?\n",
+   "  - Những từ nào mang tính biểu cảm đặc thù cho từng lớp nhãn (ví dụ: *khen, thích, tốt* ở lớp Tích cực vs *lỗi, chán, tệ* ở lớp Tiêu cực)?\n",
+   "  - Những từ viết tắt, teencode phổ biến nào (như *ko, đc, sp, wa, mik*) xuất hiện với tần suất cao cần được chuẩn hóa trước khi vector hóa?"
+  ]
+ },
+ {
+  "cell_type": "code",
+  "execution_count": null,
+  "metadata": {},
+  "outputs": [],
+  "source": [
+   "from collections import Counter\n",
+   "import re\n",
+   "\n",
+   "# Tokenize cơ bản theo khoảng trắng để khảo sát từ vựng thô\n",
+   "all_words = ' '.join(train_df['Data']).lower().split()\n",
+   "word_freq = Counter(all_words)\n",
+   "\n",
+   "print(f\"[🔤 Lexicon] Tổng số tokens (Tokens count) : {len(all_words):,}\")\n",
+   "print(f\"[🔤 Lexicon] Số từ phân biệt (Unique tokens): {len(word_freq):,}\")\n",
+   "print(f\"\\n[🔤 Lexicon] Top 20 từ xuất hiện nhiều nhất:\\n{word_freq.most_common(20)}\")\n",
+   "\n",
+   "# Top từ phổ biến phân rã theo từng lớp cảm xúc\n",
+   "label_mapping = {-1: 'Tiêu cực (Negative)', 0: 'Trung lập (Neutral)', 1: 'Tích cực (Positive)'}\n",
+   "for cls in sorted(train_df['Class'].unique()):\n",
+   "    texts = ' '.join(train_df[train_df['Class'] == cls]['Data']).lower().split()\n",
+   "    freq  = Counter(texts)\n",
+   "    print(f\"\\n[🔤 Lexicon] --- Class {cls} ({label_mapping.get(cls, cls)}) — Top 15 words ---\")\n",
+   "    print(freq.most_common(15))"
+  ]
+ },
+ {
+  "cell_type": "markdown",
+  "metadata": {},
+  "source": [
+   "### 🧹 Preprocessing — Bảng Quyết định Tiền xử lý từ Kết quả Khám phá Dữ liệu (EDA)\n",
+   "\n",
+   "Dựa trên các bằng chứng định lượng phát hiện được trong quá trình khám phá dữ liệu (EDA), nhóm thiết lập các quyết định kỹ thuật và nguyên lý thiết kế cho toàn bộ pipeline tiền xử lý và mô hình hóa tiếp theo:\n",
+   "\n",
+   "| Hiện tượng phát hiện từ EDA | Bằng chứng định lượng | Quyết định tiền xử lý & Thiết kế mô hình |\n",
+   "|---|---|---|\n",
+   "| 🏷️ **Cân bằng lớp hoàn hảo** | Tập train: đúng 1.700 mẫu/lớp (-1, 0, 1); Test: đúng 350 mẫu/lớp | Không áp dụng kỹ thuật oversampling hay class-weighting ở pha nạp ban đầu. Sử dụng **Macro F1** song hành cùng **Accuracy** làm thước đo đánh giá chính. |\n",
+   "| 🔤 **Lượng lớn Teencode & Viết tắt** | Hàng loạt biến thể mạng xã hội: *ko, đc, sp, wa, thik, mik, bthg...* | Xây dựng từ điển quy chuẩn 30+ từ ghép/từ viết tắt về dạng chuẩn tiếng Việt trước khi tiến hành tách từ (word segmentation). |\n",
+   "| 🔤 **Ký tự cảm xúc (Emoticons)** | Tần suất xuất hiện cao: `:)`, `:((`, `:D`, `^^`, `t.t` | Ánh xạ emoticon thành từ biểu cảm tiếng Việt (`cười`, `buồn`, `khóc`, `vui`) trước khi lọc bỏ dấu câu đặc biệt. |\n",
+   "| 📐 **Phân phối độ dài lệch phải** | Đa số câu < 150 từ; 99% câu < 250 từ; chỉ một số ít ngoại lai > 300 từ | Thiết lập `MAX_SEQUENCE_LENGTH = 300` cho nhánh Word2Vec và `max_length = 256` cho nhánh PhoBERT (vừa bao phủ 99% ngữ cảnh vừa tối ưu hóa bộ nhớ GPU). |\n",
+   "| 🔤 **Từ vựng phân tán & từ hiếm** | Phân phối Zipf điển hình; nhiều từ sai chính tả hoặc xuất hiện 1 lần | Nhánh W2V: Giới hạn `MAX_VOCAB_SIZE = 10000`, khởi tạo vector OOV ngẫu nhiên theo phân phối chuẩn. Nhánh PhoBERT: Tận dụng Byte-Pair Encoding (BPE) 64K subwords để triệt tiêu bài toán OOV. |"
+  ]
+ }
+]
