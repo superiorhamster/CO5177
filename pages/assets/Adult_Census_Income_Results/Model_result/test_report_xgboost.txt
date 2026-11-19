@@ -1,0 +1,10 @@
+Báo cáo phân loại trên Test — XGBoost
+
+              precision    recall  f1-score   support
+
+       <=50K       0.95      0.83      0.88      5574
+        >50K       0.61      0.86      0.71      1753
+
+    accuracy                           0.83      7327
+   macro avg       0.78      0.84      0.80      7327
+weighted avg       0.87      0.83      0.84      7327

@@ -1,0 +1,10 @@
+Báo cáo phân loại trên Test — Dummy
+
+              precision    recall  f1-score   support
+
+       <=50K       0.76      1.00      0.86      5574
+        >50K       0.00      0.00      0.00      1753
+
+    accuracy                           0.76      7327
+   macro avg       0.38      0.50      0.43      7327
+weighted avg       0.58      0.76      0.66      7327
