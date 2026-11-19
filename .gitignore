@@ -37,3 +37,6 @@ Desktop.ini
 
 # Keep index.html, .nojekyll, and pages/ (assets, partials, project pages) tracked.
 # GitHub Pages publishes those files directly.
+
+/BTL_Planning/
+/pages/assets/Adult_Census_Income_Results/Saved_models/
