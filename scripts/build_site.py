@@ -7,6 +7,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ROOT / "pages"
+ROUTES = {
+    "index.html": "overview",
+    "pages/projects/tabular.html": "tabular",
+    "pages/projects/text.html": "text",
+    "pages/projects/image.html": "image",
+}
 
 
 def render_page(page: Path, templates: dict[str, str]) -> str:
@@ -15,6 +21,7 @@ def render_page(page: Path, templates: dict[str, str]) -> str:
     relative_root = Path(os.path.relpath(ROOT, page.parent)).as_posix()
     root = "" if relative_root == "." else relative_root + "/"
     assets = Path(os.path.relpath(PAGES / "assets", page.parent)).as_posix() + "/"
+    current_route = ROUTES.get(page.relative_to(ROOT).as_posix())
     for name, template in templates.items():
         pattern = re.compile(
             rf"^(?P<indent>[ \t]*)<!-- shared:{name}:start -->.*?<!-- shared:{name}:end -->",
@@ -25,6 +32,11 @@ def render_page(page: Path, templates: dict[str, str]) -> str:
             raise ValueError(f"{page.relative_to(ROOT)} needs exactly one shared:{name} marker pair.")
         indent = matches[0].group("indent")
         body = template.strip().replace("{{root}}", root).replace("{{assets}}", assets)
+        body = re.sub(
+            r"\{\{current:(overview|tabular|text|image)\}\}",
+            lambda match: ' aria-current="page"' if match[1] == current_route else "",
+            body,
+        )
         block = "\n".join(indent + line if line else "" for line in body.splitlines())
         replacement = (
             f"{indent}<!-- shared:{name}:start -->\n"

@@ -11,56 +11,62 @@
     <title>Adult Census Income · CO5177</title>
     <link rel="icon" type="image/png" href="../assets/bk.png" />
     <link rel="stylesheet" href="../assets/site.css" />
-    <style>
-      .tabular-report .pipeline-section { grid-template-columns: minmax(0, 1fr); }
-      .tabular-report .tabular-wide-table table { min-width: 620px; }
-      .tabular-report .report-table:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
-    </style>
-    <script src="../assets/site.js" defer></script>
+    <script src="../assets/navigation.js" defer></script>
   </head>
 
   <body>
     <a class="skip-link" href="#main">
-      <span data-i18n="skip">Đến nội dung chính</span>
+      <span>Đến nội dung chính</span>
     </a>
 
+    <div class="dashboard-sidebar">
     <!-- shared:header:start -->
     <header class="site-header">
-      <div class="container header-inner">
-        <a class="brand" href="../../index.html" aria-label="CO5177">
-          <img class="brand-mark" src="../assets/bk.png" alt="" width="36" height="36" />
-          <span>
-            CO5177
-            <small><span data-i18n="brand">HỒ SƠ HỌC PHẦN</span></small>
-          </span>
+      <div class="header-inner">
+        <a class="brand" href="../../index.html">
+          <img class="brand-mark" src="../assets/bk.png" alt="Đại học Bách Khoa - ĐHQG-HCM" width="256" height="258" />
+          <span>CO5177<small><span>HỒ SƠ HỌC PHẦN</span></small></span>
         </a>
-
-        <nav class="main-nav" aria-label="Điều hướng chính" data-i18n-aria="nav">
-          <a href="../../index.html#projects">
-            <span data-i18n="projects">Bài tập lớn</span>
-          </a>
-          <a href="../../index.html#team">
-            <span data-i18n="team">Nhóm thực hiện</span>
-          </a>
-          <a class="repo-nav" href="https://github.com/superiorhamster/CO5177">
-            GitHub <span aria-hidden="true">↗</span>
-          </a>
+        <nav class="main-nav" aria-label="Điều hướng chính">
+          <div class="nav-routes">
+            <a href="../../index.html">Tổng quan</a>
+            <a href="../../pages/projects/tabular.html" aria-current="page">Dữ liệu bảng</a>
+            <a href="../../pages/projects/text.html">Dữ liệu văn bản</a>
+            <a href="../../pages/projects/image.html">Dữ liệu ảnh</a>
+          </div>
+          <div class="nav-resources">
+            <a href="../../index.html#projects"><span>Bài tập lớn</span></a>
+            <a href="../../index.html#team"><span>Nhóm thực hiện</span></a>
+            <a class="repo-nav" href="https://github.com/superiorhamster/CO5177">GitHub <span aria-hidden="true">↗</span></a>
+          </div>
         </nav>
-
-        <div class="language-switch" role="group" aria-label="Ngôn ngữ" data-i18n-aria="language" hidden>
-          <button type="button" data-language="vi" aria-label="Tiếng Việt" aria-pressed="true">VI</button>
-          <button type="button" data-language="en" aria-label="English" aria-pressed="false">EN</button>
-        </div>
       </div>
     </header>
     <!-- shared:header:end -->
+      <section class="report-toc">
+        <h2 class="eyebrow">TRONG BÀI NÀY</h2>
+
+        <nav aria-label="Mục lục bài tập">
+          <a href="#resources">Tài liệu bài tập</a>
+          <a href="#dataset">Mô tả tập dữ liệu</a>
+          <a href="#eda-cleaning">Khảo sát toàn cục</a>
+          <a href="#preparation">Chia tập dữ liệu</a>
+          <a href="#eda">Khảo sát trên Train</a>
+          <a href="#preprocessing">Tiền xử lý</a>
+          <a href="#analysis">Huấn luyện và đánh giá</a>
+          <a href="#conclusions">Tổng kết</a>
+        </nav>
+      </section>
+    </div>
+
+    <div class="dashboard-content">
 
 
-    <main id="main" class="container image-report tabular-report">
+    <main id="main" class="container image-report tabular-report" tabindex="-1">
 
-      <nav class="breadcrumb" aria-label="Điều hướng phân cấp" data-i18n-aria="breadcrumb">
+      <nav class="breadcrumb" aria-label="Điều hướng phân cấp">
         <a href="../../index.html">
-          <span data-i18n="home">Trang chủ</span>
+          <span>Trang chủ</span>
         </a>
         <span aria-hidden="true">/</span>
         <span>Tabular</span>
@@ -71,7 +77,7 @@
       <section class="project-hero" aria-labelledby="project-title">
         <div>
           <p class="eyebrow">
-            CO5177 / <span data-i18n="assignment">BÀI TẬP LỚN</span> / TABULAR
+            CO5177 / <span>BÀI TẬP LỚN</span> / TABULAR
           </p>
 
           <h1 id="project-title">
@@ -100,7 +106,7 @@
           <!-- RESOURCES -->
           <section id="resources" class="resources" aria-labelledby="resources-title">
             <div class="compact-heading">
-              <h2 id="resources-title">Tài liệu và kết quả</h2>
+              <h2 id="resources-title">Tài liệu bài tập</h2>
               <p class="muted">
                 Notebook thực nghiệm và các tệp kết quả được xuất trong quá trình
                 EDA, Data Preprocessing, Model Training và Evaluation.
@@ -115,14 +121,33 @@
                   tiền xử lý, huấn luyện và đánh giá năm mô hình.
                 </p>
               </div>
-              <a
-                class="text-link"
-                href="https://colab.research.google.com/drive/1szGRX6NRKhscyCBev3z_BgQNJdEG6rPd?usp=sharing"
-                target="_blank"
-                rel="noopener"
-              >
-                Mở Google Colab ↗
-              </a>
+              <div class="resource-actions">
+                <a
+                  class="text-link"
+                  href="https://colab.research.google.com/drive/1reO265UJqaPSxTSr7VqSmSk0Sc14C2Yo?usp=sharing"
+                  target="_blank"
+                  rel="noopener"
+                ><span>Mở notebook trên Colab</span> <span aria-hidden="true">↗</span></a>
+                <a
+                  class="text-link"
+                  href="../notebooks/Adult_Census_Income_Modeling_Updated.ipynb"
+                  download
+                ><span>Tải notebook (.ipynb)</span></a>
+              </div>
+            </div>
+            <div class="resource-item">
+              <div>
+                <h3>PDF report</h3>
+                <p><span>Báo cáo riêng của bài tập lớn này</span></p>
+              </div>
+              <span class="resource-pending"><span>Chờ link PDF report</span></span>
+            </div>
+            <div class="resource-item">
+              <div>
+                <h3>YouTube</h3>
+                <p><span>Video Public hoặc Unlisted · khuyến nghị 5–10 phút</span></p>
+              </div>
+              <span class="resource-pending"><span>Chờ link YouTube</span></span>
             </div>
 
           </section>
@@ -346,7 +371,7 @@
 
             <p>Sau khi chuẩn hóa nhãn, lớp <code>&lt;=50K</code> có 37.155 quan sát (76,07%) và lớp <code>&gt;50K</code> có 11.687 quan sát (23,93%). Tỷ lệ tính trên toàn bộ 48.842 quan sát trước khi lọc.</p>
 
-            <figure class="report-figure">
+            <figure class="report-figure tabular-figure-reading">
               <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/income_full.png" aria-label="Mở hình Phân phối thu nhập trước khi lọc">
                 <img src="../assets/Adult_Census_Income_Results/EDA_result/income_full.png" width="1102" height="618" alt="Phân phối thu nhập trước khi lọc" loading="lazy" decoding="async" />
               </a>
@@ -359,17 +384,17 @@
 
             <div class="table-wrap report-table " tabindex="0" role="region" aria-label="Giá trị thiếu theo cột">
               <table>
-                <thead><tr><th scope="col">Đặc trưng</th><th scope="col">Số ô thiếu</th><th scope="col">Tỷ lệ trên 48.842 hàng</th></tr></thead>
+                <thead><tr><th scope="col">Đặc trưng</th><th class="tabular-number" scope="col">Số ô thiếu</th><th class="tabular-number" scope="col">Tỷ lệ trên 48.842 hàng</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row"><code>occupation</code></th><td>2.809</td><td>5,75%</td></tr>
-                  <tr><th scope="row"><code>workclass</code></th><td>2.799</td><td>5,73%</td></tr>
-                  <tr><th scope="row"><code>native-country</code></th><td>857</td><td>1,75%</td></tr>
-                  <tr><th scope="row">Các cột còn lại</th><td>0</td><td>0,00%</td></tr>
+                  <tr><th scope="row"><code>occupation</code></th><td class="tabular-number">2.809</td><td class="tabular-number">5,75%</td></tr>
+                  <tr><th scope="row"><code>workclass</code></th><td class="tabular-number">2.799</td><td class="tabular-number">5,73%</td></tr>
+                  <tr><th scope="row"><code>native-country</code></th><td class="tabular-number">857</td><td class="tabular-number">1,75%</td></tr>
+                  <tr><th scope="row">Các cột còn lại</th><td class="tabular-number">0</td><td class="tabular-number">0,00%</td></tr>
                 </tbody>
               </table>
             </div>
 
-            <figure class="report-figure">
+            <figure class="report-figure tabular-figure-reading">
               <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/missing_values.png" aria-label="Mở hình Tình trạng dữ liệu thiếu">
                 <img src="../assets/Adult_Census_Income_Results/EDA_result/missing_values.png" width="1193" height="1101" alt="Tình trạng dữ liệu thiếu" loading="lazy" decoding="async" />
               </a>
@@ -380,7 +405,7 @@
 
             <p>So sánh trên toàn bộ cột, kể cả nhãn, cho thấy có 52 lần xuất hiện lặp (0,1065%) và 48.790 bản ghi xuất hiện lần đầu (99,8935%). Nếu tính cả lần xuất hiện đầu tiên của mỗi nhóm trùng thì có 101 hàng thuộc các nhóm này. Các hàng được giữ vì dữ liệu thiếu mã định danh cá nhân và <code>fnlwgt</code> là trọng số khảo sát.</p>
 
-            <figure class="report-figure">
+            <figure class="report-figure tabular-figure-compact">
               <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/duplicates.png" aria-label="Mở hình Bản ghi trùng lặp xét trên toàn bộ cột">
                 <img src="../assets/Adult_Census_Income_Results/EDA_result/duplicates.png" width="602" height="694" alt="Bản ghi trùng lặp xét trên toàn bộ cột" loading="lazy" decoding="async" />
               </a>
@@ -401,12 +426,12 @@
 
             <div class="table-wrap report-table split-table" tabindex="0" role="region" aria-label="Quy mô và phân phối nhãn theo tập">
               <table>
-                <thead><tr><th scope="col">Tập</th><th scope="col">Số quan sát</th><th scope="col">Tỷ lệ</th><th scope="col">≤50K</th><th scope="col">>50K</th></tr></thead>
+                <thead><tr><th scope="col">Tập</th><th class="tabular-number" scope="col">Số quan sát</th><th class="tabular-number" scope="col">Tỷ lệ</th><th class="tabular-number" scope="col">≤50K</th><th class="tabular-number" scope="col">>50K</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">Train</th><td>34.189</td><td>70%</td><td>26.008</td><td>8.181</td></tr>
-                  <tr><th scope="row">Validation</th><td>7.326</td><td>15%</td><td>5.573</td><td>1.753</td></tr>
-                  <tr><th scope="row">Test</th><td>7.327</td><td>15%</td><td>5.574</td><td>1.753</td></tr>
-                  <tr><th scope="row">Tổng</th><td>48.842</td><td>100%</td><td>37.155</td><td>11.687</td></tr>
+                  <tr><th scope="row">Train</th><td class="tabular-number">34.189</td><td class="tabular-number">70%</td><td class="tabular-number">26.008</td><td class="tabular-number">8.181</td></tr>
+                  <tr><th scope="row">Validation</th><td class="tabular-number">7.326</td><td class="tabular-number">15%</td><td class="tabular-number">5.573</td><td class="tabular-number">1.753</td></tr>
+                  <tr><th scope="row">Test</th><td class="tabular-number">7.327</td><td class="tabular-number">15%</td><td class="tabular-number">5.574</td><td class="tabular-number">1.753</td></tr>
+                  <tr><th scope="row">Tổng</th><td class="tabular-number">48.842</td><td class="tabular-number">100%</td><td class="tabular-number">37.155</td><td class="tabular-number">11.687</td></tr>
                 </tbody>
               </table>
             </div>
@@ -425,11 +450,11 @@
 
             <div class="table-wrap report-table split-table" tabindex="0" role="region" aria-label="Số ô thiếu trước và sau điền khuyết">
               <table>
-                <thead><tr><th scope="col">Tập</th><th scope="col">Trước khi điền</th><th scope="col">Sau khi điền</th></tr></thead>
+                <thead><tr><th scope="col">Tập</th><th class="tabular-number" scope="col">Trước khi điền</th><th class="tabular-number" scope="col">Sau khi điền</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">Train</th><td>4.534</td><td>0</td></tr>
-                  <tr><th scope="row">Validation</th><td>919</td><td>0</td></tr>
-                  <tr><th scope="row">Test</th><td>1.012</td><td>0</td></tr>
+                  <tr><th scope="row">Train</th><td class="tabular-number">4.534</td><td class="tabular-number">0</td></tr>
+                  <tr><th scope="row">Validation</th><td class="tabular-number">919</td><td class="tabular-number">0</td></tr>
+                  <tr><th scope="row">Test</th><td class="tabular-number">1.012</td><td class="tabular-number">0</td></tr>
                 </tbody>
               </table>
             </div>
@@ -438,7 +463,7 @@
 
             <p>Train có 26.008 mẫu lớp <code>&lt;=50K</code> và 8.181 mẫu lớp <code>&gt;50K</code>, tương ứng tỷ lệ đa số trên thiểu số khoảng 3,179:1. Vì vậy, Accuracy cần được đọc cùng các chỉ số riêng cho lớp dương.</p>
 
-            <figure class="report-figure">
+            <figure class="report-figure tabular-figure-reading">
               <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/income_train.png" aria-label="Mở hình Phân phối thu nhập trên Train">
                 <img src="../assets/Adult_Census_Income_Results/EDA_result/income_train.png" width="1102" height="618" alt="Phân phối thu nhập trên Train" loading="lazy" decoding="async" />
               </a>
@@ -449,19 +474,19 @@
 
             <div class="table-wrap report-table " tabindex="0" role="region" aria-label="Thống kê mô tả trên Train sau điền khuyết">
               <table>
-                <thead><tr><th scope="col">Đặc trưng</th><th scope="col">Trung bình</th><th scope="col">Trung vị</th><th scope="col">Độ lệch</th></tr></thead>
+                <thead><tr><th scope="col">Đặc trưng</th><th class="tabular-number" scope="col">Trung bình</th><th class="tabular-number" scope="col">Trung vị</th><th class="tabular-number" scope="col">Độ lệch</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row"><code>age</code></th><td>38,65</td><td>37</td><td>0,56</td></tr>
-                  <tr><th scope="row"><code>fnlwgt</code></th><td>189.940,53</td><td>178.478</td><td>1,44</td></tr>
-                  <tr><th scope="row"><code>education-num</code></th><td>10,07</td><td>10</td><td>−0,33</td></tr>
-                  <tr><th scope="row"><code>capital-gain</code></th><td>1.046,63</td><td>0</td><td>12,19</td></tr>
-                  <tr><th scope="row"><code>capital-loss</code></th><td>87,14</td><td>0</td><td>4,58</td></tr>
-                  <tr><th scope="row"><code>hours-per-week</code></th><td>40,46</td><td>40</td><td>0,23</td></tr>
+                  <tr><th scope="row"><code>age</code></th><td class="tabular-number">38,65</td><td class="tabular-number">37</td><td class="tabular-number">0,56</td></tr>
+                  <tr><th scope="row"><code>fnlwgt</code></th><td class="tabular-number">189.940,53</td><td class="tabular-number">178.478</td><td class="tabular-number">1,44</td></tr>
+                  <tr><th scope="row"><code>education-num</code></th><td class="tabular-number">10,07</td><td class="tabular-number">10</td><td class="tabular-number">−0,33</td></tr>
+                  <tr><th scope="row"><code>capital-gain</code></th><td class="tabular-number">1.046,63</td><td class="tabular-number">0</td><td class="tabular-number">12,19</td></tr>
+                  <tr><th scope="row"><code>capital-loss</code></th><td class="tabular-number">87,14</td><td class="tabular-number">0</td><td class="tabular-number">4,58</td></tr>
+                  <tr><th scope="row"><code>hours-per-week</code></th><td class="tabular-number">40,46</td><td class="tabular-number">40</td><td class="tabular-number">0,23</td></tr>
                 </tbody>
               </table>
             </div>
 
-            <figure class="report-figure">
+            <figure class="report-figure tabular-figure-portrait">
               <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/numeric_distributions_train.png" aria-label="Mở hình Histogram và boxplot trên Train">
                 <img src="../assets/Adult_Census_Income_Results/EDA_result/numeric_distributions_train.png" width="1742" height="2379" alt="Histogram và boxplot trên Train" loading="lazy" decoding="async" />
               </a>
@@ -470,22 +495,22 @@
 
             <div class="table-wrap report-table " tabindex="0" role="region" aria-label="Phân phối biến phân loại trên Train">
               <table>
-                <thead><tr><th scope="col">Đặc trưng</th><th scope="col">Số mức</th><th scope="col">Mức phổ biến nhất</th><th scope="col">Tỷ lệ</th></tr></thead>
+                <thead><tr><th scope="col">Đặc trưng</th><th class="tabular-number" scope="col">Số mức</th><th scope="col">Mức phổ biến nhất</th><th class="tabular-number" scope="col">Tỷ lệ</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row"><code>workclass</code></th><td>8</td><td>Private</td><td>75,04%</td></tr>
-                  <tr><th scope="row"><code>education</code></th><td>16</td><td>HS-grad</td><td>32,14%</td></tr>
-                  <tr><th scope="row"><code>education-num</code></th><td>16</td><td>9</td><td>32,14%</td></tr>
-                  <tr><th scope="row"><code>marital-status</code></th><td>7</td><td>Married-civ-spouse</td><td>45,98%</td></tr>
-                  <tr><th scope="row"><code>occupation</code></th><td>14</td><td>Exec-managerial</td><td>18,36%</td></tr>
-                  <tr><th scope="row"><code>relationship</code></th><td>6</td><td>Husband</td><td>40,45%</td></tr>
-                  <tr><th scope="row"><code>race</code></th><td>5</td><td>White</td><td>85,52%</td></tr>
-                  <tr><th scope="row"><code>sex</code></th><td>2</td><td>Male</td><td>67,02%</td></tr>
-                  <tr><th scope="row"><code>native-country</code></th><td>41</td><td>United-States</td><td>91,38%</td></tr>
+                  <tr><th scope="row"><code>workclass</code></th><td class="tabular-number">8</td><td>Private</td><td class="tabular-number">75,04%</td></tr>
+                  <tr><th scope="row"><code>education</code></th><td class="tabular-number">16</td><td>HS-grad</td><td class="tabular-number">32,14%</td></tr>
+                  <tr><th scope="row"><code>education-num</code></th><td class="tabular-number">16</td><td>9</td><td class="tabular-number">32,14%</td></tr>
+                  <tr><th scope="row"><code>marital-status</code></th><td class="tabular-number">7</td><td>Married-civ-spouse</td><td class="tabular-number">45,98%</td></tr>
+                  <tr><th scope="row"><code>occupation</code></th><td class="tabular-number">14</td><td>Exec-managerial</td><td class="tabular-number">18,36%</td></tr>
+                  <tr><th scope="row"><code>relationship</code></th><td class="tabular-number">6</td><td>Husband</td><td class="tabular-number">40,45%</td></tr>
+                  <tr><th scope="row"><code>race</code></th><td class="tabular-number">5</td><td>White</td><td class="tabular-number">85,52%</td></tr>
+                  <tr><th scope="row"><code>sex</code></th><td class="tabular-number">2</td><td>Male</td><td class="tabular-number">67,02%</td></tr>
+                  <tr><th scope="row"><code>native-country</code></th><td class="tabular-number">41</td><td>United-States</td><td class="tabular-number">91,38%</td></tr>
                 </tbody>
               </table>
             </div>
 
-            <figure class="report-figure">
+            <figure class="report-figure tabular-figure-portrait">
               <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/categorical_distributions_train.png" aria-label="Mở hình Tần suất các mức phân loại trên Train">
                 <img src="../assets/Adult_Census_Income_Results/EDA_result/categorical_distributions_train.png" width="1905" height="2776" alt="Tần suất các mức phân loại trên Train" loading="lazy" decoding="async" />
               </a>
@@ -498,13 +523,13 @@
 
             <div class="table-wrap report-table tabular-wide-table" tabindex="0" role="region" aria-label="Ngưỡng và số ô được giới hạn theo tập">
               <table>
-                <thead><tr><th scope="col">Đặc trưng</th><th scope="col">Q₁ / Q₃</th><th scope="col">IQR</th><th scope="col">Biên áp dụng</th><th scope="col">Train</th><th scope="col">Validation</th><th scope="col">Test</th></tr></thead>
+                <thead><tr><th scope="col">Đặc trưng</th><th class="tabular-number" scope="col">Q₁ / Q₃</th><th class="tabular-number" scope="col">IQR</th><th scope="col">Biên áp dụng</th><th class="tabular-number" scope="col">Train</th><th class="tabular-number" scope="col">Validation</th><th class="tabular-number" scope="col">Test</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row"><code>age</code></th><td>28 / 48</td><td>20</td><td>[−32; 108]</td><td>0</td><td>0</td><td>0</td></tr>
-                  <tr><th scope="row"><code>fnlwgt</code></th><td>117.674 / 238.384</td><td>120.710</td><td>[−244.456; 600.514]</td><td>149</td><td>34</td><td>34</td></tr>
-                  <tr><th scope="row"><code>capital-gain</code></th><td>0 / 0</td><td>0</td><td>Bỏ qua</td><td>0</td><td>0</td><td>0</td></tr>
-                  <tr><th scope="row"><code>capital-loss</code></th><td>0 / 0</td><td>0</td><td>Bỏ qua</td><td>0</td><td>0</td><td>0</td></tr>
-                  <tr><th scope="row"><code>hours-per-week</code></th><td>40 / 45</td><td>5</td><td>[25; 60]</td><td>4.606</td><td>996</td><td>1.029</td></tr>
+                  <tr><th scope="row"><code>age</code></th><td class="tabular-number">28 / 48</td><td class="tabular-number">20</td><td>[−32; 108]</td><td class="tabular-number">0</td><td class="tabular-number">0</td><td class="tabular-number">0</td></tr>
+                  <tr><th scope="row"><code>fnlwgt</code></th><td class="tabular-number">117.674 / 238.384</td><td class="tabular-number">120.710</td><td>[−244.456; 600.514]</td><td class="tabular-number">149</td><td class="tabular-number">34</td><td class="tabular-number">34</td></tr>
+                  <tr><th scope="row"><code>capital-gain</code></th><td class="tabular-number">0 / 0</td><td class="tabular-number">0</td><td>Bỏ qua</td><td class="tabular-number">0</td><td class="tabular-number">0</td><td class="tabular-number">0</td></tr>
+                  <tr><th scope="row"><code>capital-loss</code></th><td class="tabular-number">0 / 0</td><td class="tabular-number">0</td><td>Bỏ qua</td><td class="tabular-number">0</td><td class="tabular-number">0</td><td class="tabular-number">0</td></tr>
+                  <tr><th scope="row"><code>hours-per-week</code></th><td class="tabular-number">40 / 45</td><td class="tabular-number">5</td><td>[25; 60]</td><td class="tabular-number">4.606</td><td class="tabular-number">996</td><td class="tabular-number">1.029</td></tr>
                 </tbody>
               </table>
             </div>
@@ -513,19 +538,21 @@
 
             <p>Pearson đo tương quan tuyến tính giữa các biến số với ngưỡng |r| ≥ 0,70. Cramér’s V đo mức liên hệ giữa các biến phân loại từ bảng chéo, với ngưỡng V ≥ 0,70. Cặp duy nhất đạt ngưỡng là <code>education</code> và <code>education-num</code> (V = 1,0000). Quy tắc ưu tiên giữ mã thứ bậc nên loại <code>education</code>. Ngưỡng phục vụ sàng lọc đặc trưng và hệ số liên hệ không xác lập quan hệ nhân quả.</p>
 
-            <figure class="report-figure">
-              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/pearson_train.png" aria-label="Mở hình Tương quan Pearson giữa các biến số">
-                <img src="../assets/Adult_Census_Income_Results/EDA_result/pearson_train.png" width="1116" height="941" alt="Tương quan Pearson giữa các biến số" loading="lazy" decoding="async" />
-              </a>
-              <figcaption><strong>Tương quan Pearson giữa các biến số</strong><span>Tương quan trên Train sau điền khuyết và capping.</span></figcaption>
-            </figure>
+            <div class="tabular-figure-pair">
+              <figure class="report-figure">
+                <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/pearson_train.png" aria-label="Mở hình Tương quan Pearson giữa các biến số">
+                  <img src="../assets/Adult_Census_Income_Results/EDA_result/pearson_train.png" width="1116" height="941" alt="Tương quan Pearson giữa các biến số" loading="lazy" decoding="async" />
+                </a>
+                <figcaption><strong>Tương quan Pearson giữa các biến số</strong><span>Tương quan trên Train sau điền khuyết và capping.</span></figcaption>
+              </figure>
 
-            <figure class="report-figure">
-              <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/cramers_v_train.png" aria-label="Mở hình Liên hệ Cramér’s V giữa các biến phân loại">
-                <img src="../assets/Adult_Census_Income_Results/EDA_result/cramers_v_train.png" width="1082" height="940" alt="Liên hệ Cramér’s V giữa các biến phân loại" loading="lazy" decoding="async" />
-              </a>
-              <figcaption><strong>Liên hệ Cramér’s V giữa các biến phân loại</strong><span>Mã học vấn được xem là biến phân loại thứ bậc khi lập bảng chéo.</span></figcaption>
-            </figure>
+              <figure class="report-figure">
+                <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/cramers_v_train.png" aria-label="Mở hình Liên hệ Cramér’s V giữa các biến phân loại">
+                  <img src="../assets/Adult_Census_Income_Results/EDA_result/cramers_v_train.png" width="1082" height="940" alt="Liên hệ Cramér’s V giữa các biến phân loại" loading="lazy" decoding="async" />
+                </a>
+                <figcaption><strong>Liên hệ Cramér’s V giữa các biến phân loại</strong><span>Mã học vấn được xem là biến phân loại thứ bậc khi lập bảng chéo.</span></figcaption>
+              </figure>
+            </div>
 
             <h3>4.6. Mức độ liên quan với nhãn thu nhập</h3>
 
@@ -533,42 +560,42 @@
 
             <div class="table-wrap report-table " tabindex="0" role="region" aria-label="Mức độ liên quan của 13 đặc trưng còn lại với nhãn trên Train">
               <table>
-                <thead><tr><th scope="col">Đặc trưng</th><th scope="col">Thước đo</th><th scope="col">Hệ số</th><th scope="col">MI (nat)</th></tr></thead>
+                <thead><tr><th scope="col">Đặc trưng</th><th scope="col">Thước đo</th><th class="tabular-number" scope="col">Hệ số</th><th class="tabular-number" scope="col">MI (nat)</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row"><code>capital-gain</code></th><td>Point-biserial</td><td>0,22209</td><td>0,08506</td></tr>
-                  <tr><th scope="row"><code>age</code></th><td>Point-biserial</td><td>0,22803</td><td>0,06973</td></tr>
-                  <tr><th scope="row"><code>hours-per-week</code></th><td>Point-biserial</td><td>0,26277</td><td>0,04479</td></tr>
-                  <tr><th scope="row"><code>capital-loss</code></th><td>Point-biserial</td><td>0,14734</td><td>0,03607</td></tr>
-                  <tr><th scope="row"><code>fnlwgt</code></th><td>Point-biserial</td><td>−0,00565</td><td>0,02835</td></tr>
-                  <tr><th scope="row"><code>relationship</code></th><td>Cramér’s V</td><td>0,45321</td><td>0,11393</td></tr>
-                  <tr><th scope="row"><code>marital-status</code></th><td>Cramér’s V</td><td>0,44661</td><td>0,10808</td></tr>
-                  <tr><th scope="row"><code>education-num</code></th><td>Cramér’s V</td><td>0,36729</td><td>0,06442</td></tr>
-                  <tr><th scope="row"><code>occupation</code></th><td>Cramér’s V</td><td>0,30286</td><td>0,05002</td></tr>
-                  <tr><th scope="row"><code>sex</code></th><td>Cramér’s V</td><td>0,21479</td><td>0,02550</td></tr>
-                  <tr><th scope="row"><code>workclass</code></th><td>Cramér’s V</td><td>0,16568</td><td>0,01215</td></tr>
-                  <tr><th scope="row"><code>native-country</code></th><td>Cramér’s V</td><td>0,09754</td><td>0,00576</td></tr>
-                  <tr><th scope="row"><code>race</code></th><td>Cramér’s V</td><td>0,09965</td><td>0,00565</td></tr>
+                  <tr><th scope="row"><code>capital-gain</code></th><td>Point-biserial</td><td class="tabular-number">0,22209</td><td class="tabular-number">0,08506</td></tr>
+                  <tr><th scope="row"><code>age</code></th><td>Point-biserial</td><td class="tabular-number">0,22803</td><td class="tabular-number">0,06973</td></tr>
+                  <tr><th scope="row"><code>hours-per-week</code></th><td>Point-biserial</td><td class="tabular-number">0,26277</td><td class="tabular-number">0,04479</td></tr>
+                  <tr><th scope="row"><code>capital-loss</code></th><td>Point-biserial</td><td class="tabular-number">0,14734</td><td class="tabular-number">0,03607</td></tr>
+                  <tr><th scope="row"><code>fnlwgt</code></th><td>Point-biserial</td><td class="tabular-number">−0,00565</td><td class="tabular-number">0,02835</td></tr>
+                  <tr><th scope="row"><code>relationship</code></th><td>Cramér’s V</td><td class="tabular-number">0,45321</td><td class="tabular-number">0,11393</td></tr>
+                  <tr><th scope="row"><code>marital-status</code></th><td>Cramér’s V</td><td class="tabular-number">0,44661</td><td class="tabular-number">0,10808</td></tr>
+                  <tr><th scope="row"><code>education-num</code></th><td>Cramér’s V</td><td class="tabular-number">0,36729</td><td class="tabular-number">0,06442</td></tr>
+                  <tr><th scope="row"><code>occupation</code></th><td>Cramér’s V</td><td class="tabular-number">0,30286</td><td class="tabular-number">0,05002</td></tr>
+                  <tr><th scope="row"><code>sex</code></th><td>Cramér’s V</td><td class="tabular-number">0,21479</td><td class="tabular-number">0,02550</td></tr>
+                  <tr><th scope="row"><code>workclass</code></th><td>Cramér’s V</td><td class="tabular-number">0,16568</td><td class="tabular-number">0,01215</td></tr>
+                  <tr><th scope="row"><code>native-country</code></th><td>Cramér’s V</td><td class="tabular-number">0,09754</td><td class="tabular-number">0,00576</td></tr>
+                  <tr><th scope="row"><code>race</code></th><td>Cramér’s V</td><td class="tabular-number">0,09965</td><td class="tabular-number">0,00565</td></tr>
                 </tbody>
               </table>
             </div>
 
             <p>Quy tắc loại yêu cầu MI bằng đúng 0 trước khi làm tròn và đồng thời |r<sub>pb</sub>| &lt; 0,05 với biến số hoặc V &lt; 0,05 với biến phân loại. Không có đặc trưng nào bị loại thêm. <code>native-country</code> được giữ với V = 0,09754 và MI = 0,00576. Đây là phép sàng lọc đơn biến, có thể bỏ sót tương tác. MI ước lượng bằng 0 chưa đủ để xác lập độc lập thống kê.</p>
 
-            <figure class="report-figure">
+            <figure class="report-figure tabular-figure-wide">
               <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/target_relevance_train.png" aria-label="Mở hình Ba thước đo liên hệ với nhãn thu nhập">
                 <img src="../assets/Adult_Census_Income_Results/EDA_result/target_relevance_train.png" width="2385" height="777" alt="Ba thước đo liên hệ với nhãn thu nhập" loading="lazy" decoding="async" />
               </a>
               <figcaption><strong>Ba thước đo liên hệ với nhãn thu nhập</strong><span>Các thước đo nằm trên những thang khác nhau và cần được đọc theo từng khung.</span></figcaption>
             </figure>
 
-            <figure class="report-figure">
+            <figure class="report-figure tabular-figure-wide">
               <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/numeric_by_income_train.png" aria-label="Mở hình Phân phối biến số theo nhóm thu nhập">
                 <img src="../assets/Adult_Census_Income_Results/EDA_result/numeric_by_income_train.png" width="1808" height="631" alt="Phân phối biến số theo nhóm thu nhập" loading="lazy" decoding="async" />
               </a>
               <figcaption><strong>Phân phối biến số theo nhóm thu nhập</strong><span>Boxplot trên Train sau các phép xử lý và lựa chọn đặc trưng.</span></figcaption>
             </figure>
 
-            <figure class="report-figure">
+            <figure class="report-figure tabular-figure-wide">
               <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/EDA_result/categorical_by_income_train.png" aria-label="Mở hình Tỷ lệ thu nhập trên 50.000 USD theo từng mức">
                 <img src="../assets/Adult_Census_Income_Results/EDA_result/categorical_by_income_train.png" width="1905" height="1555" alt="Tỷ lệ thu nhập trên 50.000 USD theo từng mức" loading="lazy" decoding="async" />
               </a>
@@ -600,11 +627,11 @@
 
             <div class="table-wrap report-table tabular-wide-table" tabindex="0" role="region" aria-label="Các nhánh biểu diễn cho huấn luyện và đánh giá">
               <table>
-                <thead><tr><th scope="col">Nhánh Train</th><th scope="col">Số hàng × số cột</th><th scope="col">Mô hình</th><th scope="col">Dạng đầu vào trên Test</th></tr></thead>
+                <thead><tr><th scope="col">Nhánh Train</th><th class="tabular-number" scope="col">Số hàng × số cột</th><th scope="col">Mô hình</th><th scope="col">Dạng đầu vào trên Test</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">Encoded</th><td>34.189 × 89</td><td>Dummy, XGBoost</td><td>Encoded</td></tr>
-                  <tr><th scope="row">Scaled</th><td>34.189 × 89</td><td>MLP, SVM</td><td>Scaled</td></tr>
-                  <tr><th scope="row">SMOTENC Scaled</th><td>52.016 × 89</td><td>KNN</td><td>Scaled</td></tr>
+                  <tr><th scope="row">Encoded</th><td class="tabular-number">34.189 × 89</td><td>Dummy, XGBoost</td><td>Encoded</td></tr>
+                  <tr><th scope="row">Scaled</th><td class="tabular-number">34.189 × 89</td><td>MLP, SVM</td><td>Scaled</td></tr>
+                  <tr><th scope="row">SMOTENC Scaled</th><td class="tabular-number">52.016 × 89</td><td>KNN</td><td>Scaled</td></tr>
                 </tbody>
               </table>
             </div>
@@ -613,11 +640,11 @@
 
             <div class="table-wrap report-table split-table" tabindex="0" role="region" aria-label="Phân phối Train trước và sau SMOTENC">
               <table>
-                <thead><tr><th scope="col">Nhãn</th><th scope="col">Train gốc</th><th scope="col">Sau SMOTENC</th></tr></thead>
+                <thead><tr><th scope="col">Nhãn</th><th class="tabular-number" scope="col">Train gốc</th><th class="tabular-number" scope="col">Sau SMOTENC</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">0 (≤50K)</th><td>26.008 (76,07%)</td><td>26.008 (50,00%)</td></tr>
-                  <tr><th scope="row">1 (>50K)</th><td>8.181 (23,93%)</td><td>26.008 (50,00%)</td></tr>
-                  <tr><th scope="row">Tổng</th><td>34.189</td><td>52.016</td></tr>
+                  <tr><th scope="row">0 (≤50K)</th><td class="tabular-number">26.008 (76,07%)</td><td class="tabular-number">26.008 (50,00%)</td></tr>
+                  <tr><th scope="row">1 (>50K)</th><td class="tabular-number">8.181 (23,93%)</td><td class="tabular-number">26.008 (50,00%)</td></tr>
+                  <tr><th scope="row">Tổng</th><td class="tabular-number">34.189</td><td class="tabular-number">52.016</td></tr>
                 </tbody>
               </table>
             </div>
@@ -647,7 +674,7 @@
               </table>
             </div>
 
-            <figure class="report-figure">
+            <figure class="report-figure tabular-figure-reading">
               <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/Model_result/mlp_training_curves.png" aria-label="Mở hình Loss của MLP theo epoch">
                 <img src="../assets/Adult_Census_Income_Results/Model_result/mlp_training_curves.png" width="1261" height="617" alt="Loss của MLP theo epoch" loading="lazy" decoding="async" />
               </a>
@@ -660,34 +687,34 @@
 
             <div class="table-wrap report-table tabular-wide-table" tabindex="0" role="region" aria-label="Chỉ số Test, xếp theo F1 của lớp dương">
               <table>
-                <thead><tr><th scope="col">Mô hình</th><th scope="col">Accuracy</th><th scope="col">Precision</th><th scope="col">Recall</th><th scope="col">F1</th><th scope="col">ROC-AUC</th></tr></thead>
+                <thead><tr><th scope="col">Mô hình</th><th class="tabular-number" scope="col">Accuracy</th><th class="tabular-number" scope="col">Precision</th><th class="tabular-number" scope="col">Recall</th><th class="tabular-number" scope="col">F1</th><th class="tabular-number" scope="col">ROC-AUC</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">XGBoost</th><td>0,8339</td><td>0,6080</td><td>0,8608</td><td>0,7126</td><td>0,9289</td></tr>
-                  <tr><th scope="row">SVM</th><td>0,8047</td><td>0,5600</td><td>0,8574</td><td>0,6775</td><td>0,9020</td></tr>
-                  <tr><th scope="row">MLP</th><td>0,8011</td><td>0,5541</td><td>0,8648</td><td>0,6754</td><td>0,9108</td></tr>
-                  <tr><th scope="row">KNN</th><td>0,7947</td><td>0,5510</td><td>0,7673</td><td>0,6414</td><td>0,8641</td></tr>
-                  <tr><th scope="row">Dummy</th><td>0,7607</td><td>0,0000</td><td>0,0000</td><td>0,0000</td><td>0,5000</td></tr>
+                  <tr><th scope="row">XGBoost</th><td class="tabular-number">0,8339</td><td class="tabular-number">0,6080</td><td class="tabular-number">0,8608</td><td class="tabular-number">0,7126</td><td class="tabular-number">0,9289</td></tr>
+                  <tr><th scope="row">SVM</th><td class="tabular-number">0,8047</td><td class="tabular-number">0,5600</td><td class="tabular-number">0,8574</td><td class="tabular-number">0,6775</td><td class="tabular-number">0,9020</td></tr>
+                  <tr><th scope="row">MLP</th><td class="tabular-number">0,8011</td><td class="tabular-number">0,5541</td><td class="tabular-number">0,8648</td><td class="tabular-number">0,6754</td><td class="tabular-number">0,9108</td></tr>
+                  <tr><th scope="row">KNN</th><td class="tabular-number">0,7947</td><td class="tabular-number">0,5510</td><td class="tabular-number">0,7673</td><td class="tabular-number">0,6414</td><td class="tabular-number">0,8641</td></tr>
+                  <tr><th scope="row">Dummy</th><td class="tabular-number">0,7607</td><td class="tabular-number">0,0000</td><td class="tabular-number">0,0000</td><td class="tabular-number">0,0000</td><td class="tabular-number">0,5000</td></tr>
                 </tbody>
               </table>
             </div>
 
             <p>XGBoost dẫn đầu theo F1 (0,7126), đồng thời có Accuracy (0,8339), Precision (0,6080) và ROC-AUC (0,9289) cao nhất. MLP có Recall cao nhất (0,8648), còn SVM xếp thứ hai theo F1 (0,6775). Dummy đạt Accuracy 0,7607 vì luôn dự đoán lớp đa số, nhưng Recall và F1 của lớp dương đều bằng 0.</p>
 
-            <figure class="report-figure">
+            <figure class="report-figure tabular-figure-wide">
               <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/Model_result/test_metrics_comparison.png" aria-label="Mở hình So sánh chỉ số trên Test">
                 <img src="../assets/Adult_Census_Income_Results/Model_result/test_metrics_comparison.png" width="1581" height="776" alt="So sánh chỉ số trên Test" loading="lazy" decoding="async" />
               </a>
               <figcaption><strong>So sánh chỉ số trên Test</strong><span>Nhóm cột trình bày năm chỉ số của từng mô hình.</span></figcaption>
             </figure>
 
-            <figure class="report-figure">
+            <figure class="report-figure tabular-figure-wide">
               <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/Model_result/test_confusion_matrices.png" aria-label="Mở hình Ma trận nhầm lẫn trên Test">
                 <img src="../assets/Adult_Census_Income_Results/Model_result/test_confusion_matrices.png" width="1992" height="1258" alt="Ma trận nhầm lẫn trên Test" loading="lazy" decoding="async" />
               </a>
               <figcaption><strong>Ma trận nhầm lẫn trên Test</strong><span>Hàng là nhãn thực tế và cột là nhãn dự đoán. Số trong mỗi ô là số quan sát.</span></figcaption>
             </figure>
 
-            <figure class="report-figure">
+            <figure class="report-figure tabular-figure-reading">
               <a class="figure-image-link" href="../assets/Adult_Census_Income_Results/Model_result/test_roc.png" aria-label="Mở hình Đường ROC trên Test">
                 <img src="../assets/Adult_Census_Income_Results/Model_result/test_roc.png" width="1262" height="938" alt="Đường ROC trên Test" loading="lazy" decoding="async" />
               </a>
@@ -698,7 +725,7 @@
 
             <h3>6.7. Tái sử dụng kết quả</h3>
 
-            <p>Lượt chạy Colab đóng gói 35 tệp trong ba thư mục <code>EDA_result/</code>, <code>Model_result/</code> và <code>Saved_models/</code>. Các tệp phục vụ tái lập gồm <a href="../assets/Adult_Census_Income_Results/Saved_models/model_metadata.json">cấu hình mô hình và phiên bản thư viện</a>, <a href="../assets/Adult_Census_Income_Results/Saved_models/preprocessing_metadata.json">lược đồ và metadata tiền xử lý</a>, <a href="../assets/Adult_Census_Income_Results/Saved_models/mlp_config.json">kiến trúc MLP</a> và <a href="../assets/Adult_Census_Income_Results/Saved_models/README.md">hướng dẫn suy luận</a>.</p>
+            <p>Lượt chạy Colab đóng gói 35 tệp trong ba thư mục <code>EDA_result/</code>, <code>Model_result/</code> và <code>Saved_models/</code>. Các tệp phục vụ tái lập gồm cấu hình mô hình và phiên bản thư viện, lược đồ và metadata tiền xử lý, kiến trúc MLP và hướng dẫn suy luận.</p>
           </section>
 
           <section id="conclusions" class="pipeline-section" aria-labelledby="conclusions-title">
@@ -719,25 +746,7 @@
         </article>
 
 
-        <!-- SIDEBAR -->
         <aside class="project-sidebar">
-
-          <section class="sidebar-block">
-            <h2 class="eyebrow">TRONG BÀI NÀY</h2>
-
-            <nav aria-label="Mục lục bài tập">
-              <a href="#resources">Tài liệu và kết quả</a>
-              <a href="#dataset">Mô tả tập dữ liệu</a>
-              <a href="#eda-cleaning">Khảo sát toàn cục</a>
-              <a href="#preparation">Chia tập dữ liệu</a>
-              <a href="#eda">Khảo sát trên Train</a>
-              <a href="#preprocessing">Tiền xử lý</a>
-              <a href="#analysis">Huấn luyện và đánh giá</a>
-              <a href="#conclusions">Tổng kết</a>
-            </nav>
-          </section>
-
-
           <section class="sidebar-block group-block">
             <h2>Nhóm thực hiện</h2>
 
@@ -806,18 +815,16 @@
     <footer class="site-footer">
       <div class="container footer-inner">
         <p>
-          <strong>CO5177</strong>
-          <span aria-hidden="true">/</span>
-          <span data-i18n="semester-short">Học kỳ 261 · 2026–2027</span>
+          <strong>CO5177</strong> <span aria-hidden="true">/</span>
+          <span>Học kỳ 261 · 2026–2027</span>
         </p>
-
         <a href="https://github.com/superiorhamster/CO5177">
-          <span data-i18n="source">Kho mã nguồn</span>
-          <span aria-hidden="true">↗</span>
+          <span>Kho mã nguồn</span> <span aria-hidden="true">↗</span>
         </a>
       </div>
     </footer>
     <!-- shared:footer:end -->
+    </div>
 
   </body>
 </html>
