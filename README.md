@@ -1,61 +1,46 @@
-# CO5177 assignment portfolio
+﻿# CO5177 assignment portfolio
 
-A static Vietnamese/English GitHub Pages portfolio for Semester 261, academic year 2026–2027. It includes a group landing page and separate Tabular, Text, and Image project pages based on [the course requirements](requirements.md).
+A Vietnamese static website for the CO5177 course portfolio, semester 261 of the 2026–2027 academic year. Group **SlightSeek** presents three reports: [Tabular](pages/projects/tabular.html), [Text](pages/projects/text.html), and [Image](pages/projects/image.html).
 
-Group **SlightSeek** has two members: Phạm Duy Anh (2310139; Text and Image) and Nguyễn Phan Tuấn Duy (2310491; Tabular and Text). The Image page includes recorded results, a [Colab notebook](https://colab.research.google.com/drive/1pHsdOVulTgBHD1ybwBt4jTmHKW_-q3rZ), and an unchanged [notebook download](pages/notebooks/intel_image_classification_trained.ipynb); Colab Run all has not been independently rechecked. The Text page summarizes the supplied sentiment-analysis notebook (four models, EDA, preprocessing, and comparison limits) with a [Colab notebook](https://colab.research.google.com/drive/1-S6XINpCzaYGDXTabWobxC6r2z0zODYf#scrollTo=Q3zSk1isaVGM) and an unchanged [notebook download](pages/notebooks/sentimentanalysis.ipynb). Text Run all has not been rechecked. Tabular content/notebook, plus PDF reports and videos for each project, are **pending**. The website is not yet a completed assignment submission; dataset requirements and suggested methods remain guidance unless supported by recorded results.
+Phạm Duy Anh (2310139) contributed to Text and Image. Nguyễn Phan Tuấn Duy (2310491) contributed to Tabular and Text. Each report links to a Colab notebook and a local notebook download. The report pages mark PDF and YouTube resources as pending. See the [course requirements](requirements.md) for the submission checklist and LMS requirements.
 
-## Preview locally
+## Local development
 
-No dependencies are required. The checked-in HTML already contains the shared header/footer, so it works directly. From the repository root:
+From the repository root, open [index.html](index.html) directly or use Python to serve the site:
 
 ```sh
-python3 -m http.server 8000
+python -B -m http.server 8000 --bind 127.0.0.1
 ```
 
-Open `http://localhost:8000/`. You can also open `index.html` directly. All site assets are local; no fonts, analytics, or other third-party resources are fetched. JavaScript enables the language switch; the default Vietnamese content remains readable without it.
+Open `http://127.0.0.1:8000/`. Preview uses the checked-in HTML, local CSS, and vanilla JavaScript. Python 3.9 or later runs the build script using its standard library. Node.js is only needed for the JavaScript syntax check below. JavaScript enhances mobile navigation. The static sidebar and report contents remain accessible with JavaScript disabled.
 
-## Update content
+| Path | Purpose |
+| --- | --- |
+| [index.html](index.html) | Homepage, course and team information, and project links |
+| [pages/projects/](pages/projects/) | Report HTML and per-report tables of contents |
+| [pages/partials/](pages/partials/) | Shared header and footer sources |
+| [pages/assets/site.css](pages/assets/site.css) and [navigation.js](pages/assets/navigation.js) | Layout, themes, print styles, and mobile drawer behavior |
+| [pages/notebooks/](pages/notebooks/) and [ipynb/](ipynb/) | Website downloads and repository notebook sources, respectively |
+| [scripts/build_site.py](scripts/build_site.py) | Expands the shared marker blocks in the homepage and reports |
+| [Pages workflow](.github/workflows/pages.yml) | Builds and packages the static site on GitHub Actions |
 
-- Homepage: `index.html`; project pages: `pages/projects/{tabular,text,image}.html`.
-- Shared appearance: `pages/assets/site.css`; translations and language behavior: `pages/assets/site.js`.
-- Shared header and footer: edit `pages/partials/header.html` and `pages/partials/footer.html`, then run `python3 scripts/build_site.py`. The script updates the marked blocks in all four pages, resolving `{{root}}` to the repository root and `{{assets}}` to `pages/assets/`, using relative paths for each page. Do not edit those generated blocks directly. Run `python3 scripts/build_site.py --check` to check whether they are current. GitHub Actions runs the build automatically before publishing; the rendered layout remains available when JavaScript is disabled or HTML is opened directly.
-- Replace pending group details with the registered group name and real members, MSSVs, contributions, and optional verified GitHub URLs. Keep the details consistent on all four pages. The single pending row in the homepage table is an empty-state marker; replace it with one row per actual member.
-- Edit both the default Vietnamese HTML and the matching keys in the `vi` and `en` dictionaries in `site.js`. Language switching uses `textContent`, so translated elements must contain plain text. Use new keys where repeated pending values become distinct real content; do not repurpose the shared `pending` key for a specific person or dataset.
-- Document official Vietnamese names as provided. Use meaningful English translations for descriptions and controls. Update each page’s title and description in its HTML and corresponding translation keys.
-- Replace the language-neutral project type heading with the actual project title once selected; update both languages. Add real problem statements, dataset sources, methods, figures, metrics, and conclusions to the project sections. Clearly distinguish completed work from planned work.
+After changing either shared partial, regenerate the embedded header and footer. Use the read-only check to catch stale generated markup. Report bodies and report TOCs are maintained in their respective HTML files.
 
-The switch defaults to Vietnamese and remembers the selection in browser storage under `co5177-language`. If storage is unavailable, switching still works on the current page. Light/dark appearance follows the operating system.
-
-## Add notebook, PDF, and video links
-
-Each project contains three `.resource-item` blocks. Replace its non-clickable `.resource-pending` span with a real anchor, for example:
-
-```html
-<a class="text-link" href="https://github.com/superiorhamster/CO5177/blob/main/notebooks/tabular.ipynb">
-  <span data-i18n="open-notebook">Mở notebook</span>
-</a>
+```sh
+python -B scripts/build_site.py
+python -B scripts/build_site.py --check
+node --check pages/assets/navigation.js
+git diff --check
 ```
 
-This is a **format example**, not an existing notebook. Add `open-notebook` to both translation dictionaries and use the actual URL. Do not add a link until the resource exists.
+## GitHub Pages
 
-- Notebook: an actual GitHub `.ipynb` URL and/or Google Colab URL. Independently verify **Run all** completes in Colab.
-- Report: add the real PDF under `pages/reports/`, then use `../reports/actual-filename.pdf` from a project page, or supply a publicly accessible external URL.
-- Video: an actual YouTube URL, Public or Unlisted; 5–10 minutes is recommended.
+The workflow rebuilds shared markup and stages root `index.html`, `.nojekyll`, and `pages/`. The upload action archives the static payload with hidden files excluded. A clean checkout supplies only files tracked in the selected revision, so check new assets and notebook downloads with `git ls-files`. Keep site URLs relative for direct-file preview and the `/CO5177/` project prefix. The workflow runs on matching pushes to `main` and supports manual dispatch. Release owners manage the intended revision, Pages publishing source, and deployment approval. [Workflow source](.github/workflows/pages.yml)
 
-Keep internal URLs relative. Leading `/` URLs bypass the repository prefix and will break assets or navigation at `/CO5177/`. Add real members’ GitHub links only when provided; no placeholder profile URLs.
+## Documentation
 
-## Publish on GitHub Pages
-
-1. In [repository Pages settings](https://github.com/superiorhamster/CO5177/settings/pages), select **GitHub Actions** under **Build and deployment → Source**.
-2. Push the site and `.github/workflows/pages.yml` to `main`. The workflow also supports a manual run from the Actions tab.
-3. Confirm **Deploy assignment portfolio** succeeds and use the `github-pages` environment URL. The expected project-site address is `https://superiorhamster.github.io/CO5177/`; treat it as live only after checking the deployment.
-
-The workflow packages **root `index.html`, `.nojekyll`, and `pages/`** into a temporary website directory, with `index.html` at the artifact root. The requirements document, README, repository internals, and future notebooks outside `pages/` are not included in the website artifact. GitHub Pages settings must be enabled before the first workflow run. See [GitHub’s custom workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
-
-## Before submitting
-
-- Check all four pages at mobile and desktop widths, in both languages and color schemes. Check keyboard focus, navigation, and language persistence across pages.
-- Verify all actual links, including YouTube access and PDF downloads. Confirm notebooks run successfully in Colab.
-- Confirm group information matches `GroupRegistration`; add the verified landing-page URL to `GroupLink` before the LMS registration deadline.
-- Add a notebook, separate PDF report, and video for **each** project. Conclusions and chart captions must agree with the actual report metrics.
-- Submit the combined `<groupname>-report.pdf` to LMS. It does not replace the landing page or each project’s resources. No submission date is assumed; follow the lecturer’s LMS announcements.
+- [Content editing guide](docs/CONTENT_EDITING_GUIDE.md) for report sections, resources, shared UI, and the contributor checklist.
+- [UI development report](docs/UI_DEVELOPMENT_REPORT.md) for design history, verified outcomes, and open risks.
+- [Implementation plan](docs/TUFTE_UI_IMPLEMENTATION_PLAN.md) for approved decisions and detailed phase validation.
+- [AGENTS.md](AGENTS.md) for the current agent handoff.
+- [Original frontend analysis](docs/FRONTEND_ANALYSIS.md) and [legacy handoff](AGENT.md) for historical context. Use current source and the guides for active instructions.
