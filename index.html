@@ -7,83 +7,85 @@
     <meta
       name="description"
       content="Hồ sơ bài tập lớn học kỳ 261: dữ liệu bảng, văn bản và ảnh. Đại học Bách Khoa - ĐHQG-HCM."
-      data-i18n-content="home.description"
     />
-    <title data-i18n="home.title">CO5177 · Hồ sơ bài tập lớn</title>
+    <title>CO5177 · Hồ sơ bài tập lớn</title>
     <link rel="icon" type="image/png" href="pages/assets/bk.png" />
     <link rel="stylesheet" href="pages/assets/site.css" />
-    <script src="pages/assets/site.js" defer></script>
+    <script src="pages/assets/navigation.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main"
-      ><span data-i18n="skip">Đến nội dung chính</span></a
+      ><span>Đến nội dung chính</span></a
     >
+    <div class="dashboard-sidebar">
     <!-- shared:header:start -->
     <header class="site-header">
-      <div class="container header-inner">
-        <a class="brand" href="index.html" aria-label="CO5177">
-          <img class="brand-mark" src="pages/assets/bk.png" alt="" width="36" height="36" />
-          <span>CO5177<small><span data-i18n="brand">HỒ SƠ HỌC PHẦN</span></small></span>
+      <div class="header-inner">
+        <a class="brand" href="index.html">
+          <img class="brand-mark" src="pages/assets/bk.png" alt="Đại học Bách Khoa - ĐHQG-HCM" width="256" height="258" />
+          <span>CO5177<small><span>HỒ SƠ HỌC PHẦN</span></small></span>
         </a>
-        <nav class="main-nav" aria-label="Điều hướng chính" data-i18n-aria="nav">
-          <a href="index.html#projects"><span data-i18n="projects">Bài tập lớn</span></a>
-          <a href="index.html#team"><span data-i18n="team">Nhóm thực hiện</span></a>
-          <a class="repo-nav" href="https://github.com/superiorhamster/CO5177">GitHub <span aria-hidden="true">↗</span></a>
+        <nav class="main-nav" aria-label="Điều hướng chính">
+          <div class="nav-routes">
+            <a href="index.html" aria-current="page">Tổng quan</a>
+            <a href="pages/projects/tabular.html">Dữ liệu bảng</a>
+            <a href="pages/projects/text.html">Dữ liệu văn bản</a>
+            <a href="pages/projects/image.html">Dữ liệu ảnh</a>
+          </div>
+          <div class="nav-resources">
+            <a href="index.html#projects"><span>Bài tập lớn</span></a>
+            <a href="index.html#team"><span>Nhóm thực hiện</span></a>
+            <a class="repo-nav" href="https://github.com/superiorhamster/CO5177">GitHub <span aria-hidden="true">↗</span></a>
+          </div>
         </nav>
-        <div class="language-switch" role="group" aria-label="Ngôn ngữ" data-i18n-aria="language" hidden>
-          <button type="button" data-language="vi" aria-label="Tiếng Việt" aria-pressed="true">VI</button>
-          <button type="button" data-language="en" aria-label="English" aria-pressed="false">EN</button>
-        </div>
       </div>
     </header>
     <!-- shared:header:end -->
-    <main id="main" class="container">
+    </div>
+
+    <div class="dashboard-content">
+    <main id="main" class="container home-dashboard" tabindex="-1">
       <section class="hero" aria-labelledby="intro-title">
         <div class="hero-copy">
           <p class="eyebrow">
-            <span data-i18n="hero-eyebrow">ĐẠI HỌC BÁCH KHOA · ĐHQG-HCM</span>
+            <span>ĐẠI HỌC BÁCH KHOA · ĐHQG-HCM</span>
           </p>
-          <h1 data-i18n="hero-title" id="intro-title">
-            Dữ liệu nhiều để làm gì.
-          </h1>
-          <p class="hero-description">
-            <span data-i18n="course-name"
-              >Nền tảng lập trình cho phân tích và trực quan dữ liệu</span
-            >
-          </p>
+          <div class="hero-quote">
+            <h1 id="intro-title" lang="en">
+              “The greatest value of a picture is when it forces us to notice what we never expected to see.”
+            </h1>
+            <p class="hero-attribution">— John Tukey</p>
+          </div>
+          <div class="hero-course-summary">
+            <p class="hero-description">Nền tảng lập trình cho phân tích và trực quan dữ liệu</p>
+            <p class="semester">Học kỳ 261 · 2026–2027</p>
+          </div>
           <div class="hero-actions">
-            <a class="button primary" href="#projects"
-              ><span data-i18n="explore">Xem các bài tập lớn</span>
-              <span aria-hidden="true">↓</span></a
-            ><span class="semester"
-              ><span data-i18n="semester-short"
-                >Học kỳ 261 · 2026–2027</span
-              ></span
-            > 
+            <a class="button primary" href="#projects">Khám phá các bài tập lớn</a>
           </div>
         </div>
         <aside class="course-sheet" aria-labelledby="course-info">
           <div class="sheet-heading">
-            <h2 data-i18n="course-record" id="course-info">
+            <h2 id="course-info">
               THÔNG TIN HỌC PHẦN
             </h2>
             <span>CO5177</span>
           </div>
           <dl>
             <div>
-              <dt><span data-i18n="university">Trường</span></dt>
+              <dt><span>Trường</span></dt>
               <dd>Đại học Bách Khoa - ĐHQG-HCM</dd>
             </div>
             <div>
-              <dt><span data-i18n="faculty">Khoa</span></dt>
+              <dt><span>Khoa</span></dt>
               <dd>Khoa Khoa học và Kỹ thuật Máy tính</dd>
             </div>
             <div>
-              <dt><span data-i18n="lecturer">Giảng viên hướng </span></dt>
+              <dt><span>Giảng viên hướng </span></dt>
               <dd>TS. Lê Thành Sách</dd>
             </div>
             <div>
-              <dt><span data-i18n="academic-year">Học kỳ / Năm học</span></dt>
+              <dt><span>Học kỳ / Năm học</span></dt>
               <dd>261 / 2026-2027</dd>
             </div>
           </dl>
@@ -93,116 +95,122 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">
-              <span data-i18n="project-eyebrow"
+              <span
                 >PHÂN TÍCH · TRỰC QUAN · MÔ HÌNH HÓA</span
               >
             </p>
-            <h2 data-i18n="project-heading" id="projects-title">
+            <h2 id="projects-title">
               Ba góc nhìn về dữ liệu
             </h2>
           </div>
           <p>
-            <span data-i18n="project-summary"
+            <span
               >Mỗi loại dữ liệu, một bài tập riêng. Notebook, báo cáo và video
               được liên kết trong từng bài.</span
             >
           </p>
         </div>
         <div class="project-grid">
-          <article class="project-card">
-            <div class="card-top">
-              <svg
-                class="data-icon"
-                viewBox="0 0 40 40"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                aria-hidden="true"
-              >
-                <rect x="5" y="7" width="30" height="26" rx="2" />
-                <path d="M5 16h30M5 24h30M15 7v26M25 7v26" /></svg
-              ><span class="data-label">Tabular</span>
-            </div>
-            <h3>
-              <a class="project-link" href="pages/projects/tabular.html"
-                ><span data-i18n="tabular.name">Dữ liệu bảng</span
-                ><span class="card-arrow" aria-hidden="true">↗</span></a
-              >
-            </h3>
-            <p>
-              <span data-i18n="tabular.intro"
-                >Khám phá dữ liệu có cấu trúc, chuẩn bị đặc trưng và so sánh các
-                mô hình học máy.</span
-              >
-            </p>
-            <div class="card-bottom">
+          <div class="project-book">
+            <article class="project-card">
+              <div class="card-top">
+                <svg
+                  class="data-icon"
+                  viewBox="0 0 40 40"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  aria-hidden="true"
+                >
+                  <rect x="5" y="7" width="30" height="26" rx="2" />
+                  <path d="M5 16h30M5 24h30M15 7v26M25 7v26" /></svg
+                ><span class="data-label">Tabular</span>
+              </div>
+              <h3>
+                <a class="project-link" href="pages/projects/tabular.html" aria-describedby="tabular-resource-status"
+                  ><span>Dữ liệu bảng</span
+                  ><span class="card-arrow" aria-hidden="true">↗</span></a
+                >
+              </h3>
+              <p>
+                <span
+                  >Khám phá dữ liệu có cấu trúc, chuẩn bị đặc trưng và so sánh các
+                  mô hình học máy.</span
+                >
+              </p>
+            </article>
+            <div class="card-bottom" id="tabular-resource-status">
               <span class="status-dot" aria-hidden="true"></span
-              ><span data-i18n="project-pending"
-                >Nội dung đang chờ cập nhật</span
+              ><span
+                >Đã có kết quả và bản tải notebook; PDF/video đang chờ bổ sung</span
               >
             </div>
-          </article>
-          <article class="project-card text-project-card">
-            <div class="card-top">
-              <svg
-                class="data-icon"
-                viewBox="0 0 40 40"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                aria-hidden="true"
-              >
-                <path d="M7 10h26M7 18h19M7 26h26M7 34h13" /></svg
-              ><span class="data-label">Text</span>
-            </div>
-            <h3>
-              <a class="project-link" href="pages/projects/text.html"
-                ><span data-i18n="text.report.card-title">Vietnamese Sentiment Analysis</span><span class="card-arrow" aria-hidden="true">↗</span></a
-              >
-            </h3>
-            <p>
-              <span data-i18n="text.report.card-intro">Phân loại 3 nhãn cảm xúc tiếng Việt; benchmark 6 mô hình trên dữ liệu gốc và tăng cường (12 lượt chạy), kèm EDA và phân tích lỗi.</span>
-            </p>
-            <div class="card-bottom">
+          </div>
+          <div class="project-book">
+            <article class="project-card text-project-card">
+              <div class="card-top">
+                <svg
+                  class="data-icon"
+                  viewBox="0 0 40 40"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  aria-hidden="true"
+                >
+                  <path d="M7 10h26M7 18h19M7 26h26M7 34h13" /></svg
+                ><span class="data-label">Text</span>
+              </div>
+              <h3>
+                <a class="project-link" href="pages/projects/text.html" aria-describedby="text-resource-status"
+                  ><span>Vietnamese Sentiment Analysis</span><span class="card-arrow" aria-hidden="true">↗</span></a
+                >
+              </h3>
+              <p>
+                <span>Phân loại 3 nhãn cảm xúc tiếng Việt; benchmark 6 mô hình trên dữ liệu gốc và tăng cường (12 lượt chạy), kèm EDA và phân tích lỗi.</span>
+              </p>
+            </article>
+            <div class="card-bottom" id="text-resource-status">
               <span class="status-dot" aria-hidden="true"></span
-              ><span data-i18n="text.report.card-status">Đã có kết quả 12 lượt chạy và notebook; PDF/video đang chờ</span>
+              ><span>Đã có kết quả 12 lượt chạy và notebook; PDF/video đang chờ</span>
             </div>
-          </article>
-          <article class="project-card image-project-card">
-            <div class="card-top">
-              <svg
-                class="data-icon"
-                viewBox="0 0 40 40"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                aria-hidden="true"
-              >
-                <rect x="5" y="7" width="30" height="26" rx="2" />
-                <circle cx="26" cy="15" r="3" />
-                <path d="m5 28 10-10 10 10 5-5 5 5" /></svg
-              ><span class="data-label">Image</span>
-            </div>
-            <h3>
-              <a class="project-link" href="pages/projects/image.html"
-                ><span data-i18n="image.report.card-title"
-                  >Intel Image Classification</span
-                ><span class="card-arrow" aria-hidden="true">↗</span></a
-              >
-            </h3>
-            <p>
-              <span data-i18n="image.report.card-intro"
-                >Phân loại sáu lớp cảnh; so sánh MobileNetV3-Small và ViT-B/16
-                trên cùng dữ liệu, kèm EDA và quy trình tiền xử lý.</span
-              >
-            </p>
-            <div class="card-bottom">
+          </div>
+          <div class="project-book">
+            <article class="project-card image-project-card">
+              <div class="card-top">
+                <svg
+                  class="data-icon"
+                  viewBox="0 0 40 40"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  aria-hidden="true"
+                >
+                  <rect x="5" y="7" width="30" height="26" rx="2" />
+                  <circle cx="26" cy="15" r="3" />
+                  <path d="m5 28 10-10 10 10 5-5 5 5" /></svg
+                ><span class="data-label">Image</span>
+              </div>
+              <h3>
+                <a class="project-link" href="pages/projects/image.html" aria-describedby="image-resource-status"
+                  ><span
+                    >Intel Image Classification</span
+                  ><span class="card-arrow" aria-hidden="true">↗</span></a
+                >
+              </h3>
+              <p>
+                <span
+                  >Phân loại sáu lớp cảnh; so sánh MobileNetV3-Small và ViT-B/16
+                  trên cùng dữ liệu, kèm EDA và quy trình tiền xử lý.</span
+                >
+              </p>
+            </article>
+            <div class="card-bottom" id="image-resource-status">
               <span class="status-dot" aria-hidden="true"></span
-              ><span data-i18n="image.report.card-status"
+              ><span
                 >Đã có kết quả và notebook; PDF/video đang chờ bổ sung</span
               >
             </div>
-          </article>
+          </div>
         </div>
       </section>
       <section
@@ -212,13 +220,13 @@
       >
         <div>
           <p class="eyebrow">
-            <span data-i18n="team-eyebrow">NHÓM THỰC HIỆN</span>
+            <span>NHÓM THỰC HIỆN</span>
           </p>
-          <h2 data-i18n="team-heading" id="team-title">
+          <h2 id="team-title">
             Cùng đặt câu hỏi. Cùng tìm lời giải.
           </h2>
           <p class="muted">
-            <span data-i18n="team-description"
+            <span
               >Thông tin nhóm và phần đóng góp của từng thành viên được công bố
               tại đây.</span
             >
@@ -230,28 +238,28 @@
         <div class="team-panel">
           <dl class="group-details">
             <div>
-              <dt><span data-i18n="group-name">Tên nhóm đăng ký</span></dt>
+              <dt><span>Tên nhóm đăng ký</span></dt>
               <dd>SlightSeek</dd>
             </div>
             <div>
-              <dt><span data-i18n="member-list">Danh sách thành viên</span></dt>
-              <dd><span data-i18n="team.member-count">2 thành viên</span></dd>
+              <dt><span>Danh sách thành viên</span></dt>
+              <dd><span>2 thành viên</span></dd>
             </div>
           </dl>
           <p class="muted small">
-            <span data-i18n="team-note">Nhóm SlightSeek gồm 2 thành viên.</span>
+            <span>Nhóm SlightSeek gồm 2 thành viên.</span>
           </p>
           <div class="table-wrap member-table">
             <table>
               <caption class="visually-hidden">
-                <span data-i18n="member-list">Danh sách thành viên</span>
+                <span>Danh sách thành viên</span>
               </caption>
               <thead>
                 <tr>
-                  <th scope="col"><span data-i18n="full-name">Họ tên</span></th>
+                  <th scope="col"><span>Họ tên</span></th>
                   <th scope="col">MSSV</th>
                   <th scope="col">
-                    <span data-i18n="contribution">Đóng góp chính</span>
+                    <span>Đóng góp chính</span>
                   </th>
                   <th scope="col">GitHub</th>
                 </tr>
@@ -261,7 +269,7 @@
                   <td>Phạm Duy Anh</td>
                   <td>2310139</td>
                   <td>
-                    <span data-i18n="team.contribution.anh">Text và Image</span>
+                    <span>Text và Image</span>
                   </td>
                   <td>
                     <a href="https://github.com/superiorhamster"
@@ -273,7 +281,7 @@
                   <td>Nguyễn Phan Tuấn Duy</td>
                   <td>2310491</td>
                   <td>
-                    <span data-i18n="team.contribution.duy"
+                    <span
                       >Tabular và Text</span
                     >
                   </td>
@@ -291,9 +299,9 @@
       <aside class="completion-note">
         <span class="note-icon" aria-hidden="true">i</span>
         <div>
-          <h2 data-i18n="completion-title">Hồ sơ đang được hoàn thiện</h2>
+          <h2>Hồ sơ đang được hoàn thiện</h2>
           <p>
-            <span data-i18n="completion-description">Đã bổ sung thông tin nhóm SlightSeek, kết quả Image/Text, notebook Colab Image, notebook Kaggle Text và bản tải xuống cho cả hai bài. Nội dung và notebook Tabular, PDF report và video từng bài vẫn đang chờ; chưa kiểm chứng lại Run all.</span>
+            <span>Đã bổ sung thông tin nhóm SlightSeek, kết quả Image/Text, notebook Colab Image, notebook Kaggle Text và bản tải xuống cho cả hai bài. Đã có kết quả và bản tải notebook Tabular. PDF report và video từng bài vẫn đang chờ; chưa kiểm chứng lại Run all.</span>
           </p>
         </div>
       </aside>
@@ -303,13 +311,14 @@
       <div class="container footer-inner">
         <p>
           <strong>CO5177</strong> <span aria-hidden="true">/</span>
-          <span data-i18n="semester-short">Học kỳ 261 · 2026–2027</span>
+          <span>Học kỳ 261 · 2026–2027</span>
         </p>
         <a href="https://github.com/superiorhamster/CO5177">
-          <span data-i18n="source">Kho mã nguồn</span> <span aria-hidden="true">↗</span>
+          <span>Kho mã nguồn</span> <span aria-hidden="true">↗</span>
         </a>
       </div>
     </footer>
     <!-- shared:footer:end -->
+    </div>
   </body>
 </html>

@@ -1,17 +1,21 @@
 <header class="site-header">
-  <div class="container header-inner">
-    <a class="brand" href="{{root}}index.html" aria-label="CO5177">
-      <img class="brand-mark" src="{{assets}}bk.png" alt="" width="36" height="36" />
-      <span>CO5177<small><span data-i18n="brand">HỒ SƠ HỌC PHẦN</span></small></span>
+  <div class="header-inner">
+    <a class="brand" href="{{root}}index.html">
+      <img class="brand-mark" src="{{assets}}bk.png" alt="Đại học Bách Khoa - ĐHQG-HCM" width="256" height="258" />
+      <span>CO5177<small><span>HỒ SƠ HỌC PHẦN</span></small></span>
     </a>
-    <nav class="main-nav" aria-label="Điều hướng chính" data-i18n-aria="nav">
-      <a href="{{root}}index.html#projects"><span data-i18n="projects">Bài tập lớn</span></a>
-      <a href="{{root}}index.html#team"><span data-i18n="team">Nhóm thực hiện</span></a>
-      <a class="repo-nav" href="https://github.com/superiorhamster/CO5177">GitHub <span aria-hidden="true">↗</span></a>
+    <nav class="main-nav" aria-label="Điều hướng chính">
+      <div class="nav-routes">
+        <a href="{{root}}index.html"{{current:overview}}>Tổng quan</a>
+        <a href="{{root}}pages/projects/tabular.html"{{current:tabular}}>Dữ liệu bảng</a>
+        <a href="{{root}}pages/projects/text.html"{{current:text}}>Dữ liệu văn bản</a>
+        <a href="{{root}}pages/projects/image.html"{{current:image}}>Dữ liệu ảnh</a>
+      </div>
+      <div class="nav-resources">
+        <a href="{{root}}index.html#projects"><span>Bài tập lớn</span></a>
+        <a href="{{root}}index.html#team"><span>Nhóm thực hiện</span></a>
+        <a class="repo-nav" href="https://github.com/superiorhamster/CO5177">GitHub <span aria-hidden="true">↗</span></a>
+      </div>
     </nav>
-    <div class="language-switch" role="group" aria-label="Ngôn ngữ" data-i18n-aria="language" hidden>
-      <button type="button" data-language="vi" aria-label="Tiếng Việt" aria-pressed="true">VI</button>
-      <button type="button" data-language="en" aria-label="English" aria-pressed="false">EN</button>
-    </div>
   </div>
 </header>
