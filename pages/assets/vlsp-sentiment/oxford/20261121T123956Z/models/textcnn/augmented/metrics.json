@@ -1,0 +1,16 @@
+{
+  "architecture": "TextCNN",
+  "dataset": "Augmented",
+  "accuracy": 0.6828571428571428,
+  "balanced_accuracy": 0.6828571428571428,
+  "macro_precision": 0.6845441588830102,
+  "macro_recall": 0.6828571428571428,
+  "macro_f1": 0.6831368310602306,
+  "weighted_f1": 0.6831368310602305,
+  "mcc": 0.5247192329274414,
+  "polarity_reversal_rate": 0.11714285714285715,
+  "support": 1050,
+  "parameters": 4481203,
+  "train_seconds": 91.4226593510001,
+  "inference_seconds": 0.19349730300018564
+}

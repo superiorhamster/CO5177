@@ -1,0 +1,13 @@
+dataset,rule,cbow_tokens,cbow_oov_tokens,cbow_oov_types,bpe_total,bpe_over256
+Base,NFC+khoảng trắng,150378,27373,2468,172312,22
+Base,+chữ thường,150378,27373,2468,174840,22
+Base,+teencode,150349,27360,2462,172036,22
+Base,+emoticon thành từ,150129,26876,2471,172066,22
+Base,+rút chữ kéo dài,150378,27370,2457,172263,22
+Base,+lọc ký hiệu,147379,24145,2439,169223,21
+Augmented,NFC+khoảng trắng,288096,46418,2614,328094,36
+Augmented,+chữ thường,288096,46418,2614,331324,36
+Augmented,+teencode,288096,46418,2614,328094,36
+Augmented,+emoticon thành từ,288096,46418,2614,328094,36
+Augmented,+rút chữ kéo dài,288096,46444,2601,328028,36
+Augmented,+lọc ký hiệu,287820,46144,2600,327992,36

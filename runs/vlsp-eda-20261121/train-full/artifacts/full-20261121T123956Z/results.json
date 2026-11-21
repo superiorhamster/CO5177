@@ -1,0 +1,288 @@
+{
+  "run": {
+    "run_id": "20261121T123956Z",
+    "smoke_test": false,
+    "seed": 42,
+    "dataset": "anhphmduy/vlsp-sentiment-dataset/versions/5",
+    "fit_mode": "fixed_configuration",
+    "labels": [
+      -1,
+      0,
+      1
+    ],
+    "architectures": [
+      "TF-IDF + LinearSVC",
+      "TF-IDF + 1D-CNN",
+      "TextCNN",
+      "BiLSTM",
+      "CNN+BiLSTM",
+      "PhoBERT-base-v2"
+    ],
+    "sample_counts": {
+      "Base": 5042,
+      "Augmented": 9978,
+      "Test": 1050
+    },
+    "sources": {
+      "Base": {
+        "filename": "vlsp_sentiment_train.csv",
+        "sha256": "669f584a9fd149ebf7b4bc8aa16bbacff3ee14e0b05512fd035d6f33a3f4b417"
+      },
+      "Augmented": {
+        "filename": "vlsp_sentiment_train_augmented_v2.csv",
+        "sha256": "67220874e2d224bfe04dec0b37791addf72c6dbb54b5b13f355327bb8e2b4477"
+      },
+      "Test": {
+        "filename": "vlsp_sentiment_test.csv",
+        "sha256": "7252546b2a289eccaa3e6a4748cc021b567442a7f3352c468ff2cbe8e353e6c8"
+      }
+    },
+    "epochs": {
+      "neural": 15,
+      "phobert": 6
+    },
+    "timing_definition": "Fit preprocessor + model initialization + training/validation; excludes shared Word2Vec loading and test inference.",
+    "phobert_effective_batch": 32,
+    "manifest_sha256": "7da323a243abe5d6aeec931eb47ec19d2a2151c98420c2fdbbdcbca4e4775902",
+    "preprocessing": {
+      "version": "vlsp-eda-v2",
+      "common": [
+        "NFC",
+        "collapse_whitespace",
+        "preserve_original_text",
+        "preserve_negation_numbers_symbols"
+      ],
+      "semantic_replacements": false,
+      "elongation_reduction": false,
+      "tfidf": {
+        "lowercase": true,
+        "token_pattern": "(?u)(?::[-]?[)(d]|\\^\\^|t\\.t|\\b\\w+\\b)",
+        "ngram_range": [
+          1,
+          2
+        ],
+        "max_features": 20000,
+        "min_df": 1,
+        "sublinear_tf": true
+      },
+      "cbow": {
+        "lowercase": true,
+        "segmenter": "PyVi",
+        "vocabulary_limit": 10000,
+        "max_length": 300,
+        "pad": 0,
+        "unk": 1
+      },
+      "phobert": {
+        "preserve_case": true,
+        "segmenter": "RDRSegmenter",
+        "max_length": 256,
+        "effective_batch": 32
+      },
+      "eda_sources": {
+        "Base": "669f584a9fd149ebf7b4bc8aa16bbacff3ee14e0b05512fd035d6f33a3f4b417",
+        "Augmented": "67220874e2d224bfe04dec0b37791addf72c6dbb54b5b13f355327bb8e2b4477",
+        "Test": "7252546b2a289eccaa3e6a4748cc021b567442a7f3352c468ff2cbe8e353e6c8"
+      },
+      "eda_notebook_code_sha256": "b8e6a301ed431153ab51876b68e6b6e50fb27ed130655411d0e1c50ec37af1ec"
+    },
+    "word2vec": {
+      "file": "vi-model-CBOW.bin",
+      "sha256": "b81652d573e8b5aa57e1fa4ef13bcab735a0ed236b040969ae1e313ced3aceef"
+    }
+  },
+  "results": [
+    {
+      "architecture": "TF-IDF + LinearSVC",
+      "dataset": "Base",
+      "accuracy": 0.7104761904761905,
+      "balanced_accuracy": 0.7104761904761904,
+      "macro_precision": 0.7113852729896699,
+      "macro_recall": 0.7104761904761904,
+      "macro_f1": 0.7107955268683908,
+      "weighted_f1": 0.7107955268683908,
+      "mcc": 0.5658166808550297,
+      "polarity_reversal_rate": 0.1,
+      "support": 1050,
+      "parameters": 60003,
+      "train_seconds": 1.0985555319999776,
+      "inference_seconds": 0.06327298299993345
+    },
+    {
+      "architecture": "TF-IDF + LinearSVC",
+      "dataset": "Augmented",
+      "accuracy": 0.7095238095238096,
+      "balanced_accuracy": 0.7095238095238096,
+      "macro_precision": 0.7092415885832737,
+      "macro_recall": 0.7095238095238096,
+      "macro_f1": 0.7093627419423559,
+      "weighted_f1": 0.7093627419423558,
+      "mcc": 0.5643018374256888,
+      "polarity_reversal_rate": 0.10571428571428572,
+      "support": 1050,
+      "parameters": 60003,
+      "train_seconds": 1.7992235280000273,
+      "inference_seconds": 0.05888415100025668
+    },
+    {
+      "architecture": "TF-IDF + 1D-CNN",
+      "dataset": "Base",
+      "accuracy": 0.3333333333333333,
+      "balanced_accuracy": 0.3333333333333333,
+      "macro_precision": 0.1111111111111111,
+      "macro_recall": 0.3333333333333333,
+      "macro_f1": 0.16666666666666666,
+      "weighted_f1": 0.16666666666666666,
+      "mcc": 0.0,
+      "polarity_reversal_rate": 0.0,
+      "support": 1050,
+      "parameters": 50307,
+      "train_seconds": 133.32493116999996,
+      "inference_seconds": 0.48171482099996865
+    },
+    {
+      "architecture": "TF-IDF + 1D-CNN",
+      "dataset": "Augmented",
+      "accuracy": 0.3333333333333333,
+      "balanced_accuracy": 0.3333333333333333,
+      "macro_precision": 0.1111111111111111,
+      "macro_recall": 0.3333333333333333,
+      "macro_f1": 0.16666666666666666,
+      "weighted_f1": 0.16666666666666666,
+      "mcc": 0.0,
+      "polarity_reversal_rate": 0.0,
+      "support": 1050,
+      "parameters": 50307,
+      "train_seconds": 270.77655868499994,
+      "inference_seconds": 0.4175013660001241
+    },
+    {
+      "architecture": "TextCNN",
+      "dataset": "Base",
+      "accuracy": 0.679047619047619,
+      "balanced_accuracy": 0.679047619047619,
+      "macro_precision": 0.69102639072961,
+      "macro_recall": 0.679047619047619,
+      "macro_f1": 0.6791922422585576,
+      "weighted_f1": 0.6791922422585575,
+      "mcc": 0.5232532432330452,
+      "polarity_reversal_rate": 0.10285714285714286,
+      "support": 1050,
+      "parameters": 4122003,
+      "train_seconds": 47.39772833899997,
+      "inference_seconds": 0.19501843299985921
+    },
+    {
+      "architecture": "TextCNN",
+      "dataset": "Augmented",
+      "accuracy": 0.6828571428571428,
+      "balanced_accuracy": 0.6828571428571428,
+      "macro_precision": 0.6845441588830102,
+      "macro_recall": 0.6828571428571428,
+      "macro_f1": 0.6831368310602306,
+      "weighted_f1": 0.6831368310602305,
+      "mcc": 0.5247192329274414,
+      "polarity_reversal_rate": 0.11714285714285715,
+      "support": 1050,
+      "parameters": 4481203,
+      "train_seconds": 91.4226593510001,
+      "inference_seconds": 0.19349730300018564
+    },
+    {
+      "architecture": "BiLSTM",
+      "dataset": "Base",
+      "accuracy": 0.6876190476190476,
+      "balanced_accuracy": 0.6876190476190476,
+      "macro_precision": 0.6901583992905628,
+      "macro_recall": 0.6876190476190476,
+      "macro_f1": 0.6877203739630389,
+      "weighted_f1": 0.6877203739630389,
+      "mcc": 0.5322961607893973,
+      "polarity_reversal_rate": 0.11571428571428571,
+      "support": 1050,
+      "parameters": 3879779,
+      "train_seconds": 31.506392441999992,
+      "inference_seconds": 0.2392109369998252
+    },
+    {
+      "architecture": "BiLSTM",
+      "dataset": "Augmented",
+      "accuracy": 0.6761904761904762,
+      "balanced_accuracy": 0.6761904761904761,
+      "macro_precision": 0.6804721360635124,
+      "macro_recall": 0.6761904761904761,
+      "macro_f1": 0.6772036528512889,
+      "weighted_f1": 0.6772036528512888,
+      "mcc": 0.5151787639260921,
+      "polarity_reversal_rate": 0.10714285714285714,
+      "support": 1050,
+      "parameters": 4238979,
+      "train_seconds": 61.283977565999976,
+      "inference_seconds": 0.2526600590003909
+    },
+    {
+      "architecture": "CNN+BiLSTM",
+      "dataset": "Base",
+      "accuracy": 0.6847619047619048,
+      "balanced_accuracy": 0.6847619047619048,
+      "macro_precision": 0.6879905497226527,
+      "macro_recall": 0.6847619047619048,
+      "macro_f1": 0.6857010700604903,
+      "weighted_f1": 0.6857010700604902,
+      "mcc": 0.5277010076723533,
+      "polarity_reversal_rate": 0.09857142857142857,
+      "support": 1050,
+      "parameters": 3894243,
+      "train_seconds": 37.719531335000056,
+      "inference_seconds": 0.190679516000273
+    },
+    {
+      "architecture": "CNN+BiLSTM",
+      "dataset": "Augmented",
+      "accuracy": 0.6533333333333333,
+      "balanced_accuracy": 0.6533333333333333,
+      "macro_precision": 0.6824867744894679,
+      "macro_recall": 0.6533333333333333,
+      "macro_f1": 0.6488866443921525,
+      "weighted_f1": 0.6488866443921526,
+      "mcc": 0.4930404754065325,
+      "polarity_reversal_rate": 0.11142857142857143,
+      "support": 1050,
+      "parameters": 4253443,
+      "train_seconds": 75.31495347100008,
+      "inference_seconds": 0.18540571399989858
+    },
+    {
+      "architecture": "PhoBERT-base-v2",
+      "dataset": "Base",
+      "accuracy": 0.780952380952381,
+      "balanced_accuracy": 0.7809523809523808,
+      "macro_precision": 0.779360064317979,
+      "macro_recall": 0.7809523809523808,
+      "macro_f1": 0.7791409468852373,
+      "weighted_f1": 0.7791409468852373,
+      "mcc": 0.6723081783499134,
+      "polarity_reversal_rate": 0.055714285714285716,
+      "support": 1050,
+      "parameters": 135000579,
+      "train_seconds": 417.12154635699994,
+      "inference_seconds": 5.095324643999902
+    },
+    {
+      "architecture": "PhoBERT-base-v2",
+      "dataset": "Augmented",
+      "accuracy": 0.7780952380952381,
+      "balanced_accuracy": 0.7780952380952382,
+      "macro_precision": 0.7775498202506114,
+      "macro_recall": 0.7780952380952382,
+      "macro_f1": 0.7777166578538502,
+      "weighted_f1": 0.77771665785385,
+      "mcc": 0.667230919279545,
+      "polarity_reversal_rate": 0.05142857142857143,
+      "support": 1050,
+      "parameters": 135000579,
+      "train_seconds": 831.0565182579999,
+      "inference_seconds": 5.166862800000217
+    }
+  ]
+}

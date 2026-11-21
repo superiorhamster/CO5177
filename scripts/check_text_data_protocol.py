@@ -16,7 +16,7 @@ from sklearn.model_selection import StratifiedGroupKFold
 def main(notebook_path):
     notebook = json.loads(Path(notebook_path).read_text())
     sources = [''.join(cell['source']) for cell in notebook['cells'] if cell['cell_type'] == 'code']
-    normalization = next(source for source in sources if 'def audit_inputs(' in source).split('cleaned, audit =')[0]
+    normalization = next(source for source in sources if 'def audit_inputs(' in source).split('cleaned, audit =')[0].split('assert all(sha256_file')[0]
     splitting = next(source for source in sources if 'def partition_frames(' in source).split('lineage_path =')[0]
     namespace = dict(np=np, pd=pd, re=re, unicodedata=unicodedata, groupby=groupby,
                      StratifiedGroupKFold=StratifiedGroupKFold, SEED=42, LABELS=[-1, 0, 1])
@@ -56,14 +56,17 @@ def main(notebook_path):
             pass
         else:
             raise AssertionError('Incomplete lineage was accepted')
+    if namespace.get('PREPROCESSING_VERSION') == 'vlsp-eda-v2':
+        assert namespace['normalize_text']('Ko tốt :)) ❤️') == 'Ko tốt :)) ❤️'
+        assert namespace['normalize_text']('  KHÔNG   tốt! ') == 'KHÔNG tốt!'
     # Leakage after normalization must be removed from fit, while original test is retained.
-    raw['Test'] = frame([(0, 'Ko tốt'), (-1, 'mẫu test xấu'), (1, 'mẫu test tốt')], 'test')
-    raw['Base'] = pd.concat([base, frame([(0, 'không tốt')], 'overlap')], ignore_index=True)
+    raw['Test'] = frame([(0, ' KO  tốt '), (-1, 'mẫu test xấu'), (1, 'mẫu test tốt')], 'test')
+    raw['Base'] = pd.concat([base, frame([(0, 'ko tốt')], 'overlap')], ignore_index=True)
     cleaned, audit = namespace['audit_inputs'](raw)
     assert len(cleaned['Test']) == 3
-    assert not cleaned['Base'].text.eq('không tốt').any()
+    assert not cleaned['Base'].text.eq('ko tốt').any()
     assert audit.loc['Base', 'normalized_overlap_with_test'] == 1
-    raw['Test'].loc[0, 'text'] = '!!!'
+    raw['Test'].loc[0, 'text'] = '   '
     try:
         namespace['audit_inputs'](raw)
     except ValueError:

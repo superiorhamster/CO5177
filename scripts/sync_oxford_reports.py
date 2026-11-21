@@ -23,12 +23,24 @@ def esc(value):
     return html.escape(str(value), quote=True)
 
 
+def is_number(val):
+    s = str(val).strip()
+    if not s:
+        return False
+    s = s.rstrip('%').replace('.', '').replace(',', '.')
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+
 def table(headers, rows, caption, identifier=None):
     heading_id = f' id="{identifier}"' if identifier else ''
     return (f'<h3{heading_id}>{esc(caption)}</h3><div class="table-wrap report-table" tabindex="0" role="region" '
             f'aria-label="{esc(caption)}"><table><caption class="visually-hidden">{esc(caption)}</caption><thead><tr>'
             + ''.join(f'<th scope="col">{esc(value)}</th>' for value in headers) + '</tr></thead><tbody>'
-            + ''.join('<tr>' + ''.join(f'<th scope="row">{esc(v)}</th>' if j == 0 else f'<td class="report-number">{esc(v)}</td>'
+            + ''.join('<tr>' + ''.join(f'<th scope="row">{esc(v)}</th>' if j == 0 else (f'<td class="report-number">{esc(v)}</td>' if is_number(v) else f'<td>{esc(v)}</td>')
                                        for j, v in enumerate(row)) + '</tr>' for row in rows)
             + '</tbody></table></div>')
 
@@ -96,15 +108,28 @@ def install_report(kind, inner, old, asset_dir, notebook_name):
     (asset_dir / 'source.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n')
 
 
-def text_report(source):
+def text_report(source, eda_source=None):
+    if not (source / 'run.json').is_file():
+        subs = sorted(source.glob('full-*/run.json'))
+        if subs:
+            source = subs[-1].parent
     check_text(source)
     metadata = json.loads((source / 'run.json').read_text())
+    if metadata.get('preprocessing', {}).get('version') == 'vlsp-eda-v2' and eda_source is None:
+        raise ValueError('Pipeline v2 cần --eda-results để đồng bộ bằng chứng EDA CPU.')
     assert not metadata['smoke_test']
     run_id = metadata['run_id']
     date = run_date(run_id)
     destination = ROOT / 'pages/assets/vlsp-sentiment/oxford' / run_id
     copy_evidence(source, destination)
     (destination / 'source.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n')
+    eda_destination = None
+    if eda_source is not None:
+        assert metadata['preprocessing']['version'] == 'vlsp-eda-v2'
+        eda_info = json.loads((eda_source / 'source.json').read_text())
+        assert eda_info['cpu_only'] and eda_info['sources'] == metadata['preprocessing']['eda_sources']
+        eda_destination = ROOT / 'pages/assets/vlsp-sentiment/eda-v2' / run_id
+        copy_evidence(eda_source, eda_destination)
     rows = read_csv(source / 'summary.csv')
     best = max(rows, key=lambda r: float(r['macro_f1']))
     audit = {r['split']: r for r in read_csv(source / 'data_audit.csv')}
@@ -120,21 +145,46 @@ def text_report(source):
                'Nhãn −1: tiêu cực, 0: trung lập, +1: tích cực. Số dòng đọc từ CSV và số dòng sử dụng được báo riêng.</p>'
                + table(['Tập', 'Dòng gốc', 'Dòng sử dụng'], raw_counts, 'Quy mô dữ liệu')
                + '<h3 id="eda">Khám phá dữ liệu</h3>')
-    for filename, caption in [('eda-raw-lengths.png', 'Độ dài văn bản gốc: phân phối tích lũy theo nhãn.'),
-                              ('eda-labels.png', 'Phân bố nhãn trước kiểm toán và sau lọc/chia tập.'),
-                              ('eda-cleaning-audit.png', 'Kiểm toán dữ liệu: các nhóm có thể chồng lấn.'),
-                              ('eda-lexical.png', 'Tín hiệu từ vựng trước/sau chuẩn hóa và bigram theo lớp.'),
-                              ('eda-class-similarity.png', 'Cosine giữa các centroid TF-IDF của Base fit.'),
-                              ('eda-tokenizers.png', 'Độ dài theo PyVi và PhoBERT BPE; đường ngang là giới hạn đầu vào.')]:
-        dataset += figure(destination / 'eda' / filename, caption)
-    preparation = ('<p>Giữ văn bản gốc; chuẩn Unicode, teencode và emoticon; giữ dấu tiếng Việt, chữ số và phủ định. '
-                   'Dữ liệu phát triển loại câu rỗng, trùng test và nhóm mâu thuẫn nhãn trước khi gộp các câu trùng.</p>'
-                   f'<p>Cách đánh giá: <strong>{"cấu hình cố định, thiếu lineage" if metadata["fit_mode"] == "fixed_configuration" else "validation chung theo nhóm nguồn"}</strong>. '
-                   + ('Thiếu lineage: không chia validation ngẫu nhiên từ dữ liệu tăng cường; chạy 15 epoch cho CNN/LSTM, 6 epoch cho PhoBERT và dùng epoch cuối cố định.'
-                      if metadata['fit_mode'] == 'fixed_configuration' else 'Validation chung 20% theo nhóm nguồn Base; các câu Augmented thuộc nhóm validation được giữ ngoài fit; checkpoint chọn bằng validation macro-F1.')
-                   + ' Test dùng sau khi hoàn tất huấn luyện.</p>'
-                   '<p>TF-IDF/vocabulary chỉ fit trên dữ liệu huấn luyện của từng phiên bản. Word2Vec dùng PAD/UNK, embedding riêng và pooling có masking/packing. '
-                   'PhoBERT dùng RDRSegmenter trước BPE, tối đa 256 token và effective batch 32.</p>')
+    if eda_destination is None:
+        figures = [(destination / 'eda' / filename, caption) for filename, caption in [
+            ('eda-raw-lengths.png', 'Độ dài văn bản gốc theo nhãn.'),
+            ('eda-labels.png', 'Phân bố nhãn trước và sau kiểm toán.'),
+            ('eda-cleaning-audit.png', 'Kiểm toán dữ liệu: các nhóm có thể chồng lấn.'),
+            ('eda-lexical.png', 'Tín hiệu từ vựng và bigram theo lớp.'),
+            ('eda-class-similarity.png', 'Cosine giữa centroid TF-IDF của Base fit.'),
+            ('eda-tokenizers.png', 'Độ dài PyVi và PhoBERT BPE.')]]
+    else:
+        dataset += '<p>EDA chạy trước huấn luyện trên Colab CPU. Các phân tích theo nhãn chỉ dùng Base/Augmented; test chỉ phục vụ kiểm toán schema và giao văn bản.</p>'
+        figures = [(eda_destination / filename, caption) for filename, caption in [
+            ('labels.png', 'Phân bố nhãn của Base/Augmented gốc.'),
+            ('lengths.png', 'ECDF độ dài văn bản gốc: đọc cùng đuôi dài và ví dụ câu.'),
+            ('audit.png', 'Câu rỗng, bản sao và giao test theo văn bản; các nhóm có thể chồng lấn.'),
+            ('signals.png', 'Tỷ lệ câu có phủ định, teencode, kéo dài và biểu tượng theo lớp; không suy nghĩa từ tần suất.'),
+            ('rule-impacts.png', 'Tỷ lệ câu thay đổi so với gốc; mỗi quy tắc được thử cùng nền NFC/khoảng trắng.'),
+            ('tfidf-coverage.png', 'Độ phủ lượt đặc trưng-văn bản theo giới hạn vocabulary, min_df=1; fit trên từng tập phát triển.'),
+            ('tfidf-df.png', 'Document frequency theo analyzer word: đường tích lũy cho thấy tỷ trọng đặc trưng hiếm.'),
+            ('token-limits.png', 'ECDF số từ PyVi và token PhoBERT BPE, gồm special tokens; vạch đỏ là giới hạn 300/256.'),
+            ('cbow-coverage.png', 'Phân bố OOV pretrained và UNK vocabulary từng câu; hai chỉ số không tương đương.')]]
+        tfidf = [r for r in read_csv(eda_source / 'tfidf_diagnostics.csv') if r['min_df'] == '1' and r['analyzer'] == 'word+emoticon']
+        dataset += table(['Tập', 'Giới hạn đặc trưng', 'Độ phủ (%)', 'Câu mất đặc trưng', 'Dense batch 128 (MB)'],
+                         [[r['dataset'], r['max_features'], f'{100*float(r["feature_occurrence_coverage"]):.2f}', r['empty_documents'], f'{int(r["dense_batch128_bytes"])/1e6:.2f}'] for r in tfidf], 'Độ phủ TF-IDF trên dữ liệu phát triển')
+        limits = [r for r in read_csv(eda_source / 'sequence_limits.csv') if (r['embedder'], r['limit']) in {('CBOW','300'),('PhoBERT','256')}]
+        dataset += table(['Tập', 'Embedder', 'Giới hạn', 'Câu bị cắt (%)', 'Lượt token bị mất (%)', 'p99'],
+                         [[r['dataset'],r['embedder'],r['limit'],f'{float(r["truncated_percent"]):.2f}',f'{float(r["tokens_removed_percent"]):.2f}',f'{float(r["p99"]):.1f}'] for r in limits], 'Mức mất thông tin do cắt chuỗi')
+    for path, caption in figures:
+        dataset += figure(path, caption)
+    preparation = ('<p>Giữ văn bản gốc; chuẩn NFC và khoảng trắng. Không thay đồng loạt teencode/emoticon thành từ cảm xúc, không rút chữ kéo dài hoặc xóa ký hiệu. '
+                   'Dữ liệu phát triển được kiểm toán lại về câu rỗng, trùng test và mâu thuẫn nhãn trước khi chia tập.</p>'
+                   + table(['Embedder', 'Đầu vào và quyết định từ EDA', 'Giới hạn'], [
+                       ('TF-IDF','Chữ thường; analyzer giữ emoticon; unigram/bigram, min_df=1, tối đa 20.000 đặc trưng. EDA cho thấy độ phủ tăng so với 5.000 và ít câu mất đặc trưng hơn.','Coverage trong tập fit không bảo đảm tăng F1; dense chỉ theo minibatch.'),
+                       ('CBOW','Chữ thường rồi PyVi; vocabulary 10.000 fit riêng, PAD/UNK, embedding trainable độc lập, masking/packing, tối đa 300 từ.','Một số ít câu dài gây mất lượng token đáng kể; OOV pretrained khác UNK vocabulary.'),
+                       ('PhoBERT','Giữ hoa/thường; RDRSegmenter trước BPE, tối đa 256 token gồm special tokens, effective batch 32.','Giới hạn kiến trúc; không loại câu dài để làm đẹp chỉ số.')], 'Xử lý riêng cho từng embedder')
+                   + f'<p>Protocol: <strong>{"cấu hình cố định, thiếu lineage" if metadata["fit_mode"] == "fixed_configuration" else "validation chung theo nhóm nguồn"}</strong>. '
+                   + ('Thiếu lineage: không chia validation ngẫu nhiên từ Augmented; chạy 15 epoch CNN/LSTM, 6 epoch PhoBERT và dùng epoch cuối.' if metadata['fit_mode']=='fixed_configuration' else 'Validation chung 20% theo nhóm nguồn; chọn checkpoint bằng validation macro-F1.')
+                   + ' Chỉ đánh giá test sau huấn luyện; TF-IDF và vocabulary fit riêng trên tập huấn luyện từng phiên bản.</p>')
+    if eda_destination is not None:
+        eda_base = '../assets/' + eda_destination.relative_to(ROOT / 'pages/assets').as_posix()
+        preparation += '<p>' + ' · '.join(f'<a href="{eda_base}/{name}" download>{label}</a>' for name,label in [('rule_impacts.csv','Tác động từng quy tắc'),('rule_examples.csv','Ví dụ trước/sau'),('rule_collisions.csv','Va chạm chuẩn hóa'),('tfidf_diagnostics.csv','Chẩn đoán TF-IDF'),('embedder_rule_comparison.csv','Quy tắc và độ phủ embedder'),('cbow_oov.csv','Từ OOV CBOW'),('truncation_examples.csv','Nội dung bị cắt'),('preprocessing_policy.json','Policy đã chốt')]) + '</p>'
     analysis = ('<p>Sáu kiến trúc: TF-IDF + LinearSVC, TF-IDF + 1D-CNN, TextCNN, BiLSTM, CNN+BiLSTM và PhoBERT-base-v2. '
                 'TF-IDF + CNN tích chập theo trục đặc trưng từ vựng; trục này không biểu diễn thứ tự từ trong câu.</p>'
                 '<p>Thời gian train tính từ fit bộ xử lý/khởi tạo mô hình đến hết train và validation; không gồm nạp CBOW chung hoặc test. '
@@ -171,7 +221,20 @@ def text_report(source):
                   '<p>Một seed, nguồn augmentation và khả năng gần trùng còn hạn chế kết luận. Các số liệu mô tả lần chạy hiện tại; không suy ra mọi augmentation đều có ích. '
                   'Tiếp theo có thể bổ sung lineage, chạy nhiều seed và kiểm tra thủ công các cặp nhãn nhầm.</p>'
                   f'<p>{downloads}</p><p>Nhóm SlightSeek: Phạm Duy Anh (2310139), Nguyễn Phan Tuấn Duy (2310491).</p>')
-    inner = hero + '<div class="project-layout"><article class="project-content">' + resources(old, 'sentimentanalysis.ipynb', date)
+    previous_path = ROOT / 'pages/assets/vlsp-sentiment/oxford/20261120T161056Z/summary.csv'
+    if previous_path.exists():
+        previous = {(r['architecture'],r['dataset']):r for r in read_csv(previous_path)}
+        conclusion += table(['Mô hình', 'Tập', 'F1 cũ (%)', 'F1 mới (%)', 'Chênh lệch (điểm %)'],
+            [[r['architecture'],r['dataset'],f'{100*float(previous[r["architecture"],r["dataset"]]["macro_f1"]):.2f}',f'{100*float(r["macro_f1"]):.2f}',f'{100*(float(r["macro_f1"])-float(previous[r["architecture"],r["dataset"]]["macro_f1"])):+.2f}'] for r in rows], 'Đối chiếu pipeline trước ngày 20/11/2026')
+        conclusion += '<p>Hai pipeline thay đổi đồng thời xử lý nội dung, biểu diễn TF-IDF và số mẫu sau kiểm toán. Đây là đối chiếu mô tả, không cô lập tác động của từng thay đổi. <a href="../assets/vlsp-sentiment/oxford/20261120T161056Z/summary.csv">CSV lần chạy trước</a>.</p>'
+    resource_html = resources(old, 'sentimentanalysis.ipynb', date)
+    if eda_destination is not None:
+        eda_row = '<div class="resource-item"><div><h3>Notebook EDA (CPU)</h3><p>Khảo sát gốc, đối chiếu quy tắc, độ phủ TF-IDF/CBOW và mức cắt PhoBERT trước huấn luyện.</p></div><div class="resource-actions"><a class="text-link" href="https://colab.research.google.com/github/superiorhamster/CO5177/blob/main/ipynb/text/sentimentanalysis_eda.ipynb">Mở EDA trên Colab ↗</a> <a class="text-link" href="../notebooks/sentimentanalysis_eda.ipynb" download>Tải notebook EDA có output</a></div></div>'
+        # Existing resources() keeps PDF/video rows; insert immediately before PDF.
+        marker = re.search(r'<div class="resource-item">\s*<div>\s*<h3>PDF report</h3>', resource_html).start()
+        resource_html = resource_html[:marker] + eda_row + resource_html[marker:]
+        shutil.copy2(ROOT / 'ipynb/text/sentimentanalysis_eda.ipynb', ROOT / 'pages/notebooks/sentimentanalysis_eda.ipynb')
+    inner = hero + '<div class="project-layout"><article class="project-content">' + resource_html
     inner += section('dataset', 'Mô tả tập dữ liệu và EDA', dataset, 1)
     inner += section('preparation', 'Chuẩn bị dữ liệu', preparation, 2)
     inner += section('analysis', 'Mô hình, đường học và kết quả', analysis, 3)
@@ -281,9 +344,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--text-results', type=Path)
     parser.add_argument('--image-results', type=Path)
+    parser.add_argument('--eda-results', type=Path)
     args = parser.parse_args()
     if args.text_results:
-        text_report(args.text_results)
+        text_report(args.text_results, args.eda_results)
     if args.image_results:
         image_report(args.image_results)
 

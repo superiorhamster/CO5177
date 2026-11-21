@@ -1,0 +1,55 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.9309001893857224,
+      "train_accuracy": 0.7534708449028164,
+      "train_macro_f1": 0.7441753828860757,
+      "train_eval_loss": 0.6292708879044868
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.6195212776156845,
+      "train_accuracy": 0.8375644585481952,
+      "train_macro_f1": 0.8366922074103084,
+      "train_eval_loss": 0.46389142321906646
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.4799304615642664,
+      "train_accuracy": 0.8919079730265768,
+      "train_macro_f1": 0.8907862426522494,
+      "train_eval_loss": 0.33059566357763737
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.36420089316150583,
+      "train_accuracy": 0.9379214597381992,
+      "train_macro_f1": 0.9381351358070176,
+      "train_eval_loss": 0.23236226800272078
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.27911698652704003,
+      "train_accuracy": 0.9490281634272114,
+      "train_macro_f1": 0.9490049616220869,
+      "train_eval_loss": 0.19364087540731692
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.24551518707699077,
+      "train_accuracy": 0.949821499404998,
+      "train_macro_f1": 0.9497294292687931,
+      "train_eval_loss": 0.19154186192744785
+    }
+  ],
+  "selected_epoch": 6,
+  "selection": "fixed_final_epoch",
+  "parameters": 135000579,
+  "architecture": "PhoBERT-base-v2",
+  "dataset": "Base",
+  "train_seconds": 417.12154635699994,
+  "fit_mode": "fixed_configuration",
+  "fit_rows": 5042,
+  "directory": "vlsp_oxford_results/full-20261121T123956Z/models/phobert-base-v2/base"
+}

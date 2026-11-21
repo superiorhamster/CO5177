@@ -1,0 +1,82 @@
+[
+  {
+    "file": "models/phobert-base-v2/base/pretrained/model.safetensors",
+    "sha256": "b0e3abed2df9f107b9066f784854aace6a66809f7d605f5e964b185cf79f6256",
+    "bytes": 540026460
+  },
+  {
+    "file": "models/phobert-base-v2/augmented/pretrained/model.safetensors",
+    "sha256": "4249b21226192423fd3159ed4d25345440b4bfdd2baa500af83b82a4d2230ebe",
+    "bytes": 540026460
+  },
+  {
+    "file": "models/cnn-bilstm/augmented/best.pt",
+    "sha256": "6d8278e898878a29abe22b46fb4ce273e8ee77b40ef50c542363e5b629c866fc",
+    "bytes": 17017137
+  },
+  {
+    "file": "models/cnn-bilstm/base/best.pt",
+    "sha256": "c0a5d65d0c51865498e45348c5d609da00d1c9ad5897f0b6c4cb8a5769eada46",
+    "bytes": 15580337
+  },
+  {
+    "file": "models/tf-idf-linearsvc/augmented/classifier.joblib",
+    "sha256": "31f8dca4b2caf61e01876c3a25cbe0457421eed584979930ba822d728ccc25a1",
+    "bytes": 480763
+  },
+  {
+    "file": "models/tf-idf-linearsvc/augmented/vectorizer.joblib",
+    "sha256": "e4b09fee5986b34f0b481d22b9acf0f007be5d4a99bef4cbaa4d7f2ea7b61b00",
+    "bytes": 704515
+  },
+  {
+    "file": "models/tf-idf-linearsvc/base/classifier.joblib",
+    "sha256": "3318760278a97ae62af5cc2380ffeecab407fe75c0b2caf1e2687e2c323d1d66",
+    "bytes": 480763
+  },
+  {
+    "file": "models/tf-idf-linearsvc/base/vectorizer.joblib",
+    "sha256": "cd478746be80932b7905fdeb5c014d3bf4919405c90d0b59b9c23aaf05279660",
+    "bytes": 700658
+  },
+  {
+    "file": "models/textcnn/augmented/best.pt",
+    "sha256": "071ae9f3d4d3501af181b2c748acd2e8822185864943647b0e2cd49a4a84a24a",
+    "bytes": 17928412
+  },
+  {
+    "file": "models/textcnn/base/best.pt",
+    "sha256": "75e748ca14cd7c0e3705aa06c952c98eb98b7b57754c504c3ae40e24ce1c3d50",
+    "bytes": 16491612
+  },
+  {
+    "file": "models/tf-idf-1d-cnn/augmented/best.pt",
+    "sha256": "a2da9e52a50a7b1f8d84d05adfbae6544f8ba2b6a6def25b360b86aaa74d070c",
+    "bytes": 208165
+  },
+  {
+    "file": "models/tf-idf-1d-cnn/augmented/vectorizer.joblib",
+    "sha256": "e4b09fee5986b34f0b481d22b9acf0f007be5d4a99bef4cbaa4d7f2ea7b61b00",
+    "bytes": 704515
+  },
+  {
+    "file": "models/tf-idf-1d-cnn/base/best.pt",
+    "sha256": "76264ebfd943f2248d3aee4cf280cc500f07d15665d7d6f4fc10ffcfd7d8855a",
+    "bytes": 208165
+  },
+  {
+    "file": "models/tf-idf-1d-cnn/base/vectorizer.joblib",
+    "sha256": "cd478746be80932b7905fdeb5c014d3bf4919405c90d0b59b9c23aaf05279660",
+    "bytes": 700658
+  },
+  {
+    "file": "models/bilstm/augmented/best.pt",
+    "sha256": "45f4a4308d2604fbb382ee6465a9883b90f2309d722852a24848f140a8c85172",
+    "bytes": 16958847
+  },
+  {
+    "file": "models/bilstm/base/best.pt",
+    "sha256": "4e742c10138c405019c263ebb3a67e626406d1061a0ab788df73a3c0f6a39762",
+    "bytes": 15522047
+  }
+]

@@ -1,0 +1,25 @@
+dataset,rule,analyzer,features,nnz,empty_documents
+Base,NFC+khoảng trắng,word,5000,158419,4
+Base,+chữ thường,word,5000,158419,4
+Base,+teencode,word,5000,159394,4
+Base,+emoticon thành từ,word,5000,158586,4
+Base,+rút chữ kéo dài,word,5000,158447,4
+Base,+lọc ký hiệu,word,5000,158419,4
+Base,NFC+khoảng trắng,word+emoticon,5000,158557,4
+Base,+chữ thường,word+emoticon,5000,158557,4
+Base,+teencode,word+emoticon,5000,159588,4
+Base,+emoticon thành từ,word+emoticon,5000,158610,4
+Base,+rút chữ kéo dài,word+emoticon,5000,158595,4
+Base,+lọc ký hiệu,word+emoticon,5000,158428,4
+Augmented,NFC+khoảng trắng,word,5000,334434,9
+Augmented,+chữ thường,word,5000,334434,9
+Augmented,+teencode,word,5000,334412,9
+Augmented,+emoticon thành từ,word,5000,334434,9
+Augmented,+rút chữ kéo dài,word,5000,334425,9
+Augmented,+lọc ký hiệu,word,5000,334434,9
+Augmented,NFC+khoảng trắng,word+emoticon,5000,334434,9
+Augmented,+chữ thường,word+emoticon,5000,334434,9
+Augmented,+teencode,word+emoticon,5000,334412,9
+Augmented,+emoticon thành từ,word+emoticon,5000,334434,9
+Augmented,+rút chữ kéo dài,word+emoticon,5000,334425,9
+Augmented,+lọc ký hiệu,word+emoticon,5000,334434,9

@@ -109,7 +109,17 @@ def check_notebook(path, executed=False):
 
 
 def check_text(directory):
+    if not (directory / 'run.json').is_file():
+        subs = sorted(directory.glob('full-*/run.json'))
+        if subs:
+            directory = subs[-1].parent
     run = json.loads((directory / 'run.json').read_text())
+    if 'preprocessing' in run:
+        policy = json.loads((directory / 'preprocessing_policy.json').read_text())
+        assert policy == run['preprocessing']
+        assert policy['version'] == 'vlsp-eda-v2'
+        assert policy['tfidf']['max_features'] == 20000
+        assert policy['phobert']['preserve_case'] and not policy['semantic_replacements']
     groups = defaultdict(list)
     for row in read_csv(directory / 'predictions.csv'):
         groups[row['architecture'], row['dataset']].append(row)
@@ -223,7 +233,16 @@ def check_report_links():
 
 
 def check_checkpoint_archive(directory):
-    archive_path = directory.parents[1] / 'selected-checkpoints.zip'
+    if not (directory / 'model_files.json').is_file():
+        subs = sorted(directory.glob('full-*/model_files.json'))
+        if subs:
+            directory = subs[-1].parent
+    candidates = [
+        directory / 'selected-checkpoints.zip',
+        directory.parent / 'selected-checkpoints.zip',
+        directory.parents[1] / 'selected-checkpoints.zip' if len(directory.parents) > 1 else directory.parent / 'selected-checkpoints.zip',
+    ]
+    archive_path = next((p for p in candidates if p.is_file()), directory.parents[1] / 'selected-checkpoints.zip')
     expected = json.loads((directory / 'model_files.json').read_text())
     assert expected, 'No checkpoint fingerprints exported'
     with zipfile.ZipFile(archive_path) as archive:
@@ -242,6 +261,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--text-results', type=Path)
     parser.add_argument('--image-results', type=Path)
+    parser.add_argument('--eda-results', type=Path)
     parser.add_argument('--require-executed', action='store_true')
     parser.add_argument('--verify-checkpoints', action='store_true')
     args = parser.parse_args()
@@ -253,6 +273,9 @@ def main():
         check_text(args.text_results)
     if args.image_results:
         check_image(args.image_results)
+    if args.eda_results:
+        from validate_text_eda import main as check_eda
+        check_eda(args.eda_results)
     if args.verify_checkpoints:
         for directory in (args.text_results, args.image_results):
             if directory:

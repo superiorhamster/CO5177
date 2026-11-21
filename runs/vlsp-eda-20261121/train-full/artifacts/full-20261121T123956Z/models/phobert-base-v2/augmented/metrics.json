@@ -1,0 +1,16 @@
+{
+  "architecture": "PhoBERT-base-v2",
+  "dataset": "Augmented",
+  "accuracy": 0.7780952380952381,
+  "balanced_accuracy": 0.7780952380952382,
+  "macro_precision": 0.7775498202506114,
+  "macro_recall": 0.7780952380952382,
+  "macro_f1": 0.7777166578538502,
+  "weighted_f1": 0.77771665785385,
+  "mcc": 0.667230919279545,
+  "polarity_reversal_rate": 0.05142857142857143,
+  "support": 1050,
+  "parameters": 135000579,
+  "train_seconds": 831.0565182579999,
+  "inference_seconds": 5.166862800000217
+}

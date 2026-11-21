@@ -13,6 +13,11 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def cell_text(cell):
+    source = cell.get('source', '')
+    return ''.join(source) if isinstance(source, list) else str(source)
+
+
 def tidy_outputs(notebook):
     """Keep evidence/epoch summaries; remove transient batch/download progress displays."""
     removed = 0
@@ -54,17 +59,22 @@ def main():
     args = parser.parse_args()
     original = json.loads(args.input.read_text())
     notebook = json.loads(args.output.read_text())
-    assert [(c['cell_type'], c['source']) for c in original['cells']] == [(c['cell_type'], c['source']) for c in notebook['cells']]
+    assert [(c['cell_type'], cell_text(c)) for c in original['cells']] == [(c['cell_type'], cell_text(c)) for c in notebook['cells']]
     if args.destination.exists():
         current = json.loads(args.destination.read_text())
-        assert [(c['cell_type'], c['source']) for c in current['cells']] == [(c['cell_type'], c['source']) for c in original['cells']], 'Notebook source changed after dispatch; preserve those edits before installing outputs.'
+        assert [(c['cell_type'], cell_text(c)) for c in current['cells']] == [(c['cell_type'], cell_text(c)) for c in original['cells']], 'Notebook source changed after dispatch; preserve those edits before installing outputs.'
     assert not [(i, o) for i, c in enumerate(notebook['cells']) for o in c.get('outputs', []) if o.get('output_type') == 'error']
     code_count = sum(c['cell_type'] == 'code' for c in original['cells'])
     logged = re.findall(r'\[colab\] Executing cell (\d+)/(\d+)', args.log.read_text())
     assert logged == [(str(index), str(code_count)) for index in range(1, code_count + 1)]
-    verification = json.loads((args.artifacts / 'verification.json').read_text())
+    artifacts = args.artifacts
+    if not (artifacts / 'verification.json').is_file():
+        subs = sorted(artifacts.glob('full-*/verification.json'))
+        if subs:
+            artifacts = subs[-1].parent
+    verification = json.loads((artifacts / 'verification.json').read_text())
     assert verification['status'] == 'passed' and not verification['smoke_test']
-    environment = json.loads((args.artifacts / 'environment.json').read_text())
+    environment = json.loads((artifacts / 'environment.json').read_text())
     assert 'T4' in environment['gpu']
     removed_progress = tidy_outputs(notebook)
     notebook['metadata']['verified_execution'] = {
@@ -74,7 +84,7 @@ def main():
         'source_sha256': digest(args.input), 'log_sha256': digest(args.log),
         'cells_sha256': hashlib.sha256(json.dumps(notebook['cells'], ensure_ascii=False, sort_keys=True).encode()).hexdigest(),
         'code_cells': code_count, 'gpu': environment['gpu'], 'seed': 42,
-        'verification_sha256': digest(args.artifacts / 'verification.json'),
+        'verification_sha256': digest(artifacts / 'verification.json'),
         'output_cleanup': {'removed_progress_fragments': removed_progress, 'raw_output_preserved': args.output.name},
         'execution_method': 'colab CLI exec, sequential cells, clean kernel',
     }

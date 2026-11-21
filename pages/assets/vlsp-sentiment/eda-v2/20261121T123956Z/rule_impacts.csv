@@ -1,0 +1,13 @@
+dataset,rule,changed,percent,characters_removed,empty,collision_groups,conflicting_groups
+Augmented,NFC+khoảng trắng,1,0.009853187506158241,3,0,0,0
+Augmented,+chữ thường,4588,45.20642427825401,3,0,51,1
+Augmented,+teencode,6,0.05911912503694946,3,0,0,0
+Augmented,+emoticon thành từ,1,0.009853187506158241,3,0,0,0
+Augmented,+rút chữ kéo dài,55,0.5419253128387034,219,0,0,0
+Augmented,+lọc ký hiệu,175,1.7243078135776924,207,0,0,0
+Base,NFC+khoảng trắng,213,4.176470588235294,2539,0,0,0
+Base,+chữ thường,4292,84.15686274509804,2539,0,10,0
+Base,+teencode,1093,21.43137254901961,2338,0,0,0
+Base,+emoticon thành từ,434,8.509803921568627,2481,0,0,0
+Base,+rút chữ kéo dài,241,4.7254901960784315,2665,0,0,0
+Base,+lọc ký hiệu,1297,25.43137254901961,6172,0,0,0

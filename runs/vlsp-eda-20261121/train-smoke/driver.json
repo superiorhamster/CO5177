@@ -1,0 +1,8 @@
+{
+  "status": "failed",
+  "session": "vlsp-v2-smoke-t4",
+  "kind": "text",
+  "mode": "smoke",
+  "error": "Protocol preflight failed",
+  "vm_released": true
+}
