@@ -1,0 +1,28 @@
+{
+  "dataset_handle": "anhphmduy/vlsp-sentiment-dataset/versions/5",
+  "seed": 42,
+  "phobert_tokenizer": "vinai/phobert-base-v2",
+  "inputs": {
+    "Base": {
+      "file": "vlsp_sentiment_train.csv",
+      "sha256": "669f584a9fd149ebf7b4bc8aa16bbacff3ee14e0b05512fd035d6f33a3f4b417"
+    },
+    "Augmented": {
+      "file": "vlsp_sentiment_train_augmented_v2.csv",
+      "sha256": "67220874e2d224bfe04dec0b37791addf72c6dbb54b5b13f355327bb8e2b4477"
+    },
+    "Test": {
+      "file": "vlsp_sentiment_test.csv",
+      "sha256": "7252546b2a289eccaa3e6a4748cc021b567442a7f3352c468ff2cbe8e353e6c8"
+    }
+  },
+  "fit_mode": "fixed_configuration",
+  "figures": [
+    "eda-class-similarity.png",
+    "eda-cleaning-audit.png",
+    "eda-labels.png",
+    "eda-lexical.png",
+    "eda-raw-lengths.png",
+    "eda-tokenizers.png"
+  ]
+}

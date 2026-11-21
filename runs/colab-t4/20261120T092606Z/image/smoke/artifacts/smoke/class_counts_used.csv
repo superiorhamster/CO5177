@@ -1,0 +1,7 @@
+class_name,test,train,val
+buildings,2,8,2
+forest,2,8,2
+glacier,2,8,2
+mountain,2,8,2
+sea,2,8,2
+street,2,8,2

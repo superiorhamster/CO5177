@@ -1,0 +1,20 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.10968017578125,
+      "train_accuracy": 0.625,
+      "train_macro_f1": 0.6218487394957983,
+      "train_eval_loss": 1.071091612180074
+    }
+  ],
+  "selected_epoch": 1,
+  "selection": "fixed_final_epoch",
+  "parameters": 135000579,
+  "architecture": "PhoBERT-base-v2",
+  "dataset": "Base",
+  "train_seconds": 25.207047488999933,
+  "fit_mode": "fixed_configuration",
+  "fit_rows": 24,
+  "directory": "vlsp_oxford_results/smoke-20261120T092649Z/models/phobert-base-v2/base"
+}

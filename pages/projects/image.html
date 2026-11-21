@@ -40,227 +40,551 @@
 </div>
 
 <div class="dashboard-content">
-<main id="main" class="container image-report dashboard-report" tabindex="-1"><nav class="breadcrumb" aria-label="Điều hướng phân cấp"><a href="../../index.html"><span>Trang chủ</span></a><span aria-hidden="true">/</span><span>Image</span></nav>
+<main id="main" class="container image-report dashboard-report" tabindex="-1">
+<nav class="breadcrumb" aria-label="Điều hướng phân cấp">
+<a href="../../index.html">Trang chủ</a> / Image</nav>
 <section class="project-hero" aria-labelledby="project-title">
-  <div>
-    <p class="eyebrow">CO5177 / <span>BÀI TẬP LỚN</span> / IMAGE</p>
-    <h1 id="project-title">Intel Image Classification: MobileNetV3-Small vs ViT-B/16</h1>
-    <p class="hero-description">Phân loại ảnh RGB có giám sát vào sáu lớp cảnh: buildings, forest, glacier, mountain, sea và street. So sánh hai mô hình pretrained trên cùng dữ liệu, seed 42.</p>
-    <span class="status-badge"><span class="status-dot" aria-hidden="true"></span><span>Đã có kết quả, notebook Colab và bản tải xuống; PDF report và video đang chờ bổ sung.</span></span>
-  </div>
+<div>
+<p class="eyebrow">CO5177 / IMAGE / SLIGHTSEEK</p>
+<h1 id="project-title">Phân loại ảnh cảnh Intel — MobileNetV3-Small và ViT-B/16</h1>
+<p class="hero-description">Hai mô hình pretrained trên cùng sáu lớp; notebook theo 11 bước Oxford Pets, từ dữ liệu đến Grad-CAM.</p>
+<p class="status-badge">Đã Run all mới từ pretrained weights · Colab T4 · 20/11/2026 · seed 42</p>
+</div>
 </section>
-<div class="project-layout"><article class="project-content">
-<section id="resources" class="resources" aria-labelledby="resources-title"><div class="compact-heading"><h2 id="resources-title">Tài liệu bài tập</h2><p class="muted">Trang tổng hợp số liệu từ outputs notebook đã lưu. Đã có link notebook Colab và bản tải xuống bên dưới; PDF report riêng và video YouTube Public/Unlisted đang chờ bổ sung.</p></div><div class="resource-item"><div><h3>Notebook</h3><p><span>Kết quả lấy từ outputs đã lưu; chưa kiểm chứng lại Run all trên Colab.</span></p></div><div class="resource-actions"><a class="text-link" href="https://colab.research.google.com/drive/1pHsdOVulTgBHD1ybwBt4jTmHKW_-q3rZ"><span>Mở notebook trên Colab</span> <span aria-hidden="true">↗</span></a><a class="text-link" href="../notebooks/intel_image_classification_trained.ipynb" download><span>Tải notebook (.ipynb)</span></a></div></div><div class="resource-item"><div><h3>PDF report</h3><p><span>Báo cáo riêng của bài tập lớn này</span></p></div><span class="resource-pending"><span>Chờ link PDF report</span></span></div><div class="resource-item"><div><h3>YouTube</h3><p><span>Video Public hoặc Unlisted · khuyến nghị 5–10 phút</span></p></div><span class="resource-pending"><span>Chờ link YouTube</span></span></div></section>
+<div class="project-layout">
+<article class="project-content">
+<section id="resources" class="resources" aria-labelledby="resources-title">
+<div class="compact-heading">
+<h2 id="resources-title">Tài liệu bài tập</h2>
+<p>Notebook có output Run all mới trên Colab T4 ngày 20/11/2026. Colab mở notebook từ nhánh main trên GitHub.</p>
+</div>
+<div class="resource-item">
+<div>
+<h3>Notebook</h3>
+<p>Đủ 11 mục theo mẫu Oxford Pets; output và kết luận từ lần chạy mới.</p>
+</div>
+<div class="resource-actions">
+<a class="text-link" href="https://colab.research.google.com/github/superiorhamster/CO5177/blob/main/ipynb/image/intel_image_classification_trained.ipynb">Mở notebook trên Colab ↗</a> <a class="text-link" href="../notebooks/intel_image_classification_trained.ipynb" download>Tải notebook có output (.ipynb)</a>
+</div>
+</div>
+<div class="resource-item">
+<div>
+<h3>PDF report</h3>
+<p>
+<span>Báo cáo riêng của bài tập lớn này</span>
+</p>
+</div>
+<span class="resource-pending">
+<span>Chờ link PDF report</span>
+</span>
+</div>
+<div class="resource-item">
+<div>
+<h3>YouTube</h3>
+<p>
+<span>Video Public hoặc Unlisted · khuyến nghị 5–10 phút</span>
+</p>
+</div>
+<span class="resource-pending">
+<span>Chờ link YouTube</span>
+</span>
+</div>
+</section>
 <section id="dataset" class="pipeline-section" aria-labelledby="dataset-title">
-<div class="pipeline-heading"><span class="step-number" aria-hidden="true">01</span><h2 id="dataset-title">Mô tả tập dữ liệu</h2></div>
-<dl class="dataset-facts">
-  <div><dt><span>Bài toán</span></dt><dd><span>Phân loại cảnh ảnh RGB vào sáu lớp, học có giám sát.</span></dd></div>
-  <div><dt><span>Tập dữ liệu / Nguồn</span></dt><dd><a href="https://www.kaggle.com/datasets/puneet6060/intel-image-classification">Intel Image Classification · Kaggle ↗</a></dd></div>
-  <div><dt><span>Ảnh có nhãn ban đầu</span></dt><dd>17,034 <span class="muted">(14,034 train + 3,000 test)</span></dd></div>
-  <div><dt><span>Ảnh sau làm sạch</span></dt><dd>17,006 <span class="muted">(11,204 train + 2,802 validation + 3,000 test)</span></dd></div>
-  <div><dt><span>Kích thước gốc trung vị</span></dt><dd>150×150 px · RGB</dd></div>
-</dl>
-<p>Sáu lớp gồm buildings, forest, glacier, mountain, sea và street. 7,301 ảnh trong seg_pred không có nhãn cho bài thực nghiệm này nên không được đưa vào train, validation hoặc test. Notebook dùng cấu trúc seg_train/seg_train và seg_test/seg_test khi các thư mục bị lồng.</p>
-<p class="muted">150×150 là trung vị được ghi nhận, không phải khẳng định tất cả ảnh có cạnh ngắn ≥ 128 px. Resize lên 224×224 để phù hợp pretrained weights không tạo thêm chi tiết. Version Kaggle không xác định từ input của lần chạy; notebook lưu manifest để nhận diện dữ liệu.</p>
-<p class="small muted">Các hình được xuất nguyên bản từ notebook. Bấm vào hình để xem kích thước gốc; nhãn trong hình giữ nguyên ngôn ngữ của notebook.</p>
-<h3 id="eda"><span>Khám phá dữ liệu (EDA)</span></h3>
-<p><span>EDA giúp kiểm tra dữ liệu trước khi huấn luyện và giải thích các lựa chọn tiền xử lý. Các hình phân bố và ảnh mẫu dùng train/test gốc; bảng quyết định ghi rõ số liệu nào thuộc audit dữ liệu gốc và số liệu nào thuộc tập phát triển sau làm sạch (train + validation).</span></p>
-<figure class="report-figure">
-  <a class="figure-image-link" href="../assets/intel-image/class-counts.png" aria-label="Mở hình phân bố sáu lớp trong dữ liệu gốc ở kích thước gốc">
-    <img src="../assets/intel-image/class-counts.png" width="984" height="383" loading="lazy" decoding="async" alt="Biểu đồ cột số ảnh của sáu lớp theo split train và test gốc.">
-  </a>
-  <figcaption>
-    <strong><span>Phân bố sáu lớp trong dữ liệu gốc</span></strong>
-    <p>Hình dùng split gốc: 14,034 ảnh train và 3,000 ảnh test; mỗi lớp đều có dữ liệu. Bảng trong phần chuẩn bị dữ liệu ghi số lượng sau làm sạch và chia validation.</p>
-  </figcaption>
-</figure>
-
-<p><span>Cả sáu lớp đều có ảnh trong train và test gốc. Trong 14,006 ảnh phát triển sau làm sạch, mountain có nhiều ảnh nhất (2,504), buildings có ít nhất (2,187), tỷ lệ khoảng 1.14. Mức lệch này nhỏ nên lần chạy giữ cross-entropy thường; macro-F1 cho mỗi lớp trọng số ngang nhau khi tổng hợp kết quả.</span></p>
+<div class="pipeline-heading">
+<span class="step-number" aria-hidden="true">01</span>
+<h2 id="dataset-title">Mô tả tập dữ liệu và EDA</h2>
+</div>
+<p>Intel Image Classification v2; các lớp buildings, forest, glacier, mountain, sea, street. Tập gốc có 14,034 ảnh train và 3,000 ảnh test. Ảnh seg_pred không tham gia thực nghiệm có giám sát.</p>
+<h3 id="eda">Khám phá ảnh gốc</h3>
 <figure class="report-figure report-figure-wide">
-  <a class="figure-image-link" href="../assets/intel-image/eda-samples.png" aria-label="Mở hình ảnh mẫu của sáu lớp cảnh ở kích thước gốc">
-    <img src="../assets/intel-image/eda-samples.png" width="1141" height="683" loading="lazy" decoding="async" alt="Lưới sáu ảnh train gốc, mỗi lớp một ảnh, kèm tên lớp và kích thước.">
-  </a>
-  <figcaption>
-    <strong><span>Ảnh mẫu của sáu lớp cảnh</span></strong>
-    <p><span>Mỗi lớp có một ảnh train được chọn với seed 42. Dùng để hiểu nội dung nhãn và các bối cảnh có thể giống nhau như glacier/mountain hoặc buildings/street; sáu ảnh không đại diện cho toàn bộ độ đa dạng của dữ liệu.</span></p>
-  </figcaption>
-</figure>
-<h3><span>Kích thước, màu và chất lượng ảnh</span></h3>
-<p><span>Audit ghi nhận toàn bộ 17,034 ảnh có nhãn đều đọc được và ở chế độ RGB. Trung vị kích thước là 150×150 px; đây không phải bằng chứng rằng mọi ảnh có cạnh ngắn ≥ 128 px. Đầu vào 224×224 phục vụ pretrained weights, còn chi tiết ảnh vẫn phụ thuộc độ phân giải gốc.</span></p>
-<p><span>Notebook đo width/height và aspect ratio (rộng/cao). Trên ảnh grayscale 0–255, brightness là trung bình pixel, contrast là độ lệch chuẩn pixel. Variance of Laplacian mô tả mức biến thiên cạnh; biểu đồ dùng log(1 + variance) để dễ đọc dải giá trị rộng. Chỉ số thấp có thể xuất hiện ở cảnh biển ít texture, nên không tự kết luận ảnh bị mờ.</span></p>
-<figure class="report-figure report-figure-wide">
-  <a class="figure-image-link" href="../assets/intel-image/eda-distributions.png" aria-label="Mở hình phân bố đặc tính ảnh trước làm sạch ở kích thước gốc">
-    <img src="../assets/intel-image/eda-distributions.png" width="1384" height="784" loading="lazy" decoding="async" alt="Sáu histogram của width, height, aspect ratio, brightness, contrast và log(1 + Laplacian variance), phân biệt train/test gốc.">
-  </a>
-  <figcaption>
-    <strong><span>Phân bố đặc tính ảnh trước làm sạch</span></strong>
-    <p><span>Histogram giúp quan sát dải kích thước, tỷ lệ khung hình và chất lượng ảnh ở hai split gốc. Test chỉ được audit để mô tả cấu trúc, chất lượng và kiểm tra rò rỉ; lựa chọn tiền xử lý và checkpoint dựa trên tập phát triển, không dựa trên kết quả test.</span></p>
-  </figcaption>
+<a class="figure-image-link" href="../assets/intel-image/oxford/20261120T092606Z/eda/eda-samples.png" aria-label="Mở hình: Ảnh mẫu từ train gốc theo sáu lớp.">
+<img src="../assets/intel-image/oxford/20261120T092606Z/eda/eda-samples.png" width="1597" height="956" loading="lazy" decoding="async" alt="Ảnh mẫu từ train gốc theo sáu lớp.">
+</a>
+<figcaption>Ảnh mẫu từ train gốc theo sáu lớp.</figcaption>
 </figure>
 <figure class="report-figure report-figure-wide">
-  <a class="figure-image-link" href="../assets/intel-image/eda-extremes.png" aria-label="Mở hình ảnh train ở các cực trị cần kiểm tra ở kích thước gốc">
-    <img src="../assets/intel-image/eda-extremes.png" width="1219" height="684" loading="lazy" decoding="async" alt="Sáu ảnh train gốc có brightness thấp/cao, contrast thấp, Laplacian variance thấp/cao và aspect ratio lớn nhất.">
-  </a>
-  <figcaption>
-    <strong><span>Ảnh train ở các cực trị cần kiểm tra</span></strong>
-    <p><span>Ảnh được chọn theo cực trị thống kê, không phải mẫu ngẫu nhiên. Trên tập phát triển sau làm sạch có 137 ảnh brightness &lt; 40 và 8 ảnh contrast std &lt; 15; hai nhóm có thể giao nhau. Ngưỡng chỉ gợi ý xem ảnh, không phải quy tắc tự loại hoặc tự sửa ảnh.</span></p>
-  </figcaption>
+<a class="figure-image-link" href="../assets/intel-image/oxford/20261120T092606Z/eda/eda-geometry.png" aria-label="Mở hình: Kích thước và tỷ lệ khung hình ảnh gốc.">
+<img src="../assets/intel-image/oxford/20261120T092606Z/eda/eda-geometry.png" width="1655" height="954" loading="lazy" decoding="async" alt="Kích thước và tỷ lệ khung hình ảnh gốc.">
+</a>
+<figcaption>Kích thước và tỷ lệ khung hình ảnh gốc.</figcaption>
 </figure>
-<h3 id="eda-decisions-title"><span>Từ quan sát EDA đến quyết định xử lý</span></h3>
-<div class="table-wrap report-table eda-table" tabindex="0" role="region" aria-labelledby="eda-decisions-title">
-<table><caption class="visually-hidden"><span>Bằng chứng EDA và quyết định trong pipeline đã chạy</span></caption>
-<thead><tr><th scope="col"><span>Quan sát</span></th><th scope="col"><span>Bằng chứng</span></th><th scope="col"><span>Quyết định</span></th></tr></thead>
-<tbody>
-<tr><th scope="row"><span>Lệch lớp nhẹ</span></th><td><span>Tập phát triển sau làm sạch: max/min = 2,504/2,187 ≈ 1.14.</span></td><td><span>Dùng cross-entropy thường và báo macro-F1; không dùng class weighting hoặc sampler cân bằng.</span></td></tr>
-<tr><th scope="row"><span>Kích thước và màu ảnh</span></th><td><span>Trung vị 150×150; cả 17,034 ảnh audit là RGB.</span></td><td><span>Thống nhất cách đọc RGB, resize/crop về 224×224 và chuẩn hóa theo ImageNet để phù hợp pretrained weights.</span></td></tr>
-<tr><th scope="row"><span>Ảnh tối hoặc ít tương phản</span></th><td><span>Tập phát triển sau làm sạch: 137 ảnh brightness &lt; 40; 8 ảnh contrast std &lt; 15.</span></td><td><span>Giữ ảnh và kiểm tra bằng mắt. Lần chạy không áp dụng CLAHE; nếu thử bổ sung, chọn bằng validation.</span></td></tr>
-<tr><th scope="row"><span>Ảnh ít cạnh</span></th><td><span>Audit đo Laplacian variance và hiển thị ảnh ở cực trị; không dùng chỉ số này để xác nhận lỗi ảnh.</span></td><td><span>Không tự xóa ảnh ít texture hoặc tự áp dụng khử nhiễu. Cần xem nội dung ảnh trước khi đề xuất xử lý.</span></td></tr>
-<tr><th scope="row"><span>Trùng pixel hoặc nhãn mâu thuẫn</span></th><td><span>Cleaning log ghi 28 ảnh train bị loại.</span></td><td><span>Làm sạch trước khi chia validation; giữ test gốc. Hash chính xác chưa phát hiện ảnh gần trùng.</span></td></tr>
-</tbody></table></div>
+<figure class="report-figure report-figure-wide">
+<a class="figure-image-link" href="../assets/intel-image/oxford/20261120T092606Z/eda/eda-quality.png" aria-label="Mở hình: Độ sáng, tương phản và Laplacian variance; đọc cùng ảnh cực trị.">
+<img src="../assets/intel-image/oxford/20261120T092606Z/eda/eda-quality.png" width="1935" height="561" loading="lazy" decoding="async" alt="Độ sáng, tương phản và Laplacian variance; đọc cùng ảnh cực trị.">
+</a>
+<figcaption>Độ sáng, tương phản và Laplacian variance; đọc cùng ảnh cực trị.</figcaption>
+</figure>
+<figure class="report-figure report-figure-wide">
+<a class="figure-image-link" href="../assets/intel-image/oxford/20261120T092606Z/eda/eda-class-counts.png" aria-label="Mở hình: Số ảnh theo lớp trước và sau làm sạch/chia tập.">
+<img src="../assets/intel-image/oxford/20261120T092606Z/eda/eda-class-counts.png" width="1795" height="534" loading="lazy" decoding="async" alt="Số ảnh theo lớp trước và sau làm sạch/chia tập.">
+</a>
+<figcaption>Số ảnh theo lớp trước và sau làm sạch/chia tập.</figcaption>
+</figure>
+<h3 id="eda-decisions-title">Quyết định từ EDA</h3>
+<p>Hash pixel phát hiện trùng chính xác; không bao quát gần trùng. Ảnh tối hoặc ít cạnh cần xem nội dung trước khi quyết định xử lý. Resize lên 224×224 không tạo thêm chi tiết.</p>
 </section>
 <section id="preparation" class="pipeline-section" aria-labelledby="preparation-title">
-<div class="pipeline-heading"><span class="step-number" aria-hidden="true">02</span><h2 id="preparation-title">Chuẩn bị dữ liệu</h2></div>
-<p><span>Pipeline giữ cùng dữ liệu đã làm sạch và cùng split cho hai mô hình. Làm sạch và chia tập diễn ra trước augmentation; ảnh gốc được đọc lại và biến đổi khi đưa vào mô hình.</span></p>
-<h3><span>Đọc ảnh, kiểm tra và làm sạch</span></h3>
-<ol class="report-list">
-<li><span>Giải mã toàn bộ ảnh bằng PIL để phát hiện lỗi đọc. Sửa hướng theo EXIF trước khi đo đặc tính hoặc tính hash, rồi chuyển RGB để có ba kênh thống nhất. Audit vẫn lưu chế độ màu gốc.</span></li>
-<li><span>Kiểm tra nhãn thuộc 0–5 tương ứng sáu lớp và ghi sample ID, kích thước, màu, độ sáng, tương phản, Laplacian variance. Cả 17,034 ảnh đều đọc được và có nhãn hợp lệ, nên không có ảnh bị loại vì lỗi decode hoặc nhãn không hợp lệ.</span></li>
-<li><span>Tính SHA-256 từ kích thước và pixel RGB sau sửa hướng, trước resize/crop. Cách này phát hiện ảnh cùng pixel dù tên file khác nhau; không dựa riêng vào tên hoặc hash của file nén.</span></li>
-<li><span>Giữ test hợp lệ nguyên trạng. Với train, ưu tiên loại ảnh trùng test, loại toàn bộ ảnh thuộc nhóm hash có nhãn mâu thuẫn, rồi giữ một ảnh trong mỗi nhóm trùng cùng nhãn. Log ghi 3 ảnh trùng test, 20 ảnh thuộc nhóm nhãn mâu thuẫn và 5 bản sao cùng nhãn bị loại: tổng 28 ảnh. Không tự gán lại nhãn.</span></li>
-</ol>
-<h3><span>Chia tập và kiểm tra rò rỉ</span></h3>
-<p><span>Train gốc còn 14,006 ảnh sau làm sạch (14,034 − 28). Dùng train_test_split với test_size=0.20, stratify theo nhãn và random_state=42 để tạo 11,204 ảnh train và 2,802 ảnh validation, giữ tỷ lệ sáu lớp gần với tập phát triển. Test gốc giữ 3,000 ảnh; tổng ba tập là 17,006.</span></p>
-<h3 id="split-table-title">Phân bố lớp sau làm sạch</h3>
-<div class="table-wrap report-table split-table" tabindex="0" role="region" aria-labelledby="split-table-title">
-<table><caption class="visually-hidden"><span>Số ảnh thực tế theo lớp trong train, validation và test</span></caption>
-<thead><tr><th scope="col">Lớp</th><th class="report-number" scope="col">Train</th><th class="report-number" scope="col">Validation</th><th class="report-number" scope="col">Test</th></tr></thead>
-<tbody><tr><th scope="row">buildings</th><td class="report-number">1,750</td><td class="report-number">437</td><td class="report-number">437</td></tr>
-<tr><th scope="row">forest</th><td class="report-number">1,815</td><td class="report-number">454</td><td class="report-number">474</td></tr>
-<tr><th scope="row">glacier</th><td class="report-number">1,918</td><td class="report-number">480</td><td class="report-number">553</td></tr>
-<tr><th scope="row">mountain</th><td class="report-number">2,003</td><td class="report-number">501</td><td class="report-number">525</td></tr>
-<tr><th scope="row">sea</th><td class="report-number">1,817</td><td class="report-number">455</td><td class="report-number">510</td></tr>
-<tr><th scope="row">street</th><td class="report-number">1,901</td><td class="report-number">475</td><td class="report-number">501</td></tr>
-</tbody><tfoot><tr><th scope="row">Tổng</th><td class="report-number">11,204</td><td class="report-number">2,802</td><td class="report-number">3,000</td></tr></tfoot></table></div>
-<p><span>Train dùng cập nhật trọng số. Validation dùng chọn checkpoint bằng macro-F1, early stopping và đánh giá các đề xuất tiền xử lý. Test chỉ dùng đo kết quả cuối sau khi đã cố định lựa chọn; audit test trước đó chỉ kiểm tra cấu trúc, chất lượng và trùng lặp.</span></p>
-<p class="muted"><span>Notebook kiểm tra mỗi split đủ sáu lớp, sample ID duy nhất và không có sample ID hoặc hash giao nhau giữa train, validation và test; không ghi nhận bản sao pixel nội bộ trong test. Manifest lưu ID, nhãn, hash và split để truy vết. Hash này chỉ bao phủ bản sao chính xác: ảnh gần trùng sau nén, resize hoặc crop có thể còn tồn tại.</span></p>
-<h3 id="transforms-table-title"><span>Biến đổi ảnh theo mục đích</span></h3>
-<p><span>Hai mô hình dùng cùng augmentation train. Validation/test dùng weights.transforms() của IMAGENET1K_V1 tương ứng mỗi mô hình: cùng kích thước resize/crop và hằng số chuẩn hóa. Bảng trình bày các bước theo thứ tự áp dụng sau khi đọc RGB.</span></p>
-<div class="table-wrap report-table transforms-table" tabindex="0" role="region" aria-labelledby="transforms-table-title">
-<table><caption class="visually-hidden"><span>So sánh biến đổi đầu vào khi huấn luyện và đánh giá</span></caption>
-<thead><tr><th scope="col"><span>Bước</span></th><th scope="col"><span>Train (huấn luyện)</span></th><th scope="col"><span>Validation / Test</span></th></tr></thead>
+<div class="pipeline-heading">
+<span class="step-number" aria-hidden="true">02</span>
+<h2 id="preparation-title">Chuẩn bị dữ liệu</h2>
+</div>
+<p>Đã loại 28 ảnh train: 20 ảnh thuộc nhóm mâu thuẫn nhãn; 3 ảnh trùng test; 5 bản sao cùng nhãn. Giữ test gốc hợp lệ; chia train/validation stratified seed 42.</p>
+<h3 id="split-table-title">Các tập sử dụng</h3>
+<div class="table-wrap report-table" tabindex="0" role="region" aria-label="Các tập sử dụng">
+<table>
+<caption class="visually-hidden">Các tập sử dụng</caption>
+<thead>
+<tr>
+<th scope="col">Split</th>
+<th scope="col">Số ảnh</th>
+</tr>
+</thead>
 <tbody>
-<tr><th scope="row"><span>Crop / resize</span></th><td><span>RandomResizedCrop về 224×224, scale=(0.8, 1.0), nội suy bilinear. Lấy crop với diện tích mục tiêu 80–100% ảnh rồi resize, tạo biến thể bố cục.</span></td><td><span>Resize cạnh ngắn về 256, rồi CenterCrop 224×224. Biến đổi xác định để đánh giá ổn định.</span></td></tr>
-<tr><th scope="row"><span>Lật ngang</span></th><td><span>RandomHorizontalFlip, p=0.5. Tạo biến thể trái/phải cho cùng lớp cảnh.</span></td><td><span>Không lật ngẫu nhiên.</span></td></tr>
-<tr><th scope="row"><span>Biến đổi màu</span></th><td><span>ColorJitter: brightness=0.15, contrast=0.15, saturation=0.10, hue=0.02. Tạo biến thể ánh sáng và màu nhẹ.</span></td><td><span>Không ColorJitter.</span></td></tr>
-<tr><th scope="row"><span>Tensor và chuẩn hóa</span></th><td><span>ToTensor đưa pixel từ 0–255 về 0–1, rồi Normalize theo ImageNet: mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225).</span></td><td><span>Preset đổi sang tensor 0–1 và chuẩn hóa với cùng mean/std. Kết quả mỗi ảnh là tensor 3×224×224 như train.</span></td></tr>
-</tbody></table></div>
-<p><span>Normalize áp dụng (x − mean)/std cho từng kênh R, G, B sau bước đưa pixel về 0–1; tensor sau chuẩn hóa không còn bị giới hạn trong 0–1. Các hằng số lấy từ pretrained weights, không được fit lại trên validation/test. Đầu vào có 3 kênh, cao và rộng 224 px.</span></p>
-<p class="muted"><span>Augmentation chỉ tạo biến thể lúc huấn luyện, không làm tăng số ảnh gốc trong bảng split. Khi đánh giá checkpoint cuối trên train, notebook cũng dùng preprocessing xác định như validation/test để so khoảng cách train–validation. Crop có thể bỏ vùng cảnh quan quan trọng và upsample không thêm chi tiết; thay đổi recipe cần được kiểm tra bằng validation.</span></p>
+<tr>
+<th scope="row">train</th>
+<td class="report-number">11204</td>
+</tr>
+<tr>
+<th scope="row">val</th>
+<td class="report-number">2802</td>
+</tr>
+<tr>
+<th scope="row">test</th>
+<td class="report-number">3000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="transforms-table-title">Transform và augmentation</h3>
+<div class="table-wrap report-table" tabindex="0" role="region" aria-label="Transform và augmentation">
+<table>
+<caption class="visually-hidden">Transform và augmentation</caption>
+<thead>
+<tr>
+<th scope="col">Tập</th>
+<th scope="col">Preprocessing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Train</th>
+<td class="report-number">RandomResizedCrop 224, lật ngang, ColorJitter nhẹ, chuẩn hóa ImageNet</td>
+</tr>
+<tr>
+<th scope="row">Validation/Test</th>
+<td class="report-number">Resize, center crop 224 và chuẩn hóa theo pretrained weights</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="report-figure report-figure-wide">
+<a class="figure-image-link" href="../assets/intel-image/oxford/20261120T092606Z/eda/eda-transforms.png" aria-label="Mở hình: Ảnh gốc và đầu vào sau transforms thực tế.">
+<img src="../assets/intel-image/oxford/20261120T092606Z/eda/eda-transforms.png" width="1377" height="967" loading="lazy" decoding="async" alt="Ảnh gốc và đầu vào sau transforms thực tế.">
+</a>
+<figcaption>Ảnh gốc và đầu vào sau transforms thực tế.</figcaption>
+</figure>
 </section>
 <section id="analysis" class="pipeline-section" aria-labelledby="analysis-title">
-<div class="pipeline-heading"><span class="step-number" aria-hidden="true">03</span><h2 id="analysis-title">Phân tích và mô hình hóa</h2></div>
-<p>Hai mô hình Torchvision dùng pretrained weights IMAGENET1K_V1 và đầu ra sáu lớp. MobileNetV3-Small dùng backbone convolution; giai đoạn head học toàn bộ classifier. ViT-B/16 dùng patch 16×16: 196 patch và một class token, thay heads.head để dự đoán sáu lớp.</p>
-<h3>Recipe transfer learning hai giai đoạn</h3>
-<ol class="report-list">
-  <li><span>Classifier: 3 epoch, khóa backbone và giữ backbone ở eval() để BatchNorm không cập nhật running statistics; learning rate classifier=1e-3.</span></li>
-  <li><span>Fine-tuning: bắt đầu từ checkpoint head tốt nhất, mở toàn bộ backbone; tối đa 15 epoch, LR backbone=1e-5 và LR classifier=1e-4. Đây là fine-tuning toàn backbone với LR nhỏ, không phải chỉ mở vài tầng cuối.</span></li>
-</ol>
-<p>Cấu hình: seed 42, batch size 16, gradient accumulation 2 bước (32 ảnh ở cửa sổ đầy), AdamW với weight decay=1e-4, cosine LR decay, gradient clipping norm=1 và AMP khi có CUDA. BatchNorm vẫn xử lý batch vật lý 16 ảnh.</p>
-<p>Chọn checkpoint bằng validation macro-F1 cao nhất; nếu hai stage bằng nhau thì chọn head. Early stopping sau 4 epoch fine-tuning liên tiếp không cải thiện. MobileNet dừng ở epoch fine-tuning 13, chọn epoch 9; ViT dừng ở epoch 11, chọn epoch 7. Test chỉ được đánh giá sau khi chọn checkpoint.</p>
-<h3 id="results-table-title">Đối chiếu hai giai đoạn và kết quả test</h3>
-<div class="table-wrap report-table results-table" tabindex="0" role="region" aria-labelledby="results-table-title"><table>
-<caption class="visually-hidden"><span>Kết quả ghi nhận của lần chạy FULL, seed 42</span></caption>
-<thead><tr><th scope="col">Mô hình</th><th class="report-number" scope="col">Head: validation macro-F1</th><th class="report-number" scope="col">Fine-tuning: validation macro-F1</th><th class="report-number" scope="col">Mức tăng (điểm phần trăm)</th><th class="report-number" scope="col">Epoch fine-tuning được chọn</th><th class="report-number" scope="col">Test accuracy</th><th class="report-number" scope="col">Test macro-F1</th></tr></thead><tbody><tr><th scope="row">MobileNetV3-Small</th><td class="report-number">0.9283</td><td class="report-number">0.9350</td><td class="report-number">+0.67</td><td class="report-number">9</td><td class="report-number">92.43%</td><td class="report-number">0.9260</td></tr>
-<tr><th scope="row">ViT-B/16</th><td class="report-number">0.9339</td><td class="report-number">0.9500</td><td class="report-number">+1.61</td><td class="report-number">7</td><td class="report-number">94.50%</td><td class="report-number">0.9463</td></tr>
-</tbody></table></div>
-<p class="small muted">Mức tăng là chênh lệch validation macro-F1 × 100, tính theo điểm phần trăm. Các giá trị và epoch trong bảng lấy từ outputs đã lưu của lần chạy FULL trên CUDA, seed 42.</p>
+<div class="pipeline-heading">
+<span class="step-number" aria-hidden="true">03</span>
+<h2 id="analysis-title">Mô hình và kết quả</h2>
+</div>
+<p>Cả hai mô hình dùng ImageNet pretrained và head sáu lớp. Huấn luyện 3 epoch head (backbone frozen/eval), sau đó tối đa 15 epoch fine-tuning với LR backbone 1e-5, LR head 1e-4. Batch 16, accumulation 2, hai worker. Chọn checkpoint bằng validation macro-F1; hòa điểm chọn head; patience fine-tuning 4.</p>
 <figure class="report-figure report-figure-wide">
-  <a class="figure-image-link" href="../assets/intel-image/mobilenet-learning-curves.png" aria-label="Mở hình đường học mobilenetv3-small ở kích thước gốc">
-    <img src="../assets/intel-image/mobilenet-learning-curves.png" width="1484" height="398" loading="lazy" decoding="async" alt="Ba đường học loss, accuracy và macro-F1 của MobileNetV3-Small; đường dọc đánh dấu thời điểm mở backbone.">
-  </a>
-  <figcaption>
-    <strong><span>Đường học MobileNetV3-Small</span></strong>
-    <p>Validation macro-F1 tăng từ 0.9283 ở head lên 0.9350 ở fine-tuning (+0.67 điểm phần trăm). Checkpoint fine-tuning epoch 9 được chọn; train trong đường học có augmentation và dropout.</p>
-  </figcaption>
+<a class="figure-image-link" href="../assets/intel-image/oxford/20261120T092606Z/figures/mobilenet_v3_small_learning_curves.png" aria-label="Mở hình: MobileNetV3-Small: đường học train/validation, vạch đứt đánh dấu mở backbone.">
+<img src="../assets/intel-image/oxford/20261120T092606Z/figures/mobilenet_v3_small_learning_curves.png" width="2372" height="634" loading="lazy" decoding="async" alt="MobileNetV3-Small: đường học train/validation, vạch đứt đánh dấu mở backbone.">
+</a>
+<figcaption>MobileNetV3-Small: đường học train/validation, vạch đứt đánh dấu mở backbone.</figcaption>
 </figure>
 <figure class="report-figure report-figure-wide">
-  <a class="figure-image-link" href="../assets/intel-image/vit-learning-curves.png" aria-label="Mở hình đường học vit-b/16 ở kích thước gốc">
-    <img src="../assets/intel-image/vit-learning-curves.png" width="1484" height="398" loading="lazy" decoding="async" alt="Ba đường học loss, accuracy và macro-F1 của ViT-B/16; đường dọc đánh dấu thời điểm mở backbone.">
-  </a>
-  <figcaption>
-    <strong><span>Đường học ViT-B/16</span></strong>
-    <p>Validation macro-F1 tăng từ 0.9339 lên 0.9500 (+1.61 điểm phần trăm). Checkpoint fine-tuning epoch 7 được chọn. Đây là so sánh hai recipe có ngân sách epoch khác nhau.</p>
-  </figcaption>
+<a class="figure-image-link" href="../assets/intel-image/oxford/20261120T092606Z/figures/vit_b_16_learning_curves.png" aria-label="Mở hình: ViT-B/16: đường học train/validation, vạch đứt đánh dấu mở backbone.">
+<img src="../assets/intel-image/oxford/20261120T092606Z/figures/vit_b_16_learning_curves.png" width="2372" height="634" loading="lazy" decoding="async" alt="ViT-B/16: đường học train/validation, vạch đứt đánh dấu mở backbone.">
+</a>
+<figcaption>ViT-B/16: đường học train/validation, vạch đứt đánh dấu mở backbone.</figcaption>
 </figure>
-<h3 id="class-f1-table-title">F1 từng lớp trên cùng tập test</h3><div class="table-wrap report-table class-f1-table" tabindex="0" role="region" aria-labelledby="class-f1-table-title"><table><caption class="visually-hidden"><span>F1 của từng lớp và số ảnh test thực tế</span></caption><thead><tr><th scope="col">Lớp</th><th class="report-number" scope="col">MobileNetV3-Small F1</th><th class="report-number" scope="col">ViT-B/16 F1</th><th class="report-number" scope="col">Số ảnh test</th></tr></thead><tbody><tr><th scope="row">buildings</th><td class="report-number">0.9342</td><td class="report-number">0.9429</td><td class="report-number">437</td></tr>
-<tr><th scope="row">forest</th><td class="report-number">0.9842</td><td class="report-number">0.9989</td><td class="report-number">474</td></tr>
-<tr><th scope="row">glacier</th><td class="report-number">0.8662</td><td class="report-number">0.9061</td><td class="report-number">553</td></tr>
-<tr><th scope="row">mountain</th><td class="report-number">0.8792</td><td class="report-number">0.9060</td><td class="report-number">525</td></tr>
-<tr><th scope="row">sea</th><td class="report-number">0.9491</td><td class="report-number">0.9756</td><td class="report-number">510</td></tr>
-<tr><th scope="row">street</th><td class="report-number">0.9429</td><td class="report-number">0.9482</td><td class="report-number">501</td></tr>
-</tbody></table></div>
-<p>Forest có F1 cao nhất ở cả hai mô hình (0.9842 và 0.9989); glacier/mountain là các lớp khó hơn. ViT có F1 cao hơn MobileNet ở cả sáu lớp trong lần chạy này.</p>
-<h3>Phân tích lỗi trên test</h3>
-<p class="muted">Confusion matrix có hàng là nhãn thật, cột là dự đoán. Hình gồm số lượng và tỷ lệ chuẩn hóa theo lớp thật; các tỷ lệ nhầm bên dưới dùng số ảnh của lớp thật làm mẫu số.</p>
+<h3>Checkpoint và hiệu quả fine-tuning</h3>
+<div class="table-wrap report-table" tabindex="0" role="region" aria-label="Checkpoint và hiệu quả fine-tuning">
+<table>
+<caption class="visually-hidden">Checkpoint và hiệu quả fine-tuning</caption>
+<thead>
+<tr>
+<th scope="col">Mô hình</th>
+<th scope="col">Stage</th>
+<th scope="col">Epoch tốt nhất</th>
+<th scope="col">Val F1 (%)</th>
+<th scope="col">Được chọn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">MobileNetV3-Small</th>
+<td class="report-number">classifier</td>
+<td class="report-number">3</td>
+<td class="report-number">92.80</td>
+<td class="report-number">—</td>
+</tr>
+<tr>
+<th scope="row">MobileNetV3-Small</th>
+<td class="report-number">fine-tuning</td>
+<td class="report-number">9</td>
+<td class="report-number">93.46</td>
+<td class="report-number">Có</td>
+</tr>
+<tr>
+<th scope="row">ViT-B/16</th>
+<td class="report-number">classifier</td>
+<td class="report-number">3</td>
+<td class="report-number">93.39</td>
+<td class="report-number">—</td>
+</tr>
+<tr>
+<th scope="row">ViT-B/16</th>
+<td class="report-number">fine-tuning</td>
+<td class="report-number">7</td>
+<td class="report-number">95.00</td>
+<td class="report-number">Có</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Checkpoint cuối trên ba tập, preprocessing xác định</h3>
+<div class="table-wrap report-table" tabindex="0" role="region" aria-label="Checkpoint cuối trên ba tập, preprocessing xác định">
+<table>
+<caption class="visually-hidden">Checkpoint cuối trên ba tập, preprocessing xác định</caption>
+<thead>
+<tr>
+<th scope="col">Mô hình</th>
+<th scope="col">Split</th>
+<th scope="col">Loss</th>
+<th scope="col">Accuracy (%)</th>
+<th scope="col">F1 macro (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">MobileNetV3-Small</th>
+<td class="report-number">train</td>
+<td class="report-number">0.1259</td>
+<td class="report-number">95.65</td>
+<td class="report-number">95.73</td>
+</tr>
+<tr>
+<th scope="row">MobileNetV3-Small</th>
+<td class="report-number">val</td>
+<td class="report-number">0.1990</td>
+<td class="report-number">93.40</td>
+<td class="report-number">93.46</td>
+</tr>
+<tr>
+<th scope="row">MobileNetV3-Small</th>
+<td class="report-number">test</td>
+<td class="report-number">0.2161</td>
+<td class="report-number">92.37</td>
+<td class="report-number">92.53</td>
+</tr>
+<tr>
+<th scope="row">ViT-B/16</th>
+<td class="report-number">train</td>
+<td class="report-number">0.0059</td>
+<td class="report-number">99.84</td>
+<td class="report-number">99.84</td>
+</tr>
+<tr>
+<th scope="row">ViT-B/16</th>
+<td class="report-number">val</td>
+<td class="report-number">0.2355</td>
+<td class="report-number">94.93</td>
+<td class="report-number">95.00</td>
+</tr>
+<tr>
+<th scope="row">ViT-B/16</th>
+<td class="report-number">test</td>
+<td class="report-number">0.2430</td>
+<td class="report-number">94.50</td>
+<td class="report-number">94.63</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="results-table-title">So sánh trên cùng test</h3>
+<div class="table-wrap report-table" tabindex="0" role="region" aria-label="So sánh trên cùng test">
+<table>
+<caption class="visually-hidden">So sánh trên cùng test</caption>
+<thead>
+<tr>
+<th scope="col">Mô hình</th>
+<th scope="col">Accuracy (%)</th>
+<th scope="col">P macro (%)</th>
+<th scope="col">R macro (%)</th>
+<th scope="col">F1 macro (%)</th>
+<th scope="col">Tham số</th>
+<th scope="col">Train (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">MobileNetV3-Small</th>
+<td class="report-number">92.37</td>
+<td class="report-number">92.49</td>
+<td class="report-number">92.63</td>
+<td class="report-number">92.53</td>
+<td class="report-number">1,524,006</td>
+<td class="report-number">1829.8</td>
+</tr>
+<tr>
+<th scope="row">ViT-B/16</th>
+<td class="report-number">94.50</td>
+<td class="report-number">94.62</td>
+<td class="report-number">94.65</td>
+<td class="report-number">94.63</td>
+<td class="report-number">85,803,270</td>
+<td class="report-number">2544.6</td>
+</tr>
+</tbody>
+</table>
+</div>
 <figure class="report-figure report-figure-wide">
-  <a class="figure-image-link" href="../assets/intel-image/mobilenet-confusion.png" aria-label="Mở hình confusion matrix mobilenetv3-small ở kích thước gốc">
-    <img src="../assets/intel-image/mobilenet-confusion.png" width="1344" height="497" loading="lazy" decoding="async" alt="Confusion matrix MobileNetV3-Small với số lượng và tỷ lệ theo lớp thật; glacier sang mountain có 58 lỗi.">
-  </a>
-  <figcaption>
-    <strong><span>Confusion matrix MobileNetV3-Small</span></strong>
-    <p>Test accuracy=92.43%, macro-F1=0.9260. Lỗi có hướng lớn nhất là glacier → mountain: 58/553 ảnh glacier (10.49%).</p>
-  </figcaption>
+<a class="figure-image-link" href="../assets/intel-image/oxford/20261120T092606Z/figures/model_comparison.png" aria-label="Mở hình: So sánh các test metrics của hai checkpoint được chọn bằng validation.">
+<img src="../assets/intel-image/oxford/20261120T092606Z/figures/model_comparison.png" width="1571" height="636" loading="lazy" decoding="async" alt="So sánh các test metrics của hai checkpoint được chọn bằng validation.">
+</a>
+<figcaption>So sánh các test metrics của hai checkpoint được chọn bằng validation.</figcaption>
+</figure>
+<h3 id="class-f1-table-title">Kết quả từng lớp trên test</h3>
+<div class="table-wrap report-table" tabindex="0" role="region" aria-label="Kết quả từng lớp trên test">
+<table>
+<caption class="visually-hidden">Kết quả từng lớp trên test</caption>
+<thead>
+<tr>
+<th scope="col">Mô hình</th>
+<th scope="col">Lớp</th>
+<th scope="col">Precision (%)</th>
+<th scope="col">Recall (%)</th>
+<th scope="col">F1 (%)</th>
+<th scope="col">Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">MobileNetV3-Small</th>
+<td class="report-number">buildings</td>
+<td class="report-number">92.38</td>
+<td class="report-number">94.28</td>
+<td class="report-number">93.32</td>
+<td class="report-number">437</td>
+</tr>
+<tr>
+<th scope="row">MobileNetV3-Small</th>
+<td class="report-number">forest</td>
+<td class="report-number">98.32</td>
+<td class="report-number">98.52</td>
+<td class="report-number">98.42</td>
+<td class="report-number">474</td>
+</tr>
+<tr>
+<th scope="row">MobileNetV3-Small</th>
+<td class="report-number">glacier</td>
+<td class="report-number">89.56</td>
+<td class="report-number">83.73</td>
+<td class="report-number">86.54</td>
+<td class="report-number">553</td>
+</tr>
+<tr>
+<th scope="row">MobileNetV3-Small</th>
+<td class="report-number">mountain</td>
+<td class="report-number">86.92</td>
+<td class="report-number">88.57</td>
+<td class="report-number">87.74</td>
+<td class="report-number">525</td>
+</tr>
+<tr>
+<th scope="row">MobileNetV3-Small</th>
+<td class="report-number">sea</td>
+<td class="report-number">93.21</td>
+<td class="report-number">96.86</td>
+<td class="report-number">95.00</td>
+<td class="report-number">510</td>
+</tr>
+<tr>
+<th scope="row">MobileNetV3-Small</th>
+<td class="report-number">street</td>
+<td class="report-number">94.57</td>
+<td class="report-number">93.81</td>
+<td class="report-number">94.19</td>
+<td class="report-number">501</td>
+</tr>
+<tr>
+<th scope="row">ViT-B/16</th>
+<td class="report-number">buildings</td>
+<td class="report-number">94.08</td>
+<td class="report-number">94.51</td>
+<td class="report-number">94.29</td>
+<td class="report-number">437</td>
+</tr>
+<tr>
+<th scope="row">ViT-B/16</th>
+<td class="report-number">forest</td>
+<td class="report-number">100.00</td>
+<td class="report-number">99.79</td>
+<td class="report-number">99.89</td>
+<td class="report-number">474</td>
+</tr>
+<tr>
+<th scope="row">ViT-B/16</th>
+<td class="report-number">glacier</td>
+<td class="report-number">92.31</td>
+<td class="report-number">88.97</td>
+<td class="report-number">90.61</td>
+<td class="report-number">553</td>
+</tr>
+<tr>
+<th scope="row">ViT-B/16</th>
+<td class="report-number">mountain</td>
+<td class="report-number">89.42</td>
+<td class="report-number">91.81</td>
+<td class="report-number">90.60</td>
+<td class="report-number">525</td>
+</tr>
+<tr>
+<th scope="row">ViT-B/16</th>
+<td class="report-number">sea</td>
+<td class="report-number">97.27</td>
+<td class="report-number">97.84</td>
+<td class="report-number">97.56</td>
+<td class="report-number">510</td>
+</tr>
+<tr>
+<th scope="row">ViT-B/16</th>
+<td class="report-number">street</td>
+<td class="report-number">94.63</td>
+<td class="report-number">95.01</td>
+<td class="report-number">94.82</td>
+<td class="report-number">501</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="errors">Ma trận nhầm lẫn và ảnh sai</h3>
+<figure class="report-figure report-figure-wide">
+<a class="figure-image-link" href="../assets/intel-image/oxford/20261120T092606Z/figures/mobilenet_v3_small_confusion.png" aria-label="Mở hình: MobileNetV3-Small: hàng là lớp thật, cột là dự đoán; số lượng và tỷ lệ theo hàng.">
+<img src="../assets/intel-image/oxford/20261120T092606Z/figures/mobilenet_v3_small_confusion.png" width="2147" height="793" loading="lazy" decoding="async" alt="MobileNetV3-Small: hàng là lớp thật, cột là dự đoán; số lượng và tỷ lệ theo hàng.">
+</a>
+<figcaption>MobileNetV3-Small: hàng là lớp thật, cột là dự đoán; số lượng và tỷ lệ theo hàng.</figcaption>
 </figure>
 <figure class="report-figure report-figure-wide">
-  <a class="figure-image-link" href="../assets/intel-image/vit-confusion.png" aria-label="Mở hình confusion matrix vit-b/16 ở kích thước gốc">
-    <img src="../assets/intel-image/vit-confusion.png" width="1344" height="497" loading="lazy" decoding="async" alt="Confusion matrix ViT-B/16 với số lượng và tỷ lệ theo lớp thật; glacier sang mountain có 51 lỗi.">
-  </a>
-  <figcaption>
-    <strong><span>Confusion matrix ViT-B/16</span></strong>
-    <p>Test accuracy=94.50%, macro-F1=0.9463. Lỗi có hướng lớn nhất vẫn là glacier → mountain: 51/553 ảnh glacier (9.22%).</p>
-  </figcaption>
+<a class="figure-image-link" href="../assets/intel-image/oxford/20261120T092606Z/figures/mobilenet_v3_small_errors.png" aria-label="Mở hình: MobileNetV3-Small: ảnh sai tự tin nhất; hiển thị đúng crop mô hình nhìn thấy.">
+<img src="../assets/intel-image/oxford/20261120T092606Z/figures/mobilenet_v3_small_errors.png" width="2101" height="1664" loading="lazy" decoding="async" alt="MobileNetV3-Small: ảnh sai tự tin nhất; hiển thị đúng crop mô hình nhìn thấy.">
+</a>
+<figcaption>MobileNetV3-Small: ảnh sai tự tin nhất; hiển thị đúng crop mô hình nhìn thấy.</figcaption>
 </figure>
 <figure class="report-figure report-figure-wide">
-  <a class="figure-image-link" href="../assets/intel-image/vit-errors.png" aria-label="Mở hình ví dụ dự đoán sai của vit-b/16 ở kích thước gốc">
-    <img src="../assets/intel-image/vit-errors.png" width="1388" height="1041" loading="lazy" decoding="async" alt="Lưới 12 ảnh test đầu tiên bị ViT-B/16 phân loại sai, kèm nhãn thật và nhãn dự đoán.">
-  </a>
-  <figcaption>
-    <strong><span>Ví dụ dự đoán sai của ViT-B/16</span></strong>
-    <p>Hình lấy 12 lỗi đầu tiên theo thứ tự dự đoán, không phải mẫu ngẫu nhiên hoặc đại diện cho toàn bộ lỗi. Dùng để kiểm tra cảnh mơ hồ; không tự sửa nhãn chỉ vì mô hình dự đoán sai.</p>
-  </figcaption>
+<a class="figure-image-link" href="../assets/intel-image/oxford/20261120T092606Z/figures/vit_b_16_confusion.png" aria-label="Mở hình: ViT-B/16: hàng là lớp thật, cột là dự đoán; số lượng và tỷ lệ theo hàng.">
+<img src="../assets/intel-image/oxford/20261120T092606Z/figures/vit_b_16_confusion.png" width="2147" height="793" loading="lazy" decoding="async" alt="ViT-B/16: hàng là lớp thật, cột là dự đoán; số lượng và tỷ lệ theo hàng.">
+</a>
+<figcaption>ViT-B/16: hàng là lớp thật, cột là dự đoán; số lượng và tỷ lệ theo hàng.</figcaption>
+</figure>
+<figure class="report-figure report-figure-wide">
+<a class="figure-image-link" href="../assets/intel-image/oxford/20261120T092606Z/figures/vit_b_16_errors.png" aria-label="Mở hình: ViT-B/16: ảnh sai tự tin nhất; hiển thị đúng crop mô hình nhìn thấy.">
+<img src="../assets/intel-image/oxford/20261120T092606Z/figures/vit_b_16_errors.png" width="2101" height="1664" loading="lazy" decoding="async" alt="ViT-B/16: ảnh sai tự tin nhất; hiển thị đúng crop mô hình nhìn thấy.">
+</a>
+<figcaption>ViT-B/16: ảnh sai tự tin nhất; hiển thị đúng crop mô hình nhìn thấy.</figcaption>
+</figure>
+<h3 id="explanations">Giải thích MobileNet bằng Grad-CAM</h3>
+<figure class="report-figure report-figure-wide">
+<a class="figure-image-link" href="../assets/intel-image/oxford/20261120T092606Z/figures/mobilenet_v3_small_gradcam.png" aria-label="Mở hình: Grad-CAM trên features[-1], nhắm lớp dự đoán và chồng lên crop 224×224. Trọng số không thay đổi sau giải thích.">
+<img src="../assets/intel-image/oxford/20261120T092606Z/figures/mobilenet_v3_small_gradcam.png" width="1142" height="2533" loading="lazy" decoding="async" alt="Grad-CAM trên features[-1], nhắm lớp dự đoán và chồng lên crop 224×224. Trọng số không thay đổi sau giải thích.">
+</a>
+<figcaption>Grad-CAM trên features[-1], nhắm lớp dự đoán và chồng lên crop 224×224. Trọng số không thay đổi sau giải thích.</figcaption>
 </figure>
 </section>
 <section id="conclusions" class="pipeline-section" aria-labelledby="conclusions-title">
-<div class="pipeline-heading"><span class="step-number" aria-hidden="true">04</span><h2 id="conclusions-title">Tổng kết và mở rộng</h2></div>
-<p>Trong lần chạy FULL, seed 42, ViT-B/16 đạt test accuracy 94.50% và macro-F1 0.9463, cao hơn MobileNetV3-Small (92.43%, 0.9260) trên cùng 3,000 ảnh test. Fine-tuning recipe cải thiện validation macro-F1 ở cả hai mô hình; glacier → mountain vẫn là hướng nhầm lớn nhất.</p>
-<h3>Giới hạn của kết luận</h3>
-<ul class="report-list">
-  <li><span>Chỉ có một seed. Khoảng cách macro-F1 train–validation được ghi nhận là +2.24 điểm phần trăm (MobileNet) và +4.84 (ViT), cần đọc cùng đường học và lỗi từng lớp; chưa đủ để khẳng định overfitting.</span></li>
-  <li><span>Head học 3 epoch; fine-tuning có thêm tối đa 15 epoch, LR và chế độ backbone khác. Chưa thể quy toàn bộ mức tăng cho riêng việc mở backbone.</span></li>
-  <li><span>Hash pixel chỉ loại bản sao chính xác. Crop có thể bỏ đường chân trời hoặc vùng cảnh quan quan trọng; upsample không thêm chi tiết. Các ảnh lỗi đầu tiên không đại diện cho phân phối toàn bộ lỗi.</span></li>
-</ul>
-<h3>Thí nghiệm mở rộng đề xuất</h3>
-<p>Chạy nhiều seed; thêm đối chứng tiếp tục khóa backbone với ngân sách học tương đương; thử crop/resize bằng validation; kiểm tra near-duplicate bằng perceptual hash hoặc group split và cố định version dữ liệu. Đây là đề xuất, chưa có kết quả thực hiện trong notebook đã cung cấp.</p>
-<aside class="report-source-note" aria-labelledby="evidence-sources-title">
-<h3 id="evidence-sources-title">Nguồn bằng chứng và khả năng tái lập</h3>
-<p><code>intel_image_classification_trained.ipynb</code> — <span>nguồn số liệu và chín hình nguyên bản từ outputs đã lưu, gồm bốn hình EDA. Notebook ghi nhận FULL, seed 42; outputs phần kiểm tra nhất quán báo thành công cho cả hai mô hình.</span></p>
-<p><code>phan_tich_intel_image_classification.md</code> — <span>nguồn nhận xét phương pháp. Tài liệu mô tả bản notebook cũ chưa có outputs, nên nhận xét thiếu số liệu trong tài liệu đó không được áp dụng cho bản trained.</span></p>
-<p class="muted">Trang này tổng hợp bằng chứng đã lưu, không huấn luyện lại hoặc kiểm chứng độc lập Run all trên Colab. Thông tin nhóm, link notebook Colab và bản tải xuống đã được bổ sung; PDF report và video vẫn đang chờ cập nhật.</p>
-</aside>
+<div class="pipeline-heading">
+<span class="step-number" aria-hidden="true">04</span>
+<h2 id="conclusions-title">Kết luận và nguồn kết quả</h2>
+</div>
+<p>Trong lần chạy seed 42 trên 3,000 ảnh test, <strong>ViT-B/16</strong> đạt macro-F1 cao nhất 94.63%, accuracy 94.50%.</p>
+<p>Một seed, hash pixel chưa bao quát gần trùng và crop có thể bỏ nội dung. Các thí nghiệm tiếp theo có thể chạy nhiều seed, kiểm tra gần trùng và chọn crop/augmentation bằng validation.</p>
+<h3 id="evidence-sources-title">Nguồn và kiểm chứng</h3>
+<p>Notebook kiểm tra checkpoint, history, dự đoán và confusion matrix; metrics trên website được tính lại từ CSV.</p>
+<p>
+<a href="../assets/intel-image/oxford/20261120T092606Z/model_comparison.csv" download>CSV so sánh</a> · <a href="../assets/intel-image/oxford/20261120T092606Z/overall_metrics.csv" download>CSV ba split</a> · <a href="../assets/intel-image/oxford/20261120T092606Z/per_class_metrics.csv" download>CSV từng lớp</a> · <a href="../assets/intel-image/oxford/20261120T092606Z/source.json" download>Thông tin lần chạy</a> · <a href="../assets/intel-image/oxford/20261120T092606Z/split_manifest.csv" download>Split manifest</a>
+</p>
+<p>Nhóm SlightSeek: Phạm Duy Anh (2310139), Nguyễn Phan Tuấn Duy (2310491).</p>
 </section>
 </article>
-<aside class="project-sidebar"><section class="sidebar-block group-block">
+<aside class="project-sidebar">
+<section class="sidebar-block group-block">
 <h2>Nhóm thực hiện</h2>
 <dl class="group-details">
-  <div><dt><span>Tên nhóm đăng ký</span></dt><dd>SlightSeek</dd></div>
-  <div><dt><span>Danh sách thành viên</span></dt><dd><ul class="member-summary">
-  <li><strong>Phạm Duy Anh</strong><span>MSSV: 2310139</span><span><span>Đóng góp chính</span>: <span>Text và Image</span></span></li>
-  <li><strong>Nguyễn Phan Tuấn Duy</strong><span>MSSV: 2310491</span><span><span>Đóng góp chính</span>: <span>Tabular và Text</span></span></li>
-</ul></dd></div>
+  <div>
+<dt>
+<span>Tên nhóm đăng ký</span>
+</dt>
+<dd>SlightSeek</dd>
+</div>
+  <div>
+<dt>
+<span>Danh sách thành viên</span>
+</dt>
+<dd>
+<ul class="member-summary">
+  <li>
+<strong>Phạm Duy Anh</strong>
+<span>MSSV: 2310139</span>
+<span>
+<span>Đóng góp chính</span>: <span>Text và Image</span>
+</span>
+</li>
+  <li>
+<strong>Nguyễn Phan Tuấn Duy</strong>
+<span>MSSV: 2310491</span>
+<span>
+<span>Đóng góp chính</span>: <span>Tabular và Text</span>
+</span>
+</li>
+</ul>
+</dd>
+</div>
 </dl>
-<p class="muted small"><span>Nhóm SlightSeek gồm 2 thành viên.</span></p>
-</section><section class="sidebar-block requirements-block"><h2>Yêu cầu tập dữ liệu</h2><p class="small muted"><span>Đối chiếu với đề bài: có 17,034 ảnh có nhãn gốc, sáu lớp và pretrained weights. Pipeline thực tế mở toàn bộ backbone với LR nhỏ; kích thước 150×150 là trung vị. Các mục dưới đây là yêu cầu học phần, không phải chứng nhận hoàn tất nộp bài.</span></p><ul><li><span>Tối thiểu 5.000 ảnh tổng cộng; ít nhất 3 lớp nếu làm classification.</span></li><li><span>Cạnh ngắn khuyến nghị ≥ 128 px. Nếu nhỏ hơn, giải thích lý do và resize/padding.</span></li><li><span>Không dùng MNIST, Fashion-MNIST hoặc CIFAR-10 làm tập dữ liệu chính.</span></li><li><span>Nếu dùng deep learning, bắt buộc dùng pretrained: feature extractor hoặc fine-tuning nhẹ.</span></li><li><span>Nêu rõ train/validation/test, tránh data leakage và giải thích augmentation hợp lý.</span></li><li><span>Nếu làm bài toán mở rộng, mô tả annotation, chất lượng nhãn, cấu trúc thư mục và số mẫu mỗi lớp.</span></li></ul></section></aside></div>
-<div class="project-footer-nav"><a href="../../index.html#projects">← <span>Tất cả bài tập lớn</span></a><a href="tabular.html"><span>Bài tiếp theo</span> <span aria-hidden="true">→</span></a></div>
+<p class="muted small">
+<span>Nhóm SlightSeek gồm 2 thành viên.</span>
+</p>
+</section>
+<section class="sidebar-block requirements-block">
+<h2>Yêu cầu tập dữ liệu</h2>
+<p class="small muted">
+<span>Đối chiếu với đề bài: có 17,034 ảnh có nhãn gốc, sáu lớp và pretrained weights. Pipeline thực tế mở toàn bộ backbone với LR nhỏ; kích thước 150×150 là trung vị. Các mục dưới đây là yêu cầu học phần, không phải chứng nhận hoàn tất nộp bài.</span>
+</p>
+<ul>
+<li>
+<span>Tối thiểu 5.000 ảnh tổng cộng; ít nhất 3 lớp nếu làm classification.</span>
+</li>
+<li>
+<span>Cạnh ngắn khuyến nghị ≥ 128 px. Nếu nhỏ hơn, giải thích lý do và resize/padding.</span>
+</li>
+<li>
+<span>Không dùng MNIST, Fashion-MNIST hoặc CIFAR-10 làm tập dữ liệu chính.</span>
+</li>
+<li>
+<span>Nếu dùng deep learning, bắt buộc dùng pretrained: feature extractor hoặc fine-tuning nhẹ.</span>
+</li>
+<li>
+<span>Nêu rõ train/validation/test, tránh data leakage và giải thích augmentation hợp lý.</span>
+</li>
+<li>
+<span>Nếu làm bài toán mở rộng, mô tả annotation, chất lượng nhãn, cấu trúc thư mục và số mẫu mỗi lớp.</span>
+</li>
+</ul>
+</section>
+</aside>
+</div>
+<div class="project-footer-nav">
+<a href="../../index.html#projects">← <span>Tất cả bài tập lớn</span>
+</a>
+<a href="tabular.html">
+<span>Bài tiếp theo</span> <span aria-hidden="true">→</span>
+</a>
+</div>
 </main>
 <!-- shared:footer:start -->
 <footer class="site-footer">

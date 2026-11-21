@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "run_id": "20261120T092606Z",
+  "smoke_test": false,
+  "completed_utc": "2026-11-20T11:09:26.600692+00:00",
+  "recorded_utc": "2026-11-20T16:12:25.688679+00:00",
+  "source_sha256": "7ea3898c2383378381f29db5bf40bf81630f7e6345eee5e66299a5dd3e591c09",
+  "log_sha256": "155c78aa76eaa8ff623570f02aa0845866aff91acaae8dd0ac1dfb14c29f5ccf",
+  "cells_sha256": "04c8e7c6a7c63cbbc0058803a4a635dc002f5db7942b7f77b229d60f4a8e9624",
+  "code_cells": 34,
+  "gpu": "Tesla T4",
+  "seed": 42,
+  "verification_sha256": "c5f218432a308fd64b9707787d851663468ea37bc9731aed388bc0a536be51b3",
+  "output_cleanup": {
+    "removed_progress_fragments": 31768,
+    "raw_output_preserved": "intel_image_classification_trained_output.ipynb"
+  },
+  "execution_method": "colab CLI exec, sequential cells, clean kernel",
+  "notebook_sha256": "7483b020620435563b316db9647256891d1968afbea72f72f1987039998e032b"
+}

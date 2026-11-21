@@ -1,0 +1,82 @@
+[
+  {
+    "file": "models/phobert-base-v2/augmented/pretrained/model.safetensors",
+    "sha256": "7854ea8d7d6c18ccf2af559643ca0b28a664825a6d84ae33593e225dc87fbf4f",
+    "bytes": 540026460
+  },
+  {
+    "file": "models/phobert-base-v2/base/pretrained/model.safetensors",
+    "sha256": "4abf22d71944b0fd0e243c390947140bc40d1d03e48f64985b8bac0fb08ab408",
+    "bytes": 540026460
+  },
+  {
+    "file": "models/bilstm/base/best.pt",
+    "sha256": "23eae29d8b001dd2485b07b1de6f299fb2d4792b34445a2e32b6125738e6bb46",
+    "bytes": 15510847
+  },
+  {
+    "file": "models/bilstm/augmented/best.pt",
+    "sha256": "b1739d5f49d4d23c62df27d198524428db974d26785756b18f32db0717101f6a",
+    "bytes": 16958847
+  },
+  {
+    "file": "models/tf-idf-1d-cnn/base/vectorizer.joblib",
+    "sha256": "b63f9391bf2d5e5e0791c68a6bd8a730ea0818c9080bb7338429bcda725ad532",
+    "bytes": 170203
+  },
+  {
+    "file": "models/tf-idf-1d-cnn/base/best.pt",
+    "sha256": "b698ebf53c8fe3d125f526df823dc1983dd1f9d5b49aa89fe0be999b0c291a44",
+    "bytes": 208165
+  },
+  {
+    "file": "models/tf-idf-1d-cnn/augmented/vectorizer.joblib",
+    "sha256": "4477e723132ad9b2218343a19f6b899bcc8cfaf7d14d6e464839c84ad8c68cd4",
+    "bytes": 171769
+  },
+  {
+    "file": "models/tf-idf-1d-cnn/augmented/best.pt",
+    "sha256": "e6cd50229ce57068718aff7860eeea8d29a9c47d59b34a0c29c9991dceb8c72b",
+    "bytes": 208165
+  },
+  {
+    "file": "models/textcnn/base/best.pt",
+    "sha256": "60b114059bd4963f0cf65fffff36687e2a11e3cb6e1697e816fe590c38eab67d",
+    "bytes": 16480412
+  },
+  {
+    "file": "models/textcnn/augmented/best.pt",
+    "sha256": "8914756d169ba4b7bd7dd96552aa59d1e2450daade35d425198e49e82beed622",
+    "bytes": 17928412
+  },
+  {
+    "file": "models/cnn-bilstm/base/best.pt",
+    "sha256": "7d1317620b18776c2cb2ae1a3f8b5fea732a68255f8398aec59006502c91a05e",
+    "bytes": 15569137
+  },
+  {
+    "file": "models/cnn-bilstm/augmented/best.pt",
+    "sha256": "2547ddba951f0e4fa3c99b3e912789594d0a41fb51fdcbbfee9b108b4a658641",
+    "bytes": 17017137
+  },
+  {
+    "file": "models/tf-idf-linearsvc/base/classifier.joblib",
+    "sha256": "304937ed1c60744eae1773e4a746242d76b5410628c0a00e302ba9985b95c38b",
+    "bytes": 120763
+  },
+  {
+    "file": "models/tf-idf-linearsvc/base/vectorizer.joblib",
+    "sha256": "b63f9391bf2d5e5e0791c68a6bd8a730ea0818c9080bb7338429bcda725ad532",
+    "bytes": 170203
+  },
+  {
+    "file": "models/tf-idf-linearsvc/augmented/classifier.joblib",
+    "sha256": "209b509d2f42fe6c449c695fb58b9473f4ac6553e1c001c052222a82a43df003",
+    "bytes": 120763
+  },
+  {
+    "file": "models/tf-idf-linearsvc/augmented/vectorizer.joblib",
+    "sha256": "4477e723132ad9b2218343a19f6b899bcc8cfaf7d14d6e464839c84ad8c68cd4",
+    "bytes": 171769
+  }
+]

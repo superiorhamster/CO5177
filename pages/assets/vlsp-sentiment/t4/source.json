@@ -1,0 +1,8 @@
+{
+  "run_id": "20261116T155023Z",
+  "date": "2026-11-16",
+  "gpu": "NVIDIA Tesla T4",
+  "notebook_sha256": "db17bbb8d92dab3447946ba45a741b41a4746fa0d4119237ed930d98ab998f83",
+  "seed": 42,
+  "dataset_version": "VLSP v5"
+}

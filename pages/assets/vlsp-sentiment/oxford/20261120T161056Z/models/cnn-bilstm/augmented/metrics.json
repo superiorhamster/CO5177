@@ -1,0 +1,16 @@
+{
+  "architecture": "CNN+BiLSTM",
+  "dataset": "Augmented",
+  "accuracy": 0.6628571428571428,
+  "balanced_accuracy": 0.6628571428571428,
+  "macro_precision": 0.6806932572956543,
+  "macro_recall": 0.6628571428571428,
+  "macro_f1": 0.6640673684865804,
+  "weighted_f1": 0.6640673684865803,
+  "mcc": 0.5007933406283285,
+  "polarity_reversal_rate": 0.09714285714285714,
+  "support": 1050,
+  "parameters": 4253443,
+  "train_seconds": 71.59302540299996,
+  "inference_seconds": 0.18009456700019655
+}

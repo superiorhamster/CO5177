@@ -1,0 +1,7 @@
+sample_id,measure,value,extreme
+train:5998,brightness,17.001644444444445,min
+train:6465,brightness,223.5867111111111,max
+train:6057,contrast,12.858146486244756,min
+train:8090,laplacian_var,10.767131217777779,min
+train:10543,laplacian_var,77314.86268751927,max
+train:5912,aspect_ratio,1.9736842105263157,max

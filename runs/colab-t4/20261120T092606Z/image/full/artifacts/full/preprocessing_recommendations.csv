@@ -1,0 +1,6 @@
+Vấn đề/quan sát,Bằng chứng,Đề xuất
+Ảnh trùng ảnh hưởng tập phát triển,28 ảnh train bị loại; xem cleaning_log.csv,Làm sạch trước chia validation; kiểm tra thủ công nhóm nhãn mâu thuẫn.
+Độ cân bằng lớp,max/min=1.14,Dùng cross-entropy thường và báo macro-F1; chưa cần tự cân bằng lớp.
+Kích thước/chế độ màu,0 ảnh không phải RGB; median=150×150,"Chuyển RGB, resize/crop theo pretrained weights; upsample không tạo thêm chi tiết."
+Ảnh tối/ít tương phản cần kiểm tra,137 ảnh brightness<40; 8 ảnh std<15,Xem ảnh mẫu; có thể thử CLAHE trên train/validation như ablation nếu cải thiện; giữ pipeline gốc làm mốc.
+Nhãn mơ hồ và gần trùng,Hash pixel không phát hiện near-duplicate; độ tin cậy không xác nhận lỗi nhãn,Kiểm tra thủ công các nhóm dễ nhầm và dự đoán sai; cân nhắc perceptual hash/group split trong nghiên cứu tiếp theo.

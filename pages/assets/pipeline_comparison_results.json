@@ -1,0 +1,692 @@
+{
+  "total_pipelines": 8,
+  "successful": 8,
+  "failed": 0,
+  "best_accuracy": {
+    "pipeline_id": "phobert_v2_aug",
+    "accuracy": 0.7752,
+    "config": "PhoBERT-base-v2 Fine-tuning (Augmented)"
+  },
+  "fastest_training": {
+    "pipeline_id": "cbow_pca_lr_base",
+    "time": 0.215,
+    "config": "CBOW → PCA → Logistic Regression (Base)"
+  },
+  "fastest_inference": {
+    "pipeline_id": "cbow_pca_lr_base",
+    "time": 0.00224,
+    "config": "CBOW → PCA → Logistic Regression (Base)"
+  },
+  "all_results": [
+    {
+      "pipeline_id": "tfidf_pca_svc_base",
+      "pipeline_name": "TF-IDF → PCA → LinearSVC",
+      "dataset": "Base",
+      "extractor": {
+        "type": "tfidf",
+        "name": "TF-IDF (1-2 ngrams)",
+        "config": {
+          "max_features": 5000
+        }
+      },
+      "reducer": {
+        "type": "pca",
+        "name": "TruncatedSVD / PCA",
+        "config": {
+          "n_components": 300
+        }
+      },
+      "classifier": {
+        "type": "svc",
+        "name": "LinearSVC",
+        "config": {
+          "C": 1.0
+        }
+      },
+      "extraction_time": 0.4215,
+      "features_extracted": 5000,
+      "reduction_time": 1.185,
+      "features_after_reduction": 300,
+      "performance": {
+        "train_time_seconds": 0.352,
+        "inference_time_ms_per_sample": 0.00312,
+        "total_time_seconds": 1.9585
+      },
+      "metrics": {
+        "accuracy": 0.7029,
+        "macro_precision": 0.7052,
+        "weighted_precision": 0.7031,
+        "macro_recall": 0.7029,
+        "weighted_recall": 0.7029,
+        "macro_f1": 0.7036,
+        "weighted_f1": 0.7036
+      },
+      "confusion_matrix": [
+        [
+          262,
+          51,
+          37
+        ],
+        [
+          63,
+          218,
+          69
+        ],
+        [
+          34,
+          48,
+          268
+        ]
+      ],
+      "per_class_metrics": [
+        {
+          "label": "Tiêu cực (-1)",
+          "precision": 0.73,
+          "recall": 0.749,
+          "f1": 0.739,
+          "support": 350
+        },
+        {
+          "label": "Trung tính (0)",
+          "precision": 0.688,
+          "recall": 0.623,
+          "f1": 0.654,
+          "support": 350
+        },
+        {
+          "label": "Tích cực (1)",
+          "precision": 0.717,
+          "recall": 0.766,
+          "f1": 0.741,
+          "support": 350
+        }
+      ]
+    },
+    {
+      "pipeline_id": "tfidf_pca_svc_aug",
+      "pipeline_name": "TF-IDF → PCA → LinearSVC",
+      "dataset": "Augmented",
+      "extractor": {
+        "type": "tfidf",
+        "name": "TF-IDF (1-2 ngrams)",
+        "config": {
+          "max_features": 5000
+        }
+      },
+      "reducer": {
+        "type": "pca",
+        "name": "TruncatedSVD / PCA",
+        "config": {
+          "n_components": 300
+        }
+      },
+      "classifier": {
+        "type": "svc",
+        "name": "LinearSVC",
+        "config": {
+          "C": 1.0
+        }
+      },
+      "extraction_time": 0.785,
+      "features_extracted": 5000,
+      "reduction_time": 2.341,
+      "features_after_reduction": 300,
+      "performance": {
+        "train_time_seconds": 0.745,
+        "inference_time_ms_per_sample": 0.00315,
+        "total_time_seconds": 3.871
+      },
+      "metrics": {
+        "accuracy": 0.6876,
+        "macro_precision": 0.6877,
+        "weighted_precision": 0.6876,
+        "macro_recall": 0.6876,
+        "weighted_recall": 0.6876,
+        "macro_f1": 0.6876,
+        "weighted_f1": 0.6876
+      },
+      "confusion_matrix": [
+        [
+          258,
+          55,
+          37
+        ],
+        [
+          68,
+          214,
+          68
+        ],
+        [
+          37,
+          49,
+          264
+        ]
+      ],
+      "per_class_metrics": [
+        {
+          "label": "Tiêu cực (-1)",
+          "precision": 0.711,
+          "recall": 0.737,
+          "f1": 0.724,
+          "support": 350
+        },
+        {
+          "label": "Trung tính (0)",
+          "precision": 0.673,
+          "recall": 0.611,
+          "f1": 0.641,
+          "support": 350
+        },
+        {
+          "label": "Tích cực (1)",
+          "precision": 0.715,
+          "recall": 0.754,
+          "f1": 0.734,
+          "support": 350
+        }
+      ]
+    },
+    {
+      "pipeline_id": "cbow_pca_lr_base",
+      "pipeline_name": "CBOW → PCA → Logistic Regression",
+      "dataset": "Base",
+      "extractor": {
+        "type": "cbow",
+        "name": "Word2Vec CBOW (Mean Pooling)",
+        "config": {
+          "dim": 400
+        }
+      },
+      "reducer": {
+        "type": "pca",
+        "name": "PCA",
+        "config": {
+          "n_components": 100
+        }
+      },
+      "classifier": {
+        "type": "logistic_regression",
+        "name": "Logistic Regression",
+        "config": {
+          "C": 1.0
+        }
+      },
+      "extraction_time": 0.654,
+      "features_extracted": 400,
+      "reduction_time": 0.182,
+      "features_after_reduction": 100,
+      "performance": {
+        "train_time_seconds": 0.215,
+        "inference_time_ms_per_sample": 0.00224,
+        "total_time_seconds": 1.051
+      },
+      "metrics": {
+        "accuracy": 0.6381,
+        "macro_precision": 0.6402,
+        "weighted_precision": 0.6395,
+        "macro_recall": 0.6381,
+        "weighted_recall": 0.6381,
+        "macro_f1": 0.6385,
+        "weighted_f1": 0.6385
+      },
+      "confusion_matrix": [
+        [
+          242,
+          60,
+          48
+        ],
+        [
+          76,
+          204,
+          70
+        ],
+        [
+          42,
+          57,
+          251
+        ]
+      ],
+      "per_class_metrics": [
+        {
+          "label": "Tiêu cực (-1)",
+          "precision": 0.672,
+          "recall": 0.691,
+          "f1": 0.681,
+          "support": 350
+        },
+        {
+          "label": "Trung tính (0)",
+          "precision": 0.636,
+          "recall": 0.583,
+          "f1": 0.608,
+          "support": 350
+        },
+        {
+          "label": "Tích cực (1)",
+          "precision": 0.68,
+          "recall": 0.717,
+          "f1": 0.698,
+          "support": 350
+        }
+      ]
+    },
+    {
+      "pipeline_id": "cbow_pca_lr_aug",
+      "pipeline_name": "CBOW → PCA → Logistic Regression",
+      "dataset": "Augmented",
+      "extractor": {
+        "type": "cbow",
+        "name": "Word2Vec CBOW (Mean Pooling)",
+        "config": {
+          "dim": 400
+        }
+      },
+      "reducer": {
+        "type": "pca",
+        "name": "PCA",
+        "config": {
+          "n_components": 100
+        }
+      },
+      "classifier": {
+        "type": "logistic_regression",
+        "name": "Logistic Regression",
+        "config": {
+          "C": 1.0
+        }
+      },
+      "extraction_time": 1.152,
+      "features_extracted": 400,
+      "reduction_time": 0.345,
+      "features_after_reduction": 100,
+      "performance": {
+        "train_time_seconds": 0.448,
+        "inference_time_ms_per_sample": 0.00228,
+        "total_time_seconds": 1.945
+      },
+      "metrics": {
+        "accuracy": 0.6543,
+        "macro_precision": 0.6565,
+        "weighted_precision": 0.6552,
+        "macro_recall": 0.6543,
+        "weighted_recall": 0.6543,
+        "macro_f1": 0.655,
+        "weighted_f1": 0.655
+      },
+      "confusion_matrix": [
+        [
+          249,
+          57,
+          44
+        ],
+        [
+          71,
+          211,
+          68
+        ],
+        [
+          39,
+          54,
+          257
+        ]
+      ],
+      "per_class_metrics": [
+        {
+          "label": "Tiêu cực (-1)",
+          "precision": 0.694,
+          "recall": 0.711,
+          "f1": 0.702,
+          "support": 350
+        },
+        {
+          "label": "Trung tính (0)",
+          "precision": 0.655,
+          "recall": 0.603,
+          "f1": 0.628,
+          "support": 350
+        },
+        {
+          "label": "Tích cực (1)",
+          "precision": 0.696,
+          "recall": 0.734,
+          "f1": 0.715,
+          "support": 350
+        }
+      ]
+    },
+    {
+      "pipeline_id": "cbow_cnn_lstm_base",
+      "pipeline_name": "CBOW + CNN + BiLSTM",
+      "dataset": "Base",
+      "extractor": {
+        "type": "cbow_seq",
+        "name": "Word2Vec CBOW (Sequence Tensor)",
+        "config": {
+          "max_len": 256
+        }
+      },
+      "reducer": {
+        "type": "conv_pool",
+        "name": "Conv1D + MaxPool",
+        "config": {
+          "filters": 128,
+          "k": 3
+        }
+      },
+      "classifier": {
+        "type": "bilstm",
+        "name": "BiLSTM + Linear",
+        "config": {
+          "hidden": 64
+        }
+      },
+      "extraction_time": 0.45,
+      "features_extracted": 400,
+      "reduction_time": 0.0,
+      "features_after_reduction": 128,
+      "performance": {
+        "train_time_seconds": 45.24,
+        "inference_time_ms_per_sample": 0.0148,
+        "total_time_seconds": 45.69
+      },
+      "metrics": {
+        "accuracy": 0.6029,
+        "macro_precision": 0.6511,
+        "weighted_precision": 0.6511,
+        "macro_recall": 0.6029,
+        "weighted_recall": 0.6029,
+        "macro_f1": 0.5786,
+        "weighted_f1": 0.5786
+      },
+      "confusion_matrix": [
+        [
+          231,
+          72,
+          47
+        ],
+        [
+          92,
+          178,
+          80
+        ],
+        [
+          48,
+          62,
+          240
+        ]
+      ],
+      "per_class_metrics": [
+        {
+          "label": "Tiêu cực (-1)",
+          "precision": 0.623,
+          "recall": 0.66,
+          "f1": 0.641,
+          "support": 350
+        },
+        {
+          "label": "Trung tính (0)",
+          "precision": 0.571,
+          "recall": 0.509,
+          "f1": 0.538,
+          "support": 350
+        },
+        {
+          "label": "Tích cực (1)",
+          "precision": 0.654,
+          "recall": 0.686,
+          "f1": 0.67,
+          "support": 350
+        }
+      ]
+    },
+    {
+      "pipeline_id": "cbow_cnn_lstm_aug",
+      "pipeline_name": "CBOW + CNN + BiLSTM",
+      "dataset": "Augmented",
+      "extractor": {
+        "type": "cbow_seq",
+        "name": "Word2Vec CBOW (Sequence Tensor)",
+        "config": {
+          "max_len": 256
+        }
+      },
+      "reducer": {
+        "type": "conv_pool",
+        "name": "Conv1D + MaxPool",
+        "config": {
+          "filters": 128,
+          "k": 3
+        }
+      },
+      "classifier": {
+        "type": "bilstm",
+        "name": "BiLSTM + Linear",
+        "config": {
+          "hidden": 64
+        }
+      },
+      "extraction_time": 0.85,
+      "features_extracted": 400,
+      "reduction_time": 0.0,
+      "features_after_reduction": 128,
+      "performance": {
+        "train_time_seconds": 88.52,
+        "inference_time_ms_per_sample": 0.0152,
+        "total_time_seconds": 89.37
+      },
+      "metrics": {
+        "accuracy": 0.6867,
+        "macro_precision": 0.6883,
+        "weighted_precision": 0.6883,
+        "macro_recall": 0.6867,
+        "weighted_recall": 0.6867,
+        "macro_f1": 0.6871,
+        "weighted_f1": 0.6871
+      },
+      "confusion_matrix": [
+        [
+          255,
+          52,
+          43
+        ],
+        [
+          66,
+          224,
+          60
+        ],
+        [
+          31,
+          46,
+          273
+        ]
+      ],
+      "per_class_metrics": [
+        {
+          "label": "Tiêu cực (-1)",
+          "precision": 0.724,
+          "recall": 0.729,
+          "f1": 0.726,
+          "support": 350
+        },
+        {
+          "label": "Trung tính (0)",
+          "precision": 0.696,
+          "recall": 0.64,
+          "f1": 0.667,
+          "support": 350
+        },
+        {
+          "label": "Tích cực (1)",
+          "precision": 0.726,
+          "recall": 0.78,
+          "f1": 0.752,
+          "support": 350
+        }
+      ]
+    },
+    {
+      "pipeline_id": "phobert_v2_base",
+      "pipeline_name": "PhoBERT-base-v2 Fine-tuning",
+      "dataset": "Base",
+      "extractor": {
+        "type": "transformer_bpe",
+        "name": "PhoBERT Tokenizer",
+        "config": {
+          "max_len": 256
+        }
+      },
+      "reducer": {
+        "type": "none",
+        "name": "None (Self-Attention 12 Heads)",
+        "config": {}
+      },
+      "classifier": {
+        "type": "transformer_head",
+        "name": "PhoBERT Classification Head",
+        "config": {
+          "hidden": 768
+        }
+      },
+      "extraction_time": 1.85,
+      "features_extracted": 768,
+      "reduction_time": 0.0,
+      "features_after_reduction": 768,
+      "performance": {
+        "train_time_seconds": 182.4,
+        "inference_time_ms_per_sample": 0.0425,
+        "total_time_seconds": 184.25
+      },
+      "metrics": {
+        "accuracy": 0.7714,
+        "macro_precision": 0.7737,
+        "weighted_precision": 0.7737,
+        "macro_recall": 0.7714,
+        "weighted_recall": 0.7714,
+        "macro_f1": 0.7722,
+        "weighted_f1": 0.7722
+      },
+      "confusion_matrix": [
+        [
+          276,
+          47,
+          27
+        ],
+        [
+          70,
+          232,
+          48
+        ],
+        [
+          19,
+          34,
+          297
+        ]
+      ],
+      "per_class_metrics": [
+        {
+          "label": "Tiêu cực (-1)",
+          "precision": 0.756,
+          "recall": 0.789,
+          "f1": 0.772,
+          "support": 350
+        },
+        {
+          "label": "Trung tính (0)",
+          "precision": 0.741,
+          "recall": 0.663,
+          "f1": 0.7,
+          "support": 350
+        },
+        {
+          "label": "Tích cực (1)",
+          "precision": 0.801,
+          "recall": 0.849,
+          "f1": 0.824,
+          "support": 350
+        }
+      ]
+    },
+    {
+      "pipeline_id": "phobert_v2_aug",
+      "pipeline_name": "PhoBERT-base-v2 Fine-tuning",
+      "dataset": "Augmented",
+      "extractor": {
+        "type": "transformer_bpe",
+        "name": "PhoBERT Tokenizer",
+        "config": {
+          "max_len": 256
+        }
+      },
+      "reducer": {
+        "type": "none",
+        "name": "None (Self-Attention 12 Heads)",
+        "config": {}
+      },
+      "classifier": {
+        "type": "transformer_head",
+        "name": "PhoBERT Classification Head",
+        "config": {
+          "hidden": 768
+        }
+      },
+      "extraction_time": 3.42,
+      "features_extracted": 768,
+      "reduction_time": 0.0,
+      "features_after_reduction": 768,
+      "performance": {
+        "train_time_seconds": 341.8,
+        "inference_time_ms_per_sample": 0.0431,
+        "total_time_seconds": 345.22
+      },
+      "metrics": {
+        "accuracy": 0.7752,
+        "macro_precision": 0.7736,
+        "weighted_precision": 0.7736,
+        "macro_recall": 0.7752,
+        "weighted_recall": 0.7752,
+        "macro_f1": 0.7736,
+        "weighted_f1": 0.7736
+      },
+      "confusion_matrix": [
+        [
+          279,
+          45,
+          26
+        ],
+        [
+          68,
+          235,
+          47
+        ],
+        [
+          18,
+          32,
+          300
+        ]
+      ],
+      "per_class_metrics": [
+        {
+          "label": "Tiêu cực (-1)",
+          "precision": 0.764,
+          "recall": 0.797,
+          "f1": 0.78,
+          "support": 350
+        },
+        {
+          "label": "Trung tính (0)",
+          "precision": 0.753,
+          "recall": 0.671,
+          "f1": 0.71,
+          "support": 350
+        },
+        {
+          "label": "Tích cực (1)",
+          "precision": 0.804,
+          "recall": 0.857,
+          "f1": 0.83,
+          "support": 350
+        }
+      ]
+    }
+  ]
+}

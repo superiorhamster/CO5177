@@ -1,0 +1,49 @@
+{
+  "run_id": "20261120T092649Z",
+  "smoke_test": true,
+  "seed": 42,
+  "dataset": "anhphmduy/vlsp-sentiment-dataset/versions/5",
+  "fit_mode": "fixed_configuration",
+  "labels": [
+    -1,
+    0,
+    1
+  ],
+  "architectures": [
+    "TF-IDF + LinearSVC",
+    "TF-IDF + 1D-CNN",
+    "TextCNN",
+    "BiLSTM",
+    "CNN+BiLSTM",
+    "PhoBERT-base-v2"
+  ],
+  "sample_counts": {
+    "Base": 24,
+    "Augmented": 24,
+    "Test": 6
+  },
+  "sources": {
+    "Base": {
+      "filename": "vlsp_sentiment_train.csv",
+      "sha256": "669f584a9fd149ebf7b4bc8aa16bbacff3ee14e0b05512fd035d6f33a3f4b417"
+    },
+    "Augmented": {
+      "filename": "vlsp_sentiment_train_augmented_v2.csv",
+      "sha256": "67220874e2d224bfe04dec0b37791addf72c6dbb54b5b13f355327bb8e2b4477"
+    },
+    "Test": {
+      "filename": "vlsp_sentiment_test.csv",
+      "sha256": "7252546b2a289eccaa3e6a4748cc021b567442a7f3352c468ff2cbe8e353e6c8"
+    }
+  },
+  "epochs": {
+    "neural": 1,
+    "phobert": 1
+  },
+  "phobert_effective_batch": 32,
+  "manifest_sha256": "8b723675433ea766be03fd80ac6feaf8541d430257939ef1c1751a2b59b8c503",
+  "word2vec": {
+    "file": "vi-model-CBOW.bin",
+    "sha256": "b81652d573e8b5aa57e1fa4ef13bcab735a0ed236b040969ae1e313ced3aceef"
+  }
+}

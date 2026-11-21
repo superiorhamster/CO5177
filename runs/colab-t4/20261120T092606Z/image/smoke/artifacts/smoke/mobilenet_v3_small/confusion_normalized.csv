@@ -1,0 +1,7 @@
+,buildings,forest,glacier,mountain,sea,street
+buildings,0.5,0.0,0.0,0.0,0.0,0.5
+forest,0.0,1.0,0.0,0.0,0.0,0.0
+glacier,0.0,0.0,0.5,0.0,0.5,0.0
+mountain,0.0,0.0,1.0,0.0,0.0,0.0
+sea,0.0,0.0,0.0,0.0,1.0,0.0
+street,0.0,0.0,0.0,0.0,0.0,1.0

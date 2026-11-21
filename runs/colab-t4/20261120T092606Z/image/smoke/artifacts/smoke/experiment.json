@@ -1,0 +1,38 @@
+{
+  "config": {
+    "dataset_id": "puneet6060/intel-image-classification",
+    "dataset_version": 2,
+    "seed": 42,
+    "smoke_test": true,
+    "smoke_train_per_class": 8,
+    "smoke_val_per_class": 2,
+    "smoke_test_per_class": 2,
+    "val_fraction": 0.2,
+    "batch_size": 16,
+    "accumulation_steps": 2,
+    "num_workers": 2,
+    "head_epochs": 3,
+    "finetune_epochs": 15,
+    "head_lr": 0.001,
+    "backbone_lr": 1e-05,
+    "finetune_head_lr": 0.0001,
+    "weight_decay": 0.0001,
+    "patience": 4,
+    "use_amp": true,
+    "cpu_threads": 2
+  },
+  "source": {
+    "provider": "kaggle",
+    "dataset_id": "puneet6060/intel-image-classification",
+    "version": 2
+  },
+  "manifest_digest": "ae03d6ee4ba0763ddf0d44a21738adc9cb055de9864ee0dc5a629c08d83aca88",
+  "weights": {
+    "mobilenet_v3_small": "IMAGENET1K_V1",
+    "vit_b_16": "IMAGENET1K_V1"
+  },
+  "pipeline_version": 3,
+  "finetune_start": "best_head",
+  "tie_policy": "head",
+  "run_signature": "afe851cd671e3429c42b0eb2869ded009df69ac292d2ee79ed72e6812d1d4056"
+}

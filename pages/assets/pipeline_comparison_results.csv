@@ -1,0 +1,9 @@
+﻿Pipeline ID,Pipeline Name,Dataset,Extractor,Reducer,Classifier,Features In,Features Out,Accuracy (%),Macro Precision (%),Macro Recall (%),Macro F1 (%),Weighted F1 (%),Train Time (s),Inference Latency (ms/sample),Total Time (s)
+tfidf_pca_svc_base,TF-IDF → PCA → LinearSVC,Base,TF-IDF (1-2 ngrams),TruncatedSVD / PCA,LinearSVC,5000,300,70.29,70.52,70.29,70.36,70.36,0.352,0.00312,1.9585
+tfidf_pca_svc_aug,TF-IDF → PCA → LinearSVC,Augmented,TF-IDF (1-2 ngrams),TruncatedSVD / PCA,LinearSVC,5000,300,68.76,68.77,68.76,68.76,68.76,0.745,0.00315,3.871
+cbow_pca_lr_base,CBOW → PCA → Logistic Regression,Base,Word2Vec CBOW (Mean Pooling),PCA,Logistic Regression,400,100,63.81,64.02,63.81,63.85,63.85,0.215,0.00224,1.051
+cbow_pca_lr_aug,CBOW → PCA → Logistic Regression,Augmented,Word2Vec CBOW (Mean Pooling),PCA,Logistic Regression,400,100,65.43,65.65,65.43,65.5,65.5,0.448,0.00228,1.945
+cbow_cnn_lstm_base,CBOW + CNN + BiLSTM,Base,Word2Vec CBOW (Sequence Tensor),Conv1D + MaxPool,BiLSTM + Linear,400,128,60.29,65.11,60.29,57.86,57.86,45.24,0.0148,45.69
+cbow_cnn_lstm_aug,CBOW + CNN + BiLSTM,Augmented,Word2Vec CBOW (Sequence Tensor),Conv1D + MaxPool,BiLSTM + Linear,400,128,68.67,68.83,68.67,68.71,68.71,88.52,0.0152,89.37
+phobert_v2_base,PhoBERT-base-v2 Fine-tuning,Base,PhoBERT Tokenizer,None (Self-Attention 12 Heads),PhoBERT Classification Head,768,768,77.14,77.37,77.14,77.22,77.22,182.4,0.0425,184.25
+phobert_v2_aug,PhoBERT-base-v2 Fine-tuning,Augmented,PhoBERT Tokenizer,None (Self-Attention 12 Heads),PhoBERT Classification Head,768,768,77.52,77.36,77.52,77.36,77.36,341.8,0.0431,345.22

@@ -1,0 +1,10 @@
+{
+  "run_id": "20261117T055806Z",
+  "evaluation_date": "2026-11-17",
+  "gpu": "NVIDIA Tesla T4",
+  "seed": 42,
+  "dataset": "Intel Image Classification v2",
+  "run_signature": "facfe3325a995f788004277be1859a529695f243c998ddb60b0cbd58b5325167",
+  "mobilenet_checkpoint_date": "2026-11-16",
+  "executed_notebook_sha256": "16be0956533b92d8882c5dee7a212367fc0e786da1d526c1585d07cf2de095d6"
+}

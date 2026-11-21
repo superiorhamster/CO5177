@@ -1,0 +1,28 @@
+{
+  "provider": "kaggle",
+  "dataset_id": "puneet6060/intel-image-classification",
+  "dataset_url": "https://www.kaggle.com/datasets/puneet6060/intel-image-classification",
+  "requested_handle": "puneet6060/intel-image-classification/versions/2",
+  "requested_version": 2,
+  "resolved_version": 2,
+  "class_names": [
+    "buildings",
+    "forest",
+    "glacier",
+    "mountain",
+    "sea",
+    "street"
+  ],
+  "download_method": "kagglehub.dataset_download (entire dataset)",
+  "local_dataset_dir": "/kaggle/input/intel-image-classification",
+  "loaded_splits": {
+    "train": 14034,
+    "test": 3000
+  },
+  "prediction_files_available": 7301,
+  "fingerprints": {
+    "train": "e5517abe15fb87c5",
+    "test": "4280c17cf5a4271a"
+  },
+  "test_policy": "Giữ mọi ảnh test có nhãn hợp lệ và decode được; không deduplicate test."
+}

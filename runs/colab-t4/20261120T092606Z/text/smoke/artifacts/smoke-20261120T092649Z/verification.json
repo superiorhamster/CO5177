@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "runs": 12,
+  "smoke_test": true,
+  "checkpoint_reload": "passed",
+  "explanation_weights_unchanged": true
+}

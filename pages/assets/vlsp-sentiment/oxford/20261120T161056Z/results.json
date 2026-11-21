@@ -1,0 +1,246 @@
+{
+  "run": {
+    "run_id": "20261120T161056Z",
+    "smoke_test": false,
+    "seed": 42,
+    "dataset": "anhphmduy/vlsp-sentiment-dataset/versions/5",
+    "fit_mode": "fixed_configuration",
+    "labels": [
+      -1,
+      0,
+      1
+    ],
+    "architectures": [
+      "TF-IDF + LinearSVC",
+      "TF-IDF + 1D-CNN",
+      "TextCNN",
+      "BiLSTM",
+      "CNN+BiLSTM",
+      "PhoBERT-base-v2"
+    ],
+    "sample_counts": {
+      "Base": 5022,
+      "Augmented": 9934,
+      "Test": 1050
+    },
+    "sources": {
+      "Base": {
+        "filename": "vlsp_sentiment_train.csv",
+        "sha256": "669f584a9fd149ebf7b4bc8aa16bbacff3ee14e0b05512fd035d6f33a3f4b417"
+      },
+      "Augmented": {
+        "filename": "vlsp_sentiment_train_augmented_v2.csv",
+        "sha256": "67220874e2d224bfe04dec0b37791addf72c6dbb54b5b13f355327bb8e2b4477"
+      },
+      "Test": {
+        "filename": "vlsp_sentiment_test.csv",
+        "sha256": "7252546b2a289eccaa3e6a4748cc021b567442a7f3352c468ff2cbe8e353e6c8"
+      }
+    },
+    "epochs": {
+      "neural": 15,
+      "phobert": 6
+    },
+    "timing_definition": "Fit preprocessor + model initialization + training/validation; excludes shared Word2Vec loading and test inference.",
+    "phobert_effective_batch": 32,
+    "manifest_sha256": "9a04b6e2b2f88b7c068fcdb93962b2f2f5d549d99c19bf0f6c2a8b9a5bd5f4d7",
+    "word2vec": {
+      "file": "vi-model-CBOW.bin",
+      "sha256": "b81652d573e8b5aa57e1fa4ef13bcab735a0ed236b040969ae1e313ced3aceef"
+    }
+  },
+  "results": [
+    {
+      "architecture": "TF-IDF + LinearSVC",
+      "dataset": "Base",
+      "accuracy": 0.6895238095238095,
+      "balanced_accuracy": 0.6895238095238095,
+      "macro_precision": 0.691054982300209,
+      "macro_recall": 0.6895238095238095,
+      "macro_f1": 0.6897927125322599,
+      "weighted_f1": 0.68979271253226,
+      "mcc": 0.5346546441640732,
+      "polarity_reversal_rate": 0.09571428571428571,
+      "support": 1050,
+      "parameters": 15003,
+      "train_seconds": 1.4388803140000164,
+      "inference_seconds": 0.07077203099993312
+    },
+    {
+      "architecture": "TF-IDF + LinearSVC",
+      "dataset": "Augmented",
+      "accuracy": 0.6819047619047619,
+      "balanced_accuracy": 0.6819047619047618,
+      "macro_precision": 0.681740360566662,
+      "macro_recall": 0.6819047619047618,
+      "macro_f1": 0.6817026768193172,
+      "weighted_f1": 0.6817026768193172,
+      "mcc": 0.5229517807902546,
+      "polarity_reversal_rate": 0.10714285714285714,
+      "support": 1050,
+      "parameters": 15003,
+      "train_seconds": 1.6812257099999783,
+      "inference_seconds": 0.05003724600010173
+    },
+    {
+      "architecture": "TF-IDF + 1D-CNN",
+      "dataset": "Base",
+      "accuracy": 0.3352380952380952,
+      "balanced_accuracy": 0.3352380952380953,
+      "macro_precision": 0.1891056548722894,
+      "macro_recall": 0.3352380952380953,
+      "macro_f1": 0.17325777934023331,
+      "weighted_f1": 0.1732577793402333,
+      "mcc": 0.014917621131435528,
+      "polarity_reversal_rate": 0.012857142857142857,
+      "support": 1050,
+      "parameters": 50307,
+      "train_seconds": 46.303143120000016,
+      "inference_seconds": 0.2226478979998774
+    },
+    {
+      "architecture": "TF-IDF + 1D-CNN",
+      "dataset": "Augmented",
+      "accuracy": 0.3333333333333333,
+      "balanced_accuracy": 0.3333333333333333,
+      "macro_precision": 0.1111111111111111,
+      "macro_recall": 0.3333333333333333,
+      "macro_f1": 0.16666666666666666,
+      "weighted_f1": 0.16666666666666666,
+      "mcc": 0.0,
+      "polarity_reversal_rate": 0.0,
+      "support": 1050,
+      "parameters": 50307,
+      "train_seconds": 82.64783608600004,
+      "inference_seconds": 0.23511762600014663
+    },
+    {
+      "architecture": "TextCNN",
+      "dataset": "Base",
+      "accuracy": 0.6780952380952381,
+      "balanced_accuracy": 0.6780952380952381,
+      "macro_precision": 0.6868067365390346,
+      "macro_recall": 0.6780952380952381,
+      "macro_f1": 0.6781231108591834,
+      "weighted_f1": 0.6781231108591834,
+      "mcc": 0.5206921180652226,
+      "polarity_reversal_rate": 0.13142857142857142,
+      "support": 1050,
+      "parameters": 4119203,
+      "train_seconds": 45.69706198199998,
+      "inference_seconds": 0.24973501199997372
+    },
+    {
+      "architecture": "TextCNN",
+      "dataset": "Augmented",
+      "accuracy": 0.68,
+      "balanced_accuracy": 0.68,
+      "macro_precision": 0.6896824988556104,
+      "macro_recall": 0.68,
+      "macro_f1": 0.6808518942202687,
+      "weighted_f1": 0.6808518942202686,
+      "mcc": 0.5231289137570476,
+      "polarity_reversal_rate": 0.09571428571428571,
+      "support": 1050,
+      "parameters": 4481203,
+      "train_seconds": 88.36634077299993,
+      "inference_seconds": 0.28256366000005073
+    },
+    {
+      "architecture": "BiLSTM",
+      "dataset": "Base",
+      "accuracy": 0.6914285714285714,
+      "balanced_accuracy": 0.6914285714285714,
+      "macro_precision": 0.691355399871944,
+      "macro_recall": 0.6914285714285714,
+      "macro_f1": 0.6913837484478579,
+      "weighted_f1": 0.6913837484478578,
+      "mcc": 0.5371494345231417,
+      "polarity_reversal_rate": 0.12142857142857143,
+      "support": 1050,
+      "parameters": 3876979,
+      "train_seconds": 30.439333432000012,
+      "inference_seconds": 0.21608691200003705
+    },
+    {
+      "architecture": "BiLSTM",
+      "dataset": "Augmented",
+      "accuracy": 0.6838095238095238,
+      "balanced_accuracy": 0.6838095238095239,
+      "macro_precision": 0.6947554129304878,
+      "macro_recall": 0.6838095238095239,
+      "macro_f1": 0.6853510000113832,
+      "weighted_f1": 0.6853510000113832,
+      "mcc": 0.5289125424511281,
+      "polarity_reversal_rate": 0.09714285714285714,
+      "support": 1050,
+      "parameters": 4238979,
+      "train_seconds": 60.23939334299996,
+      "inference_seconds": 0.12725775899980363
+    },
+    {
+      "architecture": "CNN+BiLSTM",
+      "dataset": "Base",
+      "accuracy": 0.6619047619047619,
+      "balanced_accuracy": 0.6619047619047619,
+      "macro_precision": 0.6811789745759493,
+      "macro_recall": 0.6619047619047619,
+      "macro_f1": 0.6621188009586496,
+      "weighted_f1": 0.6621188009586496,
+      "mcc": 0.5002880033201531,
+      "polarity_reversal_rate": 0.10142857142857142,
+      "support": 1050,
+      "parameters": 3891443,
+      "train_seconds": 36.06291067500001,
+      "inference_seconds": 0.22319260799986296
+    },
+    {
+      "architecture": "CNN+BiLSTM",
+      "dataset": "Augmented",
+      "accuracy": 0.6628571428571428,
+      "balanced_accuracy": 0.6628571428571428,
+      "macro_precision": 0.6806932572956543,
+      "macro_recall": 0.6628571428571428,
+      "macro_f1": 0.6640673684865804,
+      "weighted_f1": 0.6640673684865803,
+      "mcc": 0.5007933406283285,
+      "polarity_reversal_rate": 0.09714285714285714,
+      "support": 1050,
+      "parameters": 4253443,
+      "train_seconds": 71.59302540299996,
+      "inference_seconds": 0.18009456700019655
+    },
+    {
+      "architecture": "PhoBERT-base-v2",
+      "dataset": "Base",
+      "accuracy": 0.7771428571428571,
+      "balanced_accuracy": 0.7771428571428572,
+      "macro_precision": 0.7748904794120447,
+      "macro_recall": 0.7771428571428572,
+      "macro_f1": 0.7752159778201037,
+      "weighted_f1": 0.7752159778201037,
+      "mcc": 0.6664064385116691,
+      "polarity_reversal_rate": 0.04428571428571428,
+      "support": 1050,
+      "parameters": 135000579,
+      "train_seconds": 410.474552356,
+      "inference_seconds": 4.617277418999947
+    },
+    {
+      "architecture": "PhoBERT-base-v2",
+      "dataset": "Augmented",
+      "accuracy": 0.7780952380952381,
+      "balanced_accuracy": 0.7780952380952382,
+      "macro_precision": 0.7763945706959895,
+      "macro_recall": 0.7780952380952382,
+      "macro_f1": 0.7764807106774262,
+      "weighted_f1": 0.7764807106774262,
+      "mcc": 0.6678000777665972,
+      "polarity_reversal_rate": 0.05142857142857143,
+      "support": 1050,
+      "parameters": 135000579,
+      "train_seconds": 777.6319031380001,
+      "inference_seconds": 4.670536134999793
+    }
+  ]
+}

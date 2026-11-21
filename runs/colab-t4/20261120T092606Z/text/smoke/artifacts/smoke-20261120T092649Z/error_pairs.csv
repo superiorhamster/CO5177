@@ -1,0 +1,33 @@
+architecture,dataset,true_label,predicted_label,count
+BiLSTM,Augmented,1,0,2
+BiLSTM,Base,0,-1,1
+BiLSTM,Base,1,-1,1
+BiLSTM,Base,1,0,1
+CNN+BiLSTM,Augmented,-1,1,2
+CNN+BiLSTM,Augmented,0,1,2
+CNN+BiLSTM,Base,0,1,2
+CNN+BiLSTM,Base,1,-1,1
+PhoBERT-base-v2,Augmented,-1,0,1
+PhoBERT-base-v2,Augmented,-1,1,1
+PhoBERT-base-v2,Augmented,1,-1,1
+PhoBERT-base-v2,Base,-1,0,1
+PhoBERT-base-v2,Base,-1,1,1
+PhoBERT-base-v2,Base,0,1,1
+PhoBERT-base-v2,Base,1,0,1
+TF-IDF + 1D-CNN,Augmented,-1,1,2
+TF-IDF + 1D-CNN,Augmented,0,1,2
+TF-IDF + 1D-CNN,Base,-1,1,2
+TF-IDF + 1D-CNN,Base,0,1,2
+TF-IDF + LinearSVC,Augmented,-1,0,1
+TF-IDF + LinearSVC,Augmented,-1,1,1
+TF-IDF + LinearSVC,Augmented,0,1,1
+TF-IDF + LinearSVC,Augmented,1,-1,1
+TF-IDF + LinearSVC,Augmented,1,0,1
+TF-IDF + LinearSVC,Base,-1,0,1
+TF-IDF + LinearSVC,Base,-1,1,1
+TF-IDF + LinearSVC,Base,0,-1,1
+TF-IDF + LinearSVC,Base,0,1,1
+TextCNN,Augmented,0,-1,2
+TextCNN,Augmented,1,-1,2
+TextCNN,Base,0,-1,2
+TextCNN,Base,1,-1,2

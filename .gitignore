@@ -40,3 +40,6 @@ Desktop.ini
 
 /BTL_Planning/
 /pages/assets/Adult_Census_Income_Results/Saved_models/
+
+# Selected trained weights are local artifacts; reports publish metrics and figures.
+/runs/**/selected-checkpoints.zip

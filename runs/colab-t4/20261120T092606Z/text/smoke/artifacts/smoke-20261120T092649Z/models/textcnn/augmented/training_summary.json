@@ -1,0 +1,20 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.2250198125839233,
+      "train_accuracy": 0.5833333333333334,
+      "train_macro_f1": 0.5687645687645687,
+      "train_eval_loss": 0.6847754319508871
+    }
+  ],
+  "selected_epoch": 1,
+  "selection": "fixed_final_epoch",
+  "parameters": 637203,
+  "architecture": "TextCNN",
+  "dataset": "Augmented",
+  "train_seconds": 0.05819390800002111,
+  "fit_mode": "fixed_configuration",
+  "fit_rows": 24,
+  "directory": "vlsp_oxford_results/smoke-20261120T092649Z/models/textcnn/augmented"
+}

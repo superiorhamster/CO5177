@@ -1,0 +1,20 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.0928220748901367,
+      "train_accuracy": 0.625,
+      "train_macro_f1": 0.5063938618925831,
+      "train_eval_loss": 1.0578420162200928
+    }
+  ],
+  "selected_epoch": 1,
+  "selection": "fixed_final_epoch",
+  "parameters": 366243,
+  "architecture": "CNN+BiLSTM",
+  "dataset": "Base",
+  "train_seconds": 0.04702989200001184,
+  "fit_mode": "fixed_configuration",
+  "fit_rows": 24,
+  "directory": "vlsp_oxford_results/smoke-20261120T092649Z/models/cnn-bilstm/base"
+}

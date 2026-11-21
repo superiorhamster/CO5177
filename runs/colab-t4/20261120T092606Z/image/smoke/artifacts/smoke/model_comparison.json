@@ -1,0 +1,40 @@
+[
+  {
+    "model": "mobilenet_v3_small",
+    "loss": 1.2558552424112956,
+    "accuracy": 0.6666666666666666,
+    "balanced_accuracy": 0.6666666666666666,
+    "macro_precision": 0.611111111111111,
+    "macro_recall": 0.6666666666666666,
+    "macro_f1": 0.611111111111111,
+    "weighted_f1": 0.611111111111111,
+    "weighted_precision": 0.611111111111111,
+    "weighted_recall": 0.6666666666666666,
+    "support": 12,
+    "top2_accuracy": 0.9166666666666666,
+    "top3_accuracy": 1.0,
+    "macro_roc_auc_ovr": 0.9416666666666668,
+    "parameters": 1524006,
+    "training_seconds": 9.646862293000027,
+    "selected_stage": "head"
+  },
+  {
+    "model": "vit_b_16",
+    "loss": 1.5736705462137859,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "macro_precision": 0.4583333333333333,
+    "macro_recall": 0.5,
+    "macro_f1": 0.47222222222222215,
+    "weighted_f1": 0.47222222222222215,
+    "weighted_precision": 0.4583333333333333,
+    "weighted_recall": 0.5,
+    "support": 12,
+    "top2_accuracy": 0.6666666666666666,
+    "top3_accuracy": 0.75,
+    "macro_roc_auc_ovr": 0.7416666666666667,
+    "parameters": 85803270,
+    "training_seconds": 9.446545141000001,
+    "selected_stage": "head"
+  }
+]

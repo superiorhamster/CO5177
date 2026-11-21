@@ -1,0 +1,16 @@
+{
+  "architecture": "BiLSTM",
+  "dataset": "Augmented",
+  "accuracy": 0.6666666666666666,
+  "balanced_accuracy": 0.6666666666666666,
+  "macro_precision": 0.5,
+  "macro_recall": 0.6666666666666666,
+  "macro_f1": 0.5555555555555555,
+  "weighted_f1": 0.5555555555555555,
+  "mcc": 0.6123724356957946,
+  "polarity_reversal_rate": 0.0,
+  "support": 6,
+  "parameters": 394979,
+  "train_seconds": 0.055433880000009594,
+  "inference_seconds": 0.0383582289999822
+}

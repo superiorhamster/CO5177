@@ -1,0 +1,16 @@
+{
+  "architecture": "TF-IDF + 1D-CNN",
+  "dataset": "Base",
+  "accuracy": 0.3352380952380952,
+  "balanced_accuracy": 0.3352380952380953,
+  "macro_precision": 0.1891056548722894,
+  "macro_recall": 0.3352380952380953,
+  "macro_f1": 0.17325777934023331,
+  "weighted_f1": 0.1732577793402333,
+  "mcc": 0.014917621131435528,
+  "polarity_reversal_rate": 0.012857142857142857,
+  "support": 1050,
+  "parameters": 50307,
+  "train_seconds": 46.303143120000016,
+  "inference_seconds": 0.2226478979998774
+}

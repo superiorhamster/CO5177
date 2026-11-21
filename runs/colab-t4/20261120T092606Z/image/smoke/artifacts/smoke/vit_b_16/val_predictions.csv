@@ -1,0 +1,13 @@
+sample_id,label,prediction,true_class,predicted_class
+train:10568,4,4,sea,sea
+train:11055,4,4,sea,sea
+train:13097,5,3,street,mountain
+train:13223,5,5,street,street
+train:1443,0,4,buildings,sea
+train:3126,1,1,forest,forest
+train:4426,1,1,forest,forest
+train:4868,2,2,glacier,glacier
+train:511,0,0,buildings,buildings
+train:5283,2,4,glacier,sea
+train:8046,3,2,mountain,glacier
+train:9324,3,1,mountain,forest

@@ -1,0 +1,7 @@
+class_name,Train gốc hợp lệ,Test gốc hợp lệ,train,val,test
+buildings,2191,437,1750,437,437
+forest,2271,474,1815,454,474
+glacier,2404,553,1918,480,553
+mountain,2512,525,2003,501,525
+sea,2274,510,1817,455,510
+street,2382,501,1901,475,501

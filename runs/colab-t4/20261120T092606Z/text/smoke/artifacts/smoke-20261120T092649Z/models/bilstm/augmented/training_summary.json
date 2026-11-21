@@ -1,0 +1,20 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.092747688293457,
+      "train_accuracy": 0.625,
+      "train_macro_f1": 0.5995670995670995,
+      "train_eval_loss": 1.0386041800181072
+    }
+  ],
+  "selected_epoch": 1,
+  "selection": "fixed_final_epoch",
+  "parameters": 394979,
+  "architecture": "BiLSTM",
+  "dataset": "Augmented",
+  "train_seconds": 0.055433880000009594,
+  "fit_mode": "fixed_configuration",
+  "fit_rows": 24,
+  "directory": "vlsp_oxford_results/smoke-20261120T092649Z/models/bilstm/augmented"
+}

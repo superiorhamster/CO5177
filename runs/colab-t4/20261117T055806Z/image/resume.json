@@ -1,0 +1,6 @@
+{
+  "checkpoint_archive": "runs/colab-t4/20261116T155023Z/image/paused-artifacts.zip",
+  "run_signature": "facfe3325a995f788004277be1859a529695f243c998ddb60b0cbd58b5325167",
+  "resume_model": "mobilenet_v3_small",
+  "start_from_pretrained": "vit_b_16"
+}

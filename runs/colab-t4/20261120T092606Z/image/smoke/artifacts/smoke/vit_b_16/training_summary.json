@@ -1,0 +1,71 @@
+{
+  "model_name": "vit_b_16",
+  "selected_stage": "head",
+  "stage_rows": [
+    {
+      "stage": "head",
+      "best_epoch": 1,
+      "val_loss": 1.5286307334899902,
+      "val_accuracy": 0.5833333333333334,
+      "val_macro_f1": 0.5499999999999999,
+      "selected": true,
+      "delta_macro_f1_pp": 0.0
+    },
+    {
+      "stage": "finetune",
+      "best_epoch": 1,
+      "val_loss": 1.4029337565104167,
+      "val_accuracy": 0.5833333333333334,
+      "val_macro_f1": 0.5444444444444444,
+      "selected": false,
+      "delta_macro_f1_pp": -0.5555555555555536
+    }
+  ],
+  "delta_macro_f1_pp": -0.5555555555555536,
+  "history": [
+    {
+      "stage": "head",
+      "epoch": 1,
+      "global_epoch": 1,
+      "head_lr": 0.001,
+      "train_loss": 1.80841064453125,
+      "train_accuracy": 0.2708333333333333,
+      "train_balanced_accuracy": 0.2708333333333333,
+      "train_macro_precision": 0.24947089947089948,
+      "train_macro_recall": 0.2708333333333333,
+      "train_macro_f1": 0.2492938434114905,
+      "train_weighted_f1": 0.2492938434114905,
+      "val_loss": 1.5286307334899902,
+      "val_accuracy": 0.5833333333333334,
+      "val_balanced_accuracy": 0.5833333333333334,
+      "val_macro_precision": 0.611111111111111,
+      "val_macro_recall": 0.5833333333333334,
+      "val_macro_f1": 0.5499999999999999,
+      "val_weighted_f1": 0.5499999999999999
+    },
+    {
+      "stage": "finetune",
+      "epoch": 1,
+      "global_epoch": 2,
+      "head_lr": 0.0001,
+      "train_loss": 1.4979960123697917,
+      "train_accuracy": 0.5625,
+      "train_balanced_accuracy": 0.5625,
+      "train_macro_precision": 0.5814393939393939,
+      "train_macro_recall": 0.5625,
+      "train_macro_f1": 0.5687865497076023,
+      "train_weighted_f1": 0.5687865497076023,
+      "val_loss": 1.4029337565104167,
+      "val_accuracy": 0.5833333333333334,
+      "val_balanced_accuracy": 0.5833333333333334,
+      "val_macro_precision": 0.5555555555555555,
+      "val_macro_recall": 0.5833333333333334,
+      "val_macro_f1": 0.5444444444444444,
+      "val_weighted_f1": 0.5444444444444444
+    }
+  ],
+  "training_seconds": 9.446545141000001,
+  "checkpoint_reload_check": "passed",
+  "run_signature": "afe851cd671e3429c42b0eb2869ded009df69ac292d2ee79ed72e6812d1d4056",
+  "parameters": 85803270
+}

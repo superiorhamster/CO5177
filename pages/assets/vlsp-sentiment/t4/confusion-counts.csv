@@ -1,0 +1,55 @@
+pipeline,dataset,true_label,predicted_label,count
+TF-IDF → TruncatedSVD → LinearSVC,Base,-1,-1,235
+TF-IDF → TruncatedSVD → LinearSVC,Base,-1,0,70
+TF-IDF → TruncatedSVD → LinearSVC,Base,-1,1,45
+TF-IDF → TruncatedSVD → LinearSVC,Base,0,-1,70
+TF-IDF → TruncatedSVD → LinearSVC,Base,0,0,231
+TF-IDF → TruncatedSVD → LinearSVC,Base,0,1,49
+TF-IDF → TruncatedSVD → LinearSVC,Base,1,-1,42
+TF-IDF → TruncatedSVD → LinearSVC,Base,1,0,58
+TF-IDF → TruncatedSVD → LinearSVC,Base,1,1,250
+TF-IDF → TruncatedSVD → LinearSVC,Augmented,-1,-1,230
+TF-IDF → TruncatedSVD → LinearSVC,Augmented,-1,0,74
+TF-IDF → TruncatedSVD → LinearSVC,Augmented,-1,1,46
+TF-IDF → TruncatedSVD → LinearSVC,Augmented,0,-1,73
+TF-IDF → TruncatedSVD → LinearSVC,Augmented,0,0,224
+TF-IDF → TruncatedSVD → LinearSVC,Augmented,0,1,53
+TF-IDF → TruncatedSVD → LinearSVC,Augmented,1,-1,39
+TF-IDF → TruncatedSVD → LinearSVC,Augmented,1,0,66
+TF-IDF → TruncatedSVD → LinearSVC,Augmented,1,1,245
+Word2Vec CBOW + GRU,Base,-1,-1,235
+Word2Vec CBOW + GRU,Base,-1,0,53
+Word2Vec CBOW + GRU,Base,-1,1,62
+Word2Vec CBOW + GRU,Base,0,-1,91
+Word2Vec CBOW + GRU,Base,0,0,189
+Word2Vec CBOW + GRU,Base,0,1,70
+Word2Vec CBOW + GRU,Base,1,-1,38
+Word2Vec CBOW + GRU,Base,1,0,42
+Word2Vec CBOW + GRU,Base,1,1,270
+Word2Vec CBOW + GRU,Augmented,-1,-1,229
+Word2Vec CBOW + GRU,Augmented,-1,0,75
+Word2Vec CBOW + GRU,Augmented,-1,1,46
+Word2Vec CBOW + GRU,Augmented,0,-1,77
+Word2Vec CBOW + GRU,Augmented,0,0,234
+Word2Vec CBOW + GRU,Augmented,0,1,39
+Word2Vec CBOW + GRU,Augmented,1,-1,44
+Word2Vec CBOW + GRU,Augmented,1,0,66
+Word2Vec CBOW + GRU,Augmented,1,1,240
+PhoBERT-base-v2,Base,-1,-1,280
+PhoBERT-base-v2,Base,-1,0,47
+PhoBERT-base-v2,Base,-1,1,23
+PhoBERT-base-v2,Base,0,-1,70
+PhoBERT-base-v2,Base,0,0,229
+PhoBERT-base-v2,Base,0,1,51
+PhoBERT-base-v2,Base,1,-1,12
+PhoBERT-base-v2,Base,1,0,33
+PhoBERT-base-v2,Base,1,1,305
+PhoBERT-base-v2,Augmented,-1,-1,277
+PhoBERT-base-v2,Augmented,-1,0,46
+PhoBERT-base-v2,Augmented,-1,1,27
+PhoBERT-base-v2,Augmented,0,-1,72
+PhoBERT-base-v2,Augmented,0,0,232
+PhoBERT-base-v2,Augmented,0,1,46
+PhoBERT-base-v2,Augmented,1,-1,7
+PhoBERT-base-v2,Augmented,1,0,31
+PhoBERT-base-v2,Augmented,1,1,312

@@ -1,0 +1,435 @@
+{
+  "run": {
+    "seed": 42,
+    "dataset_handle": "anhphmduy/vlsp-sentiment-dataset/versions/5",
+    "inputs": {
+      "Base": {
+        "file": "vlsp_sentiment_train.csv",
+        "sha256": "669f584a9fd149ebf7b4bc8aa16bbacff3ee14e0b05512fd035d6f33a3f4b417"
+      },
+      "Augmented": {
+        "file": "vlsp_sentiment_train_augmented_v2.csv",
+        "sha256": "67220874e2d224bfe04dec0b37791addf72c6dbb54b5b13f355327bb8e2b4477"
+      },
+      "Test": {
+        "file": "vlsp_sentiment_test.csv",
+        "sha256": "7252546b2a289eccaa3e6a4748cc021b567442a7f3352c468ff2cbe8e353e6c8"
+      },
+      "Word2Vec": {
+        "file": "vi-model-CBOW.bin",
+        "sha256": "b81652d573e8b5aa57e1fa4ef13bcab735a0ed236b040969ae1e313ced3aceef"
+      }
+    },
+    "validation": "fixed_configuration",
+    "label_order": [
+      -1,
+      0,
+      1
+    ],
+    "phobert_model": "vinai/phobert-base-v2",
+    "tfidf_svd_max_components": 300,
+    "cbow_gru": {
+      "hidden_size": 64,
+      "batch_size": 64,
+      "epochs": 4,
+      "max_length": 256
+    },
+    "sample_counts": {
+      "Base": 5022,
+      "Augmented": 9934,
+      "Test": 1050
+    }
+  },
+  "results": [
+    {
+      "pipeline": "TF-IDF → TruncatedSVD → LinearSVC",
+      "dataset": "Base",
+      "accuracy": 0.6819047619047619,
+      "balanced_accuracy": 0.6819047619047619,
+      "mcc": 0.5229019649465959,
+      "macro_precision": 0.6824772181461797,
+      "macro_recall": 0.6819047619047619,
+      "macro_f1": 0.6821338686042333,
+      "weighted_precision": 0.6824772181461796,
+      "weighted_recall": 0.6819047619047619,
+      "weighted_f1": 0.6821338686042333,
+      "polarity_reversal_rate": 0.12428571428571429,
+      "elapsed_seconds": 1.7638268780000033,
+      "confusion_matrix": [
+        [
+          235,
+          70,
+          45
+        ],
+        [
+          70,
+          231,
+          49
+        ],
+        [
+          42,
+          58,
+          250
+        ]
+      ],
+      "classification_report": {
+        "-1": {
+          "precision": 0.6772334293948127,
+          "recall": 0.6714285714285714,
+          "f1-score": 0.6743185078909613,
+          "support": 350.0
+        },
+        "0": {
+          "precision": 0.6434540389972145,
+          "recall": 0.66,
+          "f1-score": 0.6516220028208745,
+          "support": 350.0
+        },
+        "1": {
+          "precision": 0.7267441860465116,
+          "recall": 0.7142857142857143,
+          "f1-score": 0.7204610951008645,
+          "support": 350.0
+        },
+        "accuracy": 0.6819047619047619,
+        "macro avg": {
+          "precision": 0.6824772181461797,
+          "recall": 0.6819047619047619,
+          "f1-score": 0.6821338686042333,
+          "support": 1050.0
+        },
+        "weighted avg": {
+          "precision": 0.6824772181461796,
+          "recall": 0.6819047619047619,
+          "f1-score": 0.6821338686042333,
+          "support": 1050.0
+        }
+      }
+    },
+    {
+      "pipeline": "TF-IDF → TruncatedSVD → LinearSVC",
+      "dataset": "Augmented",
+      "accuracy": 0.6657142857142857,
+      "balanced_accuracy": 0.6657142857142857,
+      "mcc": 0.49867185151846416,
+      "macro_precision": 0.6667028458644126,
+      "macro_recall": 0.6657142857142857,
+      "macro_f1": 0.6660809126613559,
+      "weighted_precision": 0.6667028458644125,
+      "weighted_recall": 0.6657142857142857,
+      "weighted_f1": 0.6660809126613558,
+      "polarity_reversal_rate": 0.12142857142857143,
+      "elapsed_seconds": 3.273155274000004,
+      "confusion_matrix": [
+        [
+          230,
+          74,
+          46
+        ],
+        [
+          73,
+          224,
+          53
+        ],
+        [
+          39,
+          66,
+          245
+        ]
+      ],
+      "classification_report": {
+        "-1": {
+          "precision": 0.672514619883041,
+          "recall": 0.6571428571428571,
+          "f1-score": 0.6647398843930635,
+          "support": 350.0
+        },
+        "0": {
+          "precision": 0.6153846153846154,
+          "recall": 0.64,
+          "f1-score": 0.6274509803921569,
+          "support": 350.0
+        },
+        "1": {
+          "precision": 0.7122093023255814,
+          "recall": 0.7,
+          "f1-score": 0.7060518731988472,
+          "support": 350.0
+        },
+        "accuracy": 0.6657142857142857,
+        "macro avg": {
+          "precision": 0.6667028458644126,
+          "recall": 0.6657142857142857,
+          "f1-score": 0.6660809126613559,
+          "support": 1050.0
+        },
+        "weighted avg": {
+          "precision": 0.6667028458644125,
+          "recall": 0.6657142857142857,
+          "f1-score": 0.6660809126613558,
+          "support": 1050.0
+        }
+      }
+    },
+    {
+      "pipeline": "Word2Vec CBOW + GRU",
+      "dataset": "Base",
+      "accuracy": 0.660952380952381,
+      "balanced_accuracy": 0.6609523809523808,
+      "mcc": 0.4938723988590191,
+      "macro_precision": 0.6609130481318836,
+      "macro_recall": 0.6609523809523808,
+      "macro_f1": 0.6575209742487057,
+      "weighted_precision": 0.6609130481318836,
+      "weighted_recall": 0.660952380952381,
+      "weighted_f1": 0.6575209742487056,
+      "polarity_reversal_rate": 0.14285714285714285,
+      "elapsed_seconds": 10.850439498000014,
+      "confusion_matrix": [
+        [
+          235,
+          53,
+          62
+        ],
+        [
+          91,
+          189,
+          70
+        ],
+        [
+          38,
+          42,
+          270
+        ]
+      ],
+      "classification_report": {
+        "-1": {
+          "precision": 0.6456043956043956,
+          "recall": 0.6714285714285714,
+          "f1-score": 0.6582633053221288,
+          "support": 350.0
+        },
+        "0": {
+          "precision": 0.6654929577464789,
+          "recall": 0.54,
+          "f1-score": 0.5962145110410094,
+          "support": 350.0
+        },
+        "1": {
+          "precision": 0.6716417910447762,
+          "recall": 0.7714285714285715,
+          "f1-score": 0.7180851063829787,
+          "support": 350.0
+        },
+        "accuracy": 0.660952380952381,
+        "macro avg": {
+          "precision": 0.6609130481318836,
+          "recall": 0.6609523809523808,
+          "f1-score": 0.6575209742487057,
+          "support": 1050.0
+        },
+        "weighted avg": {
+          "precision": 0.6609130481318836,
+          "recall": 0.660952380952381,
+          "f1-score": 0.6575209742487056,
+          "support": 1050.0
+        }
+      }
+    },
+    {
+      "pipeline": "Word2Vec CBOW + GRU",
+      "dataset": "Augmented",
+      "accuracy": 0.6695238095238095,
+      "balanced_accuracy": 0.6695238095238096,
+      "mcc": 0.5047150764020526,
+      "macro_precision": 0.6722490842490844,
+      "macro_recall": 0.6695238095238096,
+      "macro_f1": 0.6703046889253786,
+      "weighted_precision": 0.6722490842490842,
+      "weighted_recall": 0.6695238095238095,
+      "weighted_f1": 0.6703046889253786,
+      "polarity_reversal_rate": 0.12857142857142856,
+      "elapsed_seconds": 5.874541228999988,
+      "confusion_matrix": [
+        [
+          229,
+          75,
+          46
+        ],
+        [
+          77,
+          234,
+          39
+        ],
+        [
+          44,
+          66,
+          240
+        ]
+      ],
+      "classification_report": {
+        "-1": {
+          "precision": 0.6542857142857142,
+          "recall": 0.6542857142857142,
+          "f1-score": 0.6542857142857142,
+          "support": 350.0
+        },
+        "0": {
+          "precision": 0.624,
+          "recall": 0.6685714285714286,
+          "f1-score": 0.6455172413793103,
+          "support": 350.0
+        },
+        "1": {
+          "precision": 0.7384615384615385,
+          "recall": 0.6857142857142857,
+          "f1-score": 0.7111111111111111,
+          "support": 350.0
+        },
+        "accuracy": 0.6695238095238095,
+        "macro avg": {
+          "precision": 0.6722490842490844,
+          "recall": 0.6695238095238096,
+          "f1-score": 0.6703046889253786,
+          "support": 1050.0
+        },
+        "weighted avg": {
+          "precision": 0.6722490842490842,
+          "recall": 0.6695238095238095,
+          "f1-score": 0.6703046889253786,
+          "support": 1050.0
+        }
+      }
+    },
+    {
+      "pipeline": "PhoBERT-base-v2",
+      "dataset": "Base",
+      "accuracy": 0.7752380952380953,
+      "balanced_accuracy": 0.7752380952380952,
+      "mcc": 0.6640625844650306,
+      "macro_precision": 0.7731101089924713,
+      "macro_recall": 0.7752380952380952,
+      "macro_f1": 0.7727573184312369,
+      "weighted_precision": 0.7731101089924712,
+      "weighted_recall": 0.7752380952380953,
+      "weighted_f1": 0.7727573184312369,
+      "polarity_reversal_rate": 0.05,
+      "elapsed_seconds": 118.73538853399998,
+      "confusion_matrix": [
+        [
+          280,
+          47,
+          23
+        ],
+        [
+          70,
+          229,
+          51
+        ],
+        [
+          12,
+          33,
+          305
+        ]
+      ],
+      "classification_report": {
+        "-1": {
+          "precision": 0.7734806629834254,
+          "recall": 0.8,
+          "f1-score": 0.7865168539325843,
+          "support": 350.0
+        },
+        "0": {
+          "precision": 0.7411003236245954,
+          "recall": 0.6542857142857142,
+          "f1-score": 0.6949924127465857,
+          "support": 350.0
+        },
+        "1": {
+          "precision": 0.8047493403693932,
+          "recall": 0.8714285714285714,
+          "f1-score": 0.8367626886145405,
+          "support": 350.0
+        },
+        "accuracy": 0.7752380952380953,
+        "macro avg": {
+          "precision": 0.7731101089924713,
+          "recall": 0.7752380952380952,
+          "f1-score": 0.7727573184312369,
+          "support": 1050.0
+        },
+        "weighted avg": {
+          "precision": 0.7731101089924712,
+          "recall": 0.7752380952380953,
+          "f1-score": 0.7727573184312369,
+          "support": 1050.0
+        }
+      }
+    },
+    {
+      "pipeline": "PhoBERT-base-v2",
+      "dataset": "Augmented",
+      "accuracy": 0.7819047619047619,
+      "balanced_accuracy": 0.7819047619047619,
+      "mcc": 0.6742078287642131,
+      "macro_precision": 0.7797628531729109,
+      "macro_recall": 0.7819047619047619,
+      "macro_f1": 0.779259752751836,
+      "weighted_precision": 0.7797628531729109,
+      "weighted_recall": 0.7819047619047619,
+      "weighted_f1": 0.779259752751836,
+      "polarity_reversal_rate": 0.04857142857142857,
+      "elapsed_seconds": 216.98256689099998,
+      "confusion_matrix": [
+        [
+          277,
+          46,
+          27
+        ],
+        [
+          72,
+          232,
+          46
+        ],
+        [
+          7,
+          31,
+          312
+        ]
+      ],
+      "classification_report": {
+        "-1": {
+          "precision": 0.7780898876404494,
+          "recall": 0.7914285714285715,
+          "f1-score": 0.7847025495750708,
+          "support": 350.0
+        },
+        "0": {
+          "precision": 0.7508090614886731,
+          "recall": 0.6628571428571428,
+          "f1-score": 0.7040971168437026,
+          "support": 350.0
+        },
+        "1": {
+          "precision": 0.8103896103896104,
+          "recall": 0.8914285714285715,
+          "f1-score": 0.8489795918367347,
+          "support": 350.0
+        },
+        "accuracy": 0.7819047619047619,
+        "macro avg": {
+          "precision": 0.7797628531729109,
+          "recall": 0.7819047619047619,
+          "f1-score": 0.779259752751836,
+          "support": 1050.0
+        },
+        "weighted avg": {
+          "precision": 0.7797628531729109,
+          "recall": 0.7819047619047619,
+          "f1-score": 0.779259752751836,
+          "support": 1050.0
+        }
+      }
+    }
+  ]
+}

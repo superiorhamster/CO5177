@@ -1,0 +1,12 @@
+[
+  {
+    "file": "mobilenet_v3_small/best.pt",
+    "sha256": "266ca56512d8a80c6a70d25419fa26cbc31b0c04496f43c01f485be71592b002",
+    "bytes": 6216297
+  },
+  {
+    "file": "vit_b_16/best.pt",
+    "sha256": "fe24988ee71d84bea04e22e836556d98f896a1edc2a296cb309fb95dccb1eb52",
+    "bytes": 343262197
+  }
+]

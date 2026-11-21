@@ -1,0 +1,7 @@
+class_name,test,train,val
+buildings,437,1750,437
+forest,474,1815,454
+glacier,553,1918,480
+mountain,525,2003,501
+sea,510,1817,455
+street,501,1901,475

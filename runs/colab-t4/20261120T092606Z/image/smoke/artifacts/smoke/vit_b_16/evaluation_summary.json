@@ -1,0 +1,56 @@
+{
+  "metrics": {
+    "train": {
+      "loss": 1.5035898288091023,
+      "accuracy": 0.5833333333333334,
+      "balanced_accuracy": 0.5833333333333334,
+      "macro_precision": 0.5625,
+      "macro_recall": 0.5833333333333334,
+      "macro_f1": 0.5625,
+      "weighted_f1": 0.5625,
+      "weighted_precision": 0.5625,
+      "weighted_recall": 0.5833333333333334,
+      "support": 48,
+      "top2_accuracy": 0.7291666666666666,
+      "top3_accuracy": 0.8125,
+      "macro_roc_auc_ovr": 0.8187500000000001
+    },
+    "val": {
+      "loss": 1.5286307334899902,
+      "accuracy": 0.5833333333333334,
+      "balanced_accuracy": 0.5833333333333334,
+      "macro_precision": 0.611111111111111,
+      "macro_recall": 0.5833333333333334,
+      "macro_f1": 0.5499999999999999,
+      "weighted_f1": 0.5499999999999999,
+      "weighted_precision": 0.611111111111111,
+      "weighted_recall": 0.5833333333333334,
+      "support": 12,
+      "top2_accuracy": 0.6666666666666666,
+      "top3_accuracy": 0.75,
+      "macro_roc_auc_ovr": 0.775
+    },
+    "test": {
+      "loss": 1.5736705462137859,
+      "accuracy": 0.5,
+      "balanced_accuracy": 0.5,
+      "macro_precision": 0.4583333333333333,
+      "macro_recall": 0.5,
+      "macro_f1": 0.47222222222222215,
+      "weighted_f1": 0.47222222222222215,
+      "weighted_precision": 0.4583333333333333,
+      "weighted_recall": 0.5,
+      "support": 12,
+      "top2_accuracy": 0.6666666666666666,
+      "top3_accuracy": 0.75,
+      "macro_roc_auc_ovr": 0.7416666666666667
+    }
+  },
+  "error": {
+    "true_class": "buildings",
+    "predicted_class": "street",
+    "count": 1,
+    "true_class_support": 2,
+    "percent_of_true_class": 50.0
+  }
+}

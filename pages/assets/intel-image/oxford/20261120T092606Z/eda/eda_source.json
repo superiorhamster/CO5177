@@ -1,0 +1,15 @@
+{
+  "dataset_id": "puneet6060/intel-image-classification",
+  "dataset_version": 2,
+  "seed": 42,
+  "manifest_digest": "12e726d73a5119647cdc80d6636447ee5ccc18581a8a9d44c8b4228ca49a39e5",
+  "figures": [
+    "eda-class-counts.png",
+    "eda-duplicates.png",
+    "eda-extremes.png",
+    "eda-geometry.png",
+    "eda-quality.png",
+    "eda-samples.png",
+    "eda-transforms.png"
+  ]
+}

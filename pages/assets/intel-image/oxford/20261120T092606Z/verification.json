@@ -1,0 +1,8 @@
+{
+  "models": [
+    "mobilenet_v3_small",
+    "vit_b_16"
+  ],
+  "status": "passed",
+  "smoke_test": false
+}
