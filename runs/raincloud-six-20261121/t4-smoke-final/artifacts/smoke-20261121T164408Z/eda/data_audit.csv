@@ -1,0 +1,4 @@
+split,input_rows,raw_blank,empty_after_cleaning,raw_duplicate_extras,normalized_duplicate_extras,raw_overlap_with_test,normalized_overlap_with_test,conflicting_dev_labels,test_conflicting_keys,fit_or_test_rows
+Base,5100,0,0,48,48,23.0,23.0,0.0,,5042
+Augmented,10149,0,0,161,161,33.0,33.0,2.0,,9978
+Test,1050,0,0,0,0,,,,0.0,1050

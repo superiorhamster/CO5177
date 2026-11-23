@@ -1,0 +1,41 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.0775210648857851,
+      "train_accuracy": 0.5485918286394288,
+      "train_macro_f1": 0.5479638601262945,
+      "train_eval_loss": 0.9791528988527618
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.9666819176187784,
+      "train_accuracy": 0.64379214597382,
+      "train_macro_f1": 0.6386838820154944,
+      "train_eval_loss": 0.8452329926905013
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.8035648742255499,
+      "train_accuracy": 0.7473224910749703,
+      "train_macro_f1": 0.7449153649933873,
+      "train_eval_loss": 0.6399151839135612
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.6305527102611501,
+      "train_accuracy": 0.85739785799286,
+      "train_macro_f1": 0.856839560942642,
+      "train_eval_loss": 0.43404335268240796
+    }
+  ],
+  "selected_epoch": 4,
+  "selection": "fixed_final_epoch",
+  "parameters": 3730467,
+  "architecture": "CBOW + GRU",
+  "dataset": "Base",
+  "train_seconds": 13.585611118999964,
+  "fit_mode": "fixed_configuration",
+  "fit_rows": 5042,
+  "directory": "vlsp_oxford_results/full-20261121T174533Z/models/cbow-gru/base"
+}

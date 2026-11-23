@@ -115,17 +115,19 @@ def text_report(source, eda_source=None):
             source = subs[-1].parent
     check_text(source)
     metadata = json.loads((source / 'run.json').read_text())
-    if metadata.get('preprocessing', {}).get('version') == 'vlsp-eda-v2' and eda_source is None:
+    if metadata.get('preprocessing', {}).get('version') in {'vlsp-eda-v2','vlsp-eda-v3-six-raincloud'} and eda_source is None:
         raise ValueError('Pipeline v2 cần --eda-results để đồng bộ bằng chứng EDA CPU.')
     assert not metadata['smoke_test']
     run_id = metadata['run_id']
     date = run_date(run_id)
+    run_count = 2 * len(metadata['architectures'])
+    six = run_count == 6
     destination = ROOT / 'pages/assets/vlsp-sentiment/oxford' / run_id
     copy_evidence(source, destination)
     (destination / 'source.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n')
     eda_destination = None
     if eda_source is not None:
-        assert metadata['preprocessing']['version'] == 'vlsp-eda-v2'
+        assert metadata['preprocessing']['version'] in {'vlsp-eda-v2','vlsp-eda-v3-six-raincloud'}
         eda_info = json.loads((eda_source / 'source.json').read_text())
         assert eda_info['cpu_only'] and eda_info['sources'] == metadata['preprocessing']['eda_sources']
         eda_destination = ROOT / 'pages/assets/vlsp-sentiment/eda-v2' / run_id
@@ -140,6 +142,8 @@ def text_report(source, eda_source=None):
             '<h1 id="project-title">Phân tích cảm xúc tiếng Việt — sáu kiến trúc, 12 lượt chạy</h1>'
             '<p class="hero-description">VLSP v5; so sánh Base và Augmented với cùng test. Notebook theo 11 bước Oxford Pets, từ dữ liệu đến phân tích lỗi và giải thích.</p>'
             f'<p class="status-badge">Đã Run all trên Colab T4 · {date} · seed 42</p></div></section>')
+    if six:
+        hero = hero.replace('sáu kiến trúc, 12 lượt chạy','ba pipeline, 6 lượt chạy')
     raw_counts = [(name, audit[name]['input_rows'], metadata['sample_counts'][name]) for name in ['Base', 'Augmented', 'Test']]
     dataset = ('<p>Nguồn: <a href="https://www.kaggle.com/datasets/anhphmduy/vlsp-sentiment-dataset">VLSP Sentiment Dataset v5</a>. '
                'Nhãn −1: tiêu cực, 0: trung lập, +1: tích cực. Số dòng đọc từ CSV và số dòng sử dụng được báo riêng.</p>'
@@ -164,7 +168,7 @@ def text_report(source, eda_source=None):
             ('tfidf-coverage.png', 'Độ phủ lượt đặc trưng-văn bản theo giới hạn vocabulary, min_df=1; fit trên từng tập phát triển.'),
             ('tfidf-df.png', 'Document frequency theo analyzer word: đường tích lũy cho thấy tỷ trọng đặc trưng hiếm.'),
             ('token-limits.png', 'ECDF số từ PyVi và token PhoBERT BPE, gồm special tokens; vạch đỏ là giới hạn 300/256.'),
-            ('cbow-coverage.png', 'Phân bố OOV pretrained và UNK vocabulary từng câu; hai chỉ số không tương đương.')]]
+            ('cbow-coverage.png', 'Raincloud CBOW trên Base/Augmented gốc: nửa mật độ, median/IQR và điểm jitter; mật độ/box dùng toàn bộ dữ liệu, điểm tối đa 1.500/nhóm (seed 42), tỷ lệ bằng 0 ghi riêng.' if six else 'Phân bố OOV pretrained và UNK vocabulary từng câu; hai chỉ số không tương đương.')]]
         tfidf = [r for r in read_csv(eda_source / 'tfidf_diagnostics.csv') if r['min_df'] == '1' and r['analyzer'] == 'word+emoticon']
         dataset += table(['Tập', 'Giới hạn đặc trưng', 'Độ phủ (%)', 'Câu mất đặc trưng', 'Dense batch 128 (MB)'],
                          [[r['dataset'], r['max_features'], f'{100*float(r["feature_occurrence_coverage"]):.2f}', r['empty_documents'], f'{int(r["dense_batch128_bytes"])/1e6:.2f}'] for r in tfidf], 'Độ phủ TF-IDF trên dữ liệu phát triển')
@@ -173,23 +177,38 @@ def text_report(source, eda_source=None):
                          [[r['dataset'],r['embedder'],r['limit'],f'{float(r["truncated_percent"]):.2f}',f'{float(r["tokens_removed_percent"]):.2f}',f'{float(r["p99"]):.1f}'] for r in limits], 'Mức mất thông tin do cắt chuỗi')
     for path, caption in figures:
         dataset += figure(path, caption)
+    mode_label = {
+        'fixed_configuration': 'cấu hình cố định, thiếu lineage',
+        'grouped_validation': 'validation chung theo nhóm nguồn',
+        'stratified_validation_no_lineage': 'stratified validation 20% theo từng tập (thiếu lineage)',
+    }[metadata['fit_mode']]
+    if metadata['fit_mode'] == 'fixed_configuration':
+        mode_note = 'Thiếu lineage: không chia validation ngẫu nhiên từ Augmented; chạy 15 epoch CNN/LSTM, 6 epoch PhoBERT và dùng epoch cuối.'
+    elif metadata['fit_mode'] == 'stratified_validation_no_lineage':
+        mode_note = 'Tách 20% stratified validation riêng cho mỗi tập Base/Augmented (kiểm tra không trùng khóa chuẩn hóa với train/test) để bật early stopping theo validation macro-F1 (CNN + BiLSTM tối đa 15 epoch, patience 4; PhoBERT tối đa 6 epoch, patience 2). Giới hạn: thiếu lineage nên trên Augmented vẫn có thể tồn tại câu gần trùng giữa train và validation.'
+    else:
+        mode_note = 'Validation chung 20% theo nhóm nguồn; chọn checkpoint bằng validation macro-F1.'
     preparation = ('<p>Giữ văn bản gốc; chuẩn NFC và khoảng trắng. Không thay đồng loạt teencode/emoticon thành từ cảm xúc, không rút chữ kéo dài hoặc xóa ký hiệu. '
                    'Dữ liệu phát triển được kiểm toán lại về câu rỗng, trùng test và mâu thuẫn nhãn trước khi chia tập.</p>'
                    + table(['Embedder', 'Đầu vào và quyết định từ EDA', 'Giới hạn'], [
-                       ('TF-IDF','Chữ thường; analyzer giữ emoticon; unigram/bigram, min_df=1, tối đa 20.000 đặc trưng. EDA cho thấy độ phủ tăng so với 5.000 và ít câu mất đặc trưng hơn.','Coverage trong tập fit không bảo đảm tăng F1; dense chỉ theo minibatch.'),
+                       ('TF-IDF','Chữ thường; analyzer giữ emoticon; unigram/bigram, min_df=1, tối đa 20.000 đặc trưng sparse float32, đưa thẳng vào LinearSVC (không nén PCA/SVD).','Coverage trong tập fit không bảo đảm tăng F1; chỉ thử trên đặc trưng n-gram thưa.'),
                        ('CBOW','Chữ thường rồi PyVi; vocabulary 10.000 fit riêng, PAD/UNK, embedding trainable độc lập, masking/packing, tối đa 300 từ.','Một số ít câu dài gây mất lượng token đáng kể; OOV pretrained khác UNK vocabulary.'),
                        ('PhoBERT','Giữ hoa/thường; RDRSegmenter trước BPE, tối đa 256 token gồm special tokens, effective batch 32.','Giới hạn kiến trúc; không loại câu dài để làm đẹp chỉ số.')], 'Xử lý riêng cho từng embedder')
-                   + f'<p>Protocol: <strong>{"cấu hình cố định, thiếu lineage" if metadata["fit_mode"] == "fixed_configuration" else "validation chung theo nhóm nguồn"}</strong>. '
-                   + ('Thiếu lineage: không chia validation ngẫu nhiên từ Augmented; chạy 15 epoch CNN/LSTM, 6 epoch PhoBERT và dùng epoch cuối.' if metadata['fit_mode']=='fixed_configuration' else 'Validation chung 20% theo nhóm nguồn; chọn checkpoint bằng validation macro-F1.')
+                   + f'<p>Protocol: <strong>{mode_label}</strong>. {mode_note}'
                    + ' Chỉ đánh giá test sau huấn luyện; TF-IDF và vocabulary fit riêng trên tập huấn luyện từng phiên bản.</p>')
     if eda_destination is not None:
         eda_base = '../assets/' + eda_destination.relative_to(ROOT / 'pages/assets').as_posix()
         preparation += '<p>' + ' · '.join(f'<a href="{eda_base}/{name}" download>{label}</a>' for name,label in [('rule_impacts.csv','Tác động từng quy tắc'),('rule_examples.csv','Ví dụ trước/sau'),('rule_collisions.csv','Va chạm chuẩn hóa'),('tfidf_diagnostics.csv','Chẩn đoán TF-IDF'),('embedder_rule_comparison.csv','Quy tắc và độ phủ embedder'),('cbow_oov.csv','Từ OOV CBOW'),('truncation_examples.csv','Nội dung bị cắt'),('preprocessing_policy.json','Policy đã chốt')]) + '</p>'
+    if six:
+        preparation += '<p>Ba pipeline: TF-IDF → LinearSVC (20.000 đặc trưng sparse); CBOW → Conv1d(128, kernel=3) + BiLSTM(64×2) + Dropout(0,5), batch 64, bỏ padding bằng độ dài thật; PhoBERT-base-v2 effective batch 32.</p>'
     analysis = ('<p>Sáu kiến trúc: TF-IDF + LinearSVC, TF-IDF + 1D-CNN, TextCNN, BiLSTM, CNN+BiLSTM và PhoBERT-base-v2. '
                 'TF-IDF + CNN tích chập theo trục đặc trưng từ vựng; trục này không biểu diễn thứ tự từ trong câu.</p>'
                 '<p>Thời gian train tính từ fit bộ xử lý/khởi tạo mô hình đến hết train và validation; không gồm nạp CBOW chung hoặc test. '
                 'Lượt đầu có thể gồm tải pretrained. Các số này không phải phép đo latency phục vụ production.</p>'
-                '<h3 id="learning-curves">Đường học</h3><p>Loss và metrics theo epoch thật; thiếu validation thì hình chỉ có train. LinearSVC fit một lần, không có đường học epoch tương đương.</p>')
+                '<h3 id="learning-curves">Đường học</h3><p>Loss và metrics theo epoch thật; vạch đứt nét đánh dấu checkpoint được chọn bằng validation macro-F1 (hoặc epoch cuối nếu thiếu validation). LinearSVC fit một lần, không có đường học epoch tương đương.</p>')
+    if six:
+        begin = analysis.index('</p>') + 4
+        analysis = '<p>Ba pipeline: TF-IDF → LinearSVC; CBOW → CNN + BiLSTM; PhoBERT-base-v2. Mỗi pipeline chạy trên Base/Augmented.</p>' + analysis[begin:]
     for summary_path in sorted(destination.glob('models/*/augmented/training_summary.json')):
         result = json.loads(summary_path.read_text())
         plot = summary_path.parent / 'learning_curves.png'
@@ -199,17 +218,17 @@ def text_report(source, eda_source=None):
                       [[r['architecture'], r['dataset'], *[f'{100 * float(r[k]):.2f}' for k in ['accuracy', 'macro_precision', 'macro_recall', 'macro_f1']],
                         f'{float(r["train_seconds"]):.1f}'] for r in sorted(rows, key=lambda r: -float(r['macro_f1']))],
                       'Kết quả cùng tập test', 'results')
-    analysis += figure(destination / 'model-comparison.png', 'Test macro-F1 của đủ 12 cấu hình; mọi cấu hình dùng cùng test.')
+    analysis += figure(destination / 'model-comparison.png', f'Test macro-F1 của đủ {run_count} cấu hình; mọi cấu hình dùng cùng test.')
     analysis += table(['Mô hình', 'Base F1 (%)', 'Augmented F1 (%)', 'Δ (điểm %)'],
                       [[r['architecture'], f'{100 * float(r["Base"]):.2f}', f'{100 * float(r["Augmented"]):.2f}', f'{float(r["delta_pp"]):+.2f}'] for r in deltas],
                       'Ảnh hưởng của Augmented so với Base')
-    analysis += figure(destination / 'confusion-matrices.png', 'Ma trận nhầm lẫn 12 lượt: hàng là nhãn thật, cột là dự đoán.')
+    analysis += figure(destination / 'confusion-matrices.png', f'Ma trận nhầm lẫn {run_count} lượt: hàng là nhãn thật, cột là dự đoán.')
     wrong = [r for r in read_csv(source / 'errors.csv') if r['architecture'] == 'PhoBERT-base-v2' and r['dataset'] == 'Augmented']
     analysis += table(['sample_id', 'Văn bản gốc', 'Nhãn thật', 'Dự đoán'],
                       [[r['sample_id'], r['text'][:500], r['true_label'], r['predicted_label']] for r in sorted(wrong, key=lambda r: r['sample_id'])[:5]],
                       f'Phân tích lỗi: PhoBERT Augmented có {len(wrong)}/{metadata["sample_counts"]["Test"]} câu sai', 'errors')
     analysis += '<h3 id="explanations">Giải thích mô hình đại diện</h3><p>Trọng số LinearSVC phản ánh điểm quyết định, không phải xác suất. PhoBERT dùng mức giảm xác suất lớp dự đoán ban đầu khi bỏ từng từ trong các câu ngắn được chọn xác định.</p>'
-    analysis += figure(destination / 'explanations/svc-weights.png', 'Những từ có trọng số dương cao của LinearSVC Augmented theo từng lớp.')
+    analysis += figure(destination / 'explanations/svc-weights.png', 'Những từ có trọng số dương cao của LinearSVC Augmented theo từng lớp (trực tiếp trên TF-IDF 20.000 đặc trưng).')
     for path in sorted((destination / 'explanations').glob('phobert-*.png')):
         analysis += figure(path, 'PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.')
     asset_base = '../assets/' + destination.relative_to(ROOT / 'pages/assets').as_posix()
@@ -224,9 +243,14 @@ def text_report(source, eda_source=None):
     previous_path = ROOT / 'pages/assets/vlsp-sentiment/oxford/20261120T161056Z/summary.csv'
     if previous_path.exists():
         previous = {(r['architecture'],r['dataset']):r for r in read_csv(previous_path)}
-        conclusion += table(['Mô hình', 'Tập', 'F1 cũ (%)', 'F1 mới (%)', 'Chênh lệch (điểm %)'],
-            [[r['architecture'],r['dataset'],f'{100*float(previous[r["architecture"],r["dataset"]]["macro_f1"]):.2f}',f'{100*float(r["macro_f1"]):.2f}',f'{100*(float(r["macro_f1"])-float(previous[r["architecture"],r["dataset"]]["macro_f1"])):+.2f}'] for r in rows], 'Đối chiếu pipeline trước ngày 20/11/2026')
-        conclusion += '<p>Hai pipeline thay đổi đồng thời xử lý nội dung, biểu diễn TF-IDF và số mẫu sau kiểm toán. Đây là đối chiếu mô tả, không cô lập tác động của từng thay đổi. <a href="../assets/vlsp-sentiment/oxford/20261120T161056Z/summary.csv">CSV lần chạy trước</a>.</p>'
+        comparisons = []
+        for row in rows:
+            old_row = previous.get((row['architecture'],row['dataset']))
+            old_f1 = f'{100*float(old_row["macro_f1"]):.2f}' if old_row else '—'
+            delta = f'{100*(float(row["macro_f1"])-float(old_row["macro_f1"])):+.2f}' if old_row else '—'
+            comparisons.append([row['architecture'],row['dataset'],old_f1,f'{100*float(row["macro_f1"]):.2f}',delta])
+        conclusion += table(['Mô hình', 'Tập', 'F1 cũ (%)', 'F1 mới (%)', 'Chênh lệch (điểm %)'], comparisons, 'Đối chiếu pipeline trước ngày 20/11/2026')
+        conclusion += '<p>Dấu — nghĩa pipeline không có đối ứng trong lần chạy cũ. Thay đổi đồng thời kiến trúc, xử lý, đặc trưng và mẫu fit; đối chiếu này mô tả kết quả, không cô lập tác động từng thay đổi. <a href="../assets/vlsp-sentiment/oxford/20261120T161056Z/summary.csv">CSV lần chạy trước</a>.</p>'
     resource_html = resources(old, 'sentimentanalysis.ipynb', date)
     if eda_destination is not None:
         eda_row = '<div class="resource-item"><div><h3>Notebook EDA (CPU)</h3><p>Khảo sát gốc, đối chiếu quy tắc, độ phủ TF-IDF/CBOW và mức cắt PhoBERT trước huấn luyện.</p></div><div class="resource-actions"><a class="text-link" href="https://colab.research.google.com/github/superiorhamster/CO5177/blob/main/ipynb/text/sentimentanalysis_eda.ipynb">Mở EDA trên Colab ↗</a> <a class="text-link" href="../notebooks/sentimentanalysis_eda.ipynb" download>Tải notebook EDA có output</a></div></div>'

@@ -1,0 +1,16 @@
+{
+  "architecture": "CBOW + CNN + BiLSTM",
+  "dataset": "Base",
+  "accuracy": 0.6723809523809524,
+  "balanced_accuracy": 0.6723809523809523,
+  "macro_precision": 0.6741191944594322,
+  "macro_recall": 0.6723809523809523,
+  "macro_f1": 0.6729047647683765,
+  "weighted_f1": 0.6729047647683766,
+  "mcc": 0.5088477352170034,
+  "polarity_reversal_rate": 0.11857142857142858,
+  "support": 1050,
+  "parameters": 3522243,
+  "train_seconds": 36.187593531999994,
+  "inference_seconds": 0.26742271700004494
+}

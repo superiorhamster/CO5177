@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "session": "cnn-bilstm-full-t4",
+  "kind": "text",
+  "mode": "full",
+  "vm_released": true
+}

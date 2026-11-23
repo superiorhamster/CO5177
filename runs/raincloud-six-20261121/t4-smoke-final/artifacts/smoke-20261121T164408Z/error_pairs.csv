@@ -1,0 +1,19 @@
+architecture,dataset,true_label,predicted_label,count
+CBOW + GRU,Augmented,-1,1,1
+CBOW + GRU,Augmented,0,1,1
+CBOW + GRU,Augmented,1,-1,1
+CBOW + GRU,Base,0,1,2
+CBOW + GRU,Base,1,-1,2
+PhoBERT-base-v2,Augmented,-1,0,1
+PhoBERT-base-v2,Augmented,1,0,1
+PhoBERT-base-v2,Base,-1,0,1
+PhoBERT-base-v2,Base,1,-1,1
+TF-IDF + SVD + LinearSVC,Augmented,-1,0,1
+TF-IDF + SVD + LinearSVC,Augmented,-1,1,1
+TF-IDF + SVD + LinearSVC,Augmented,0,1,1
+TF-IDF + SVD + LinearSVC,Augmented,1,-1,1
+TF-IDF + SVD + LinearSVC,Augmented,1,0,1
+TF-IDF + SVD + LinearSVC,Base,-1,0,1
+TF-IDF + SVD + LinearSVC,Base,-1,1,1
+TF-IDF + SVD + LinearSVC,Base,0,-1,1
+TF-IDF + SVD + LinearSVC,Base,0,1,1

@@ -1,0 +1,20 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.0939682722091675,
+      "train_accuracy": 0.5416666666666666,
+      "train_macro_f1": 0.4992063492063492,
+      "train_eval_loss": 1.011365254720052
+    }
+  ],
+  "selected_epoch": 1,
+  "selection": "fixed_final_epoch",
+  "parameters": 213667,
+  "architecture": "CBOW + GRU",
+  "dataset": "Base",
+  "train_seconds": 5.249435687000016,
+  "fit_mode": "fixed_configuration",
+  "fit_rows": 24,
+  "directory": "vlsp_oxford_results/smoke-20261121T164408Z/models/cbow-gru/base"
+}

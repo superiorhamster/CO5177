@@ -1,0 +1,5 @@
+metric,dataset,n,display_points,zero_fraction,q1,median,q3
+pretrained_oov_fraction,Base,3,3,1.0,0.0,0.0,0.0
+pretrained_oov_fraction,Augmented,3,3,1.0,0.0,0.0,0.0
+vocab_unk_fraction,Base,3,3,0.0,0.5,0.5,0.5
+vocab_unk_fraction,Augmented,3,3,0.0,0.5,0.5,0.5

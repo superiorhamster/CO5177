@@ -1,0 +1,42 @@
+[
+  {
+    "file": "models/tf-idf-linearsvc/augmented/classifier.joblib",
+    "sha256": "c149517257cbd1a749d7d887d6195be06069e5a925950bb6b839fdcc14060896",
+    "bytes": 480763
+  },
+  {
+    "file": "models/tf-idf-linearsvc/augmented/vectorizer.joblib",
+    "sha256": "099f8651d0123d38024e3f82b1ab5462ef8e1de475a6a8dd1a7568e67af66b29",
+    "bytes": 705429
+  },
+  {
+    "file": "models/tf-idf-linearsvc/base/classifier.joblib",
+    "sha256": "545badda35f8032c5e349667312436c217141eaa6a1927ad6b4ca88f5d34aa59",
+    "bytes": 480763
+  },
+  {
+    "file": "models/tf-idf-linearsvc/base/vectorizer.joblib",
+    "sha256": "222362de0c4a99b678a0e65067212c8d25be8661f8b3b81fa4d4da0a8b873639",
+    "bytes": 700263
+  },
+  {
+    "file": "models/cbow-cnn-bilstm/augmented/best.pt",
+    "sha256": "c748f8ad6589daf6a1120f4781a2ee2f235ce7c86fae8e40c308b375bf17a630",
+    "bytes": 15993137
+  },
+  {
+    "file": "models/cbow-cnn-bilstm/base/best.pt",
+    "sha256": "b56d58947da5c5a5bb9bf8536291748450679ee35026c23bcbf522134c1666b1",
+    "bytes": 14092337
+  },
+  {
+    "file": "models/phobert-base-v2/base/pretrained/model.safetensors",
+    "sha256": "fc977a948e0d5d991714d4142c5a9d490aea91c1ed08d309bfbbc5a6e9d3cb1e",
+    "bytes": 540026460
+  },
+  {
+    "file": "models/phobert-base-v2/augmented/pretrained/model.safetensors",
+    "sha256": "f6c171ea2edc1c91b84abc12d2fd96936523023b63ce2fa816d70547347fd44f",
+    "bytes": 540026460
+  }
+]

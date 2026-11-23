@@ -1,0 +1,23 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.1027653217315674,
+      "train_accuracy": 0.6666666666666666,
+      "train_macro_f1": 0.5387205387205387,
+      "train_eval_loss": 1.0667527516682942,
+      "val_loss": 1.0972057183583577,
+      "val_accuracy": 0.3333333333333333,
+      "val_macro_f1": 0.26666666666666666
+    }
+  ],
+  "selected_epoch": 1,
+  "selection": "validation_macro_f1",
+  "parameters": 387843,
+  "architecture": "CBOW + CNN + BiLSTM",
+  "dataset": "Augmented",
+  "train_seconds": 0.06331153399997902,
+  "fit_mode": "stratified_validation_no_lineage",
+  "fit_rows": 24,
+  "directory": "vlsp_oxford_results/smoke-20261123T051356Z/models/cbow-cnn-bilstm/augmented"
+}

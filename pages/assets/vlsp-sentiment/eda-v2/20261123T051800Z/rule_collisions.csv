@@ -1,0 +1,167 @@
+dataset,rule,original,processed,label
+Augmented,+chữ thường,"3d touch chỉ để quảng cáo, có rất ít tác dụng","3d touch chỉ để quảng cáo, có rất ít tác dụng",-1
+Augmented,+chữ thường,"3D touch chỉ để quảng cáo, có rất ít tác dụng","3d touch chỉ để quảng cáo, có rất ít tác dụng",-1
+Augmented,+chữ thường,acer nhìn đẹp nhất,acer nhìn đẹp nhất,1
+Augmented,+chữ thường,Acer nhìn đẹp nhất,acer nhìn đẹp nhất,1
+Augmented,+chữ thường,Apple thực sự nên nghĩ khác về việc thiết kế iPhone.,apple thực sự nên nghĩ khác về việc thiết kế iphone.,-1
+Augmented,+chữ thường,apple thực sự nên nghĩ khác về việc thiết kế iphone.,apple thực sự nên nghĩ khác về việc thiết kế iphone.,-1
+Augmented,+chữ thường,camera nhìn như mắt cua,camera nhìn như mắt cua,-1
+Augmented,+chữ thường,Camera nhìn như mắt cua,camera nhìn như mắt cua,-1
+Augmented,+chữ thường,Chúc Note 7 thành công rực rỡ.,chúc note 7 thành công rực rỡ.,0
+Augmented,+chữ thường,chúc note 7 thành công rực rỡ.,chúc note 7 thành công rực rỡ.,0
+Augmented,+chữ thường,chụp đẹp quá!,chụp đẹp quá!,1
+Augmented,+chữ thường,Chụp đẹp quá!,chụp đẹp quá!,1
+Augmented,+chữ thường,càng mỏng thì pin càng yếu,càng mỏng thì pin càng yếu,-1
+Augmented,+chữ thường,Càng mỏng thì pin càng yếu,càng mỏng thì pin càng yếu,-1
+Augmented,+chữ thường,giá không thể hợp lý hơn,giá không thể hợp lý hơn,1
+Augmented,+chữ thường,Giá không thể hợp lý hơn,giá không thể hợp lý hơn,1
+Augmented,+chữ thường,giá không thể hợp lý hơn,giá không thể hợp lý hơn,1
+Augmented,+chữ thường,Giá không thể hợp lý hơn,giá không thể hợp lý hơn,1
+Augmented,+chữ thường,Giá quá cao,giá quá cao,-1
+Augmented,+chữ thường,giá quá cao,giá quá cao,-1
+Augmented,+chữ thường,giá quá cao,giá quá cao,-1
+Augmented,+chữ thường,giá quá cao,giá quá cao,-1
+Augmented,+chữ thường,giá tốt,giá tốt,1
+Augmented,+chữ thường,Giá tốt,giá tốt,1
+Augmented,+chữ thường,huawei gr5 chạy rất mượt,huawei gr5 chạy rất mượt,1
+Augmented,+chữ thường,Huawei gr5 chạy rất mượt,huawei gr5 chạy rất mượt,1
+Augmented,+chữ thường,Hấp dẫn quá... note7,hấp dẫn quá... note7,1
+Augmented,+chữ thường,hấp dẫn quá... note7,hấp dẫn quá... note7,1
+Augmented,+chữ thường,iphone 7 quá tuyệt vời,iphone 7 quá tuyệt vời,1
+Augmented,+chữ thường,iPhone 7 quá tuyệt vời,iphone 7 quá tuyệt vời,1
+Augmented,+chữ thường,iphone ngày càng trở nên nhạt nhẽo,iphone ngày càng trở nên nhạt nhẽo,-1
+Augmented,+chữ thường,iPhone ngày càng trở nên nhạt nhẽo,iphone ngày càng trở nên nhạt nhẽo,-1
+Augmented,+chữ thường,iPhone đẹp hơn,iphone đẹp hơn,-1
+Augmented,+chữ thường,iphone đẹp hơn,iphone đẹp hơn,-1
+Augmented,+chữ thường,không sao đâu,không sao đâu,1
+Augmented,+chữ thường,Không sao đâu,không sao đâu,0
+Augmented,+chữ thường,khủng long của năm là đây..,khủng long của năm là đây..,1
+Augmented,+chữ thường,Khủng long của năm là đây..,khủng long của năm là đây..,1
+Augmented,+chữ thường,màu cam đẹp quá,màu cam đẹp quá,1
+Augmented,+chữ thường,Màu cam đẹp quá,màu cam đẹp quá,1
+Augmented,+chữ thường,màu hồng của samsung đẹp quá,màu hồng của samsung đẹp quá,1
+Augmented,+chữ thường,Màu hồng của Samsung đẹp quá,màu hồng của samsung đẹp quá,1
+Augmented,+chữ thường,Màu vàng đẹp quá,màu vàng đẹp quá,1
+Augmented,+chữ thường,màu vàng đẹp quá,màu vàng đẹp quá,1
+Augmented,+chữ thường,máy nhìn thô quá,máy nhìn thô quá,-1
+Augmented,+chữ thường,Máy nhìn thô quá,máy nhìn thô quá,-1
+Augmented,+chữ thường,máy nhìn đẹp quá,máy nhìn đẹp quá,1
+Augmented,+chữ thường,Máy nhìn đẹp quá,máy nhìn đẹp quá,1
+Augmented,+chữ thường,Mặt trước giống iPhone. Mặt sau giống Samsung.,mặt trước giống iphone. mặt sau giống samsung.,-1
+Augmented,+chữ thường,mặt trước giống iphone. mặt sau giống samsung.,mặt trước giống iphone. mặt sau giống samsung.,-1
+Augmented,+chữ thường,một thanh niên không biết gì về ram vừa chia sẻ,một thanh niên không biết gì về ram vừa chia sẻ,0
+Augmented,+chữ thường,Một thanh niên không biết gì về ram vừa chia sẻ,một thanh niên không biết gì về ram vừa chia sẻ,0
+Augmented,+chữ thường,nokia 515 mình mua 06 tháng bảo hành 4 lần...,nokia 515 mình mua 06 tháng bảo hành 4 lần...,-1
+Augmented,+chữ thường,Nokia 515 mình mua 06 tháng bảo hành 4 lần...,nokia 515 mình mua 06 tháng bảo hành 4 lần...,-1
+Augmented,+chữ thường,"note 7 quá đẹp, quá hoàn hảo. tuyệt vời!","note 7 quá đẹp, quá hoàn hảo. tuyệt vời!",1
+Augmented,+chữ thường,"Note 7 quá đẹp, quá hoàn hảo. Tuyệt vời!","note 7 quá đẹp, quá hoàn hảo. tuyệt vời!",1
+Augmented,+chữ thường,Phiên bản này là redmi note 3 pro,phiên bản này là redmi note 3 pro,0
+Augmented,+chữ thường,phiên bản này là redmi note 3 pro,phiên bản này là redmi note 3 pro,0
+Augmented,+chữ thường,rất tốt,rất tốt,1
+Augmented,+chữ thường,Rất tốt,rất tốt,1
+Augmented,+chữ thường,rất tốt,rất tốt,1
+Augmented,+chữ thường,rất đáng để trải nghiệm!,rất đáng để trải nghiệm!,1
+Augmented,+chữ thường,Rất đáng để trải nghiệm!,rất đáng để trải nghiệm!,1
+Augmented,+chữ thường,rất đẹp,rất đẹp,1
+Augmented,+chữ thường,rất đẹp,rất đẹp,1
+Augmented,+chữ thường,Rất đẹp,rất đẹp,1
+Augmented,+chữ thường,Rất đẹp,rất đẹp,1
+Augmented,+chữ thường,Rất đẹp,rất đẹp,1
+Augmented,+chữ thường,Rất đẹp,rất đẹp,1
+Augmented,+chữ thường,rất đẹp,rất đẹp,1
+Augmented,+chữ thường,rất đẹp,rất đẹp,1
+Augmented,+chữ thường,Rất đẹp,rất đẹp,1
+Augmented,+chữ thường,rất đẹp,rất đẹp,1
+Augmented,+chữ thường,rất đẹp,rất đẹp,1
+Augmented,+chữ thường,Rất đẹp,rất đẹp,1
+Augmented,+chữ thường,rất đẹp,rất đẹp,1
+Augmented,+chữ thường,Rất đẹp,rất đẹp,1
+Augmented,+chữ thường,Rất đẹp.,rất đẹp.,1
+Augmented,+chữ thường,rất đẹp.,rất đẹp.,1
+Augmented,+chữ thường,rất đẹp.,rất đẹp.,1
+Augmented,+chữ thường,"samsung số 1, quá tuyệt vời.","samsung số 1, quá tuyệt vời.",1
+Augmented,+chữ thường,"Samsung số 1, quá tuyệt vời.","samsung số 1, quá tuyệt vời.",1
+Augmented,+chữ thường,sản phẩm vô dụng nhất mà tôi từng thấy,sản phẩm vô dụng nhất mà tôi từng thấy,-1
+Augmented,+chữ thường,Sản phẩm vô dụng nhất mà tôi từng thấy,sản phẩm vô dụng nhất mà tôi từng thấy,-1
+Augmented,+chữ thường,thiết kế không có gì mới,thiết kế không có gì mới,-1
+Augmented,+chữ thường,Thiết kế không có gì mới,thiết kế không có gì mới,-1
+Augmented,+chữ thường,"thật không thể tin được, thật không thể tin được...","thật không thể tin được, thật không thể tin được...",1
+Augmented,+chữ thường,"Thật không thể tin được, thật không thể tin được...","thật không thể tin được, thật không thể tin được...",1
+Augmented,+chữ thường,Thật là một bước đột phá,thật là một bước đột phá,1
+Augmented,+chữ thường,thật là một bước đột phá,thật là một bước đột phá,1
+Augmented,+chữ thường,tiếc cho một thương hiệu!,tiếc cho một thương hiệu!,-1
+Augmented,+chữ thường,Tiếc cho một thương hiệu!,tiếc cho một thương hiệu!,-1
+Augmented,+chữ thường,tuyệt vời!,tuyệt vời!,1
+Augmented,+chữ thường,tuyệt vời!,tuyệt vời!,1
+Augmented,+chữ thường,Tuyệt vời!,tuyệt vời!,1
+Augmented,+chữ thường,tuyệt vời!,tuyệt vời!,1
+Augmented,+chữ thường,tuyệt vời!,tuyệt vời!,1
+Augmented,+chữ thường,Tuyệt vời!,tuyệt vời!,1
+Augmented,+chữ thường,Tuyệt vời!,tuyệt vời!,1
+Augmented,+chữ thường,tuyệt vời.,tuyệt vời.,1
+Augmented,+chữ thường,Tuyệt vời.,tuyệt vời.,1
+Augmented,+chữ thường,Tuyệt vời...!,tuyệt vời...!,1
+Augmented,+chữ thường,tuyệt vời...!,tuyệt vời...!,1
+Augmented,+chữ thường,Tuyệt đẹp và chất lượng.,tuyệt đẹp và chất lượng.,1
+Augmented,+chữ thường,tuyệt đẹp và chất lượng.,tuyệt đẹp và chất lượng.,1
+Augmented,+chữ thường,tuyệt..,tuyệt..,1
+Augmented,+chữ thường,Tuyệt..,tuyệt..,1
+Augmented,+chữ thường,tuyệt...,tuyệt...,1
+Augmented,+chữ thường,Tuyệt...,tuyệt...,1
+Augmented,+chữ thường,tôi thích ăn táo,tôi thích ăn táo,1
+Augmented,+chữ thường,Tôi thích ăn táo,tôi thích ăn táo,1
+Augmented,+chữ thường,Tôi đang chờ đợi sản phẩm này.,tôi đang chờ đợi sản phẩm này.,1
+Augmented,+chữ thường,tôi đang chờ đợi sản phẩm này.,tôi đang chờ đợi sản phẩm này.,1
+Augmented,+chữ thường,Zen 3 năm nay ngon quá,zen 3 năm nay ngon quá,1
+Augmented,+chữ thường,zen 3 năm nay ngon quá,zen 3 năm nay ngon quá,1
+Augmented,+chữ thường,Ôi giá rẻ quá,ôi giá rẻ quá,1
+Augmented,+chữ thường,ôi giá rẻ quá,ôi giá rẻ quá,1
+Augmented,+chữ thường,Đây là điểm yếu của IP.,đây là điểm yếu của ip.,-1
+Augmented,+chữ thường,đây là điểm yếu của ip.,đây là điểm yếu của ip.,-1
+Augmented,+chữ thường,Đẹp,đẹp,1
+Augmented,+chữ thường,đẹp,đẹp,1
+Augmented,+chữ thường,Đẹp,đẹp,1
+Augmented,+chữ thường,đẹp,đẹp,1
+Augmented,+chữ thường,đẹp,đẹp,1
+Augmented,+chữ thường,đẹp,đẹp,1
+Augmented,+chữ thường,Đẹp,đẹp,1
+Augmented,+chữ thường,đẹp,đẹp,1
+Augmented,+chữ thường,Đẹp,đẹp,1
+Augmented,+chữ thường,Đẹp,đẹp,1
+Augmented,+chữ thường,Đẹp,đẹp,1
+Augmented,+chữ thường,đẹp,đẹp,1
+Augmented,+chữ thường,Đẹp,đẹp,1
+Augmented,+chữ thường,đẹp!,đẹp!,1
+Augmented,+chữ thường,Đẹp!,đẹp!,1
+Augmented,+chữ thường,"ảnh xấu, mẫu đẹp","ảnh xấu, mẫu đẹp",-1
+Augmented,+chữ thường,"Ảnh xấu, mẫu đẹp","ảnh xấu, mẫu đẹp",-1
+Base,+chữ thường,Good,good,1
+Base,+chữ thường,good,good,1
+Base,+chữ thường,Ngon,ngon,1
+Base,+chữ thường,NGON,ngon,1
+Base,+chữ thường,Ngon,ngon,1
+Base,+chữ thường,ngon quá,ngon quá,1
+Base,+chữ thường,Ngon quá,ngon quá,1
+Base,+chữ thường,Ngon quá,ngon quá,1
+Base,+chữ thường,Quá khủng,quá khủng,1
+Base,+chữ thường,quá khủng,quá khủng,1
+Base,+chữ thường,quá tuyệt,quá tuyệt,1
+Base,+chữ thường,Quá tuyệt,quá tuyệt,1
+Base,+chữ thường,Quá tuyệt,quá tuyệt,1
+Base,+chữ thường,Quá đẹp,quá đẹp,1
+Base,+chữ thường,quá đẹp,quá đẹp,1
+Base,+chữ thường,xấu,xấu,-1
+Base,+chữ thường,Xấu,xấu,-1
+Base,+chữ thường,đẹp,đẹp,1
+Base,+chữ thường,Đẹp,đẹp,1
+Base,+chữ thường,Đẹp,đẹp,1
+Base,+chữ thường,Đẹp,đẹp,1
+Base,+chữ thường,Đẹp,đẹp,1
+Base,+chữ thường,Đẹp,đẹp,1
+Base,+chữ thường,đẹp ghê,đẹp ghê,1
+Base,+chữ thường,Đẹp ghê,đẹp ghê,1
+Base,+chữ thường,Đẹp quá,đẹp quá,1
+Base,+chữ thường,Đẹp quá,đẹp quá,1
+Base,+chữ thường,đẹp quá,đẹp quá,1
+Base,+chữ thường,đẹp quá,đẹp quá,1
+Base,+chữ thường,Đẹp quá,đẹp quá,1

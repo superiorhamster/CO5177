@@ -283,10 +283,28 @@ td { color: var(--muted); }
 :is(.image-report, .text-report) .resource-item { flex-wrap: wrap; }
 :is(.image-report, .text-report) .resource-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
 :is(.image-report, .text-report) .resource-pending { max-width: 100%; }
-:is(.image-report, .text-report) .report-table th { white-space: normal; }
-:is(.image-report, .text-report) .report-table tbody th { background: transparent; font-weight: 500; }
+:is(.image-report, .text-report) .report-table th { white-space: normal; vertical-align: top; }
+:is(.image-report, .text-report) .report-table thead th:first-child,
+:is(.image-report, .text-report) .report-table tbody th {
+  background: transparent;
+  font-weight: 500;
+  white-space: nowrap;
+}
 :is(.image-report, .text-report) .report-table tfoot { background: var(--blue-soft); font-weight: 600; }
 :is(.image-report, .text-report) .report-table th, :is(.image-report, .text-report) .report-table td { padding: 12px 14px; }
+:is(.image-report, .text-report) .report-table td {
+  vertical-align: top;
+  overflow-wrap: break-word;
+  word-break: normal;
+  line-height: 1.6;
+}
+:is(.image-report, .text-report) .report-table td.report-number {
+  text-align: end;
+  white-space: nowrap;
+}
+:is(.image-report, .text-report) .report-table td:not(.report-number) {
+  text-align: start;
+}
 :is(.image-report, .text-report) .report-table tr:last-child > * { border-bottom: 0; }
 :is(.image-report, .text-report) .report-table tbody tr + tr > * { border-top: 1px solid var(--line); }
 :is(.image-report, .text-report) .report-figure { display: grid; gap: 12px; margin: 8px 0; min-width: 0; }

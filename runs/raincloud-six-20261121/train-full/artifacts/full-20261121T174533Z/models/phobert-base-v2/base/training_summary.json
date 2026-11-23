@@ -1,0 +1,34 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.9306921469035105,
+      "train_accuracy": 0.7582308607695359,
+      "train_macro_f1": 0.7503180154350635,
+      "train_eval_loss": 0.6223405576423727
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.6231369629874678,
+      "train_accuracy": 0.8405394684648949,
+      "train_macro_f1": 0.8401244253880401,
+      "train_eval_loss": 0.4595521057304623
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.48535294250948285,
+      "train_accuracy": 0.85680285600952,
+      "train_macro_f1": 0.8555332408824216,
+      "train_eval_loss": 0.42141372350793377
+    }
+  ],
+  "selected_epoch": 3,
+  "selection": "fixed_final_epoch",
+  "parameters": 135000579,
+  "architecture": "PhoBERT-base-v2",
+  "dataset": "Base",
+  "train_seconds": 198.40615262100005,
+  "fit_mode": "fixed_configuration",
+  "fit_rows": 5042,
+  "directory": "vlsp_oxford_results/full-20261121T174533Z/models/phobert-base-v2/base"
+}

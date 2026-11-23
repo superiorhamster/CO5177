@@ -1,0 +1,19 @@
+architecture,dataset,label,class_name,precision,recall,f1-score,support
+TF-IDF + SVD + LinearSVC,Base,-1,negative,0.0,0.0,0.0,2.0
+TF-IDF + SVD + LinearSVC,Base,0,neutral,0.0,0.0,0.0,2.0
+TF-IDF + SVD + LinearSVC,Base,1,positive,0.5,1.0,0.6666666666666666,2.0
+TF-IDF + SVD + LinearSVC,Augmented,-1,negative,0.0,0.0,0.0,2.0
+TF-IDF + SVD + LinearSVC,Augmented,0,neutral,0.3333333333333333,0.5,0.4,2.0
+TF-IDF + SVD + LinearSVC,Augmented,1,positive,0.0,0.0,0.0,2.0
+CBOW + GRU,Base,-1,negative,0.5,1.0,0.6666666666666666,2.0
+CBOW + GRU,Base,0,neutral,0.0,0.0,0.0,2.0
+CBOW + GRU,Base,1,positive,0.0,0.0,0.0,2.0
+CBOW + GRU,Augmented,-1,negative,0.5,0.5,0.5,2.0
+CBOW + GRU,Augmented,0,neutral,1.0,0.5,0.6666666666666666,2.0
+CBOW + GRU,Augmented,1,positive,0.3333333333333333,0.5,0.4,2.0
+PhoBERT-base-v2,Base,-1,negative,0.5,0.5,0.5,2.0
+PhoBERT-base-v2,Base,0,neutral,0.6666666666666666,1.0,0.8,2.0
+PhoBERT-base-v2,Base,1,positive,1.0,0.5,0.6666666666666666,2.0
+PhoBERT-base-v2,Augmented,-1,negative,1.0,0.5,0.6666666666666666,2.0
+PhoBERT-base-v2,Augmented,0,neutral,0.5,1.0,0.6666666666666666,2.0
+PhoBERT-base-v2,Augmented,1,positive,1.0,0.5,0.6666666666666666,2.0

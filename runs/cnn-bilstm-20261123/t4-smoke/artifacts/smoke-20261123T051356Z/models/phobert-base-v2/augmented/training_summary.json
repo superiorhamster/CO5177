@@ -1,0 +1,23 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.0967203776041667,
+      "train_accuracy": 0.5,
+      "train_macro_f1": 0.47850017199862394,
+      "train_eval_loss": 1.075373371442159,
+      "val_loss": 1.104573090871175,
+      "val_accuracy": 0.16666666666666666,
+      "val_macro_f1": 0.09523809523809523
+    }
+  ],
+  "selected_epoch": 1,
+  "selection": "validation_macro_f1",
+  "parameters": 135000579,
+  "architecture": "PhoBERT-base-v2",
+  "dataset": "Augmented",
+  "train_seconds": 6.92551026700005,
+  "fit_mode": "stratified_validation_no_lineage",
+  "fit_rows": 24,
+  "directory": "vlsp_oxford_results/smoke-20261123T051356Z/models/phobert-base-v2/augmented"
+}

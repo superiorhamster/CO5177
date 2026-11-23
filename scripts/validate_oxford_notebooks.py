@@ -117,14 +117,17 @@ def check_text(directory):
     if 'preprocessing' in run:
         policy = json.loads((directory / 'preprocessing_policy.json').read_text())
         assert policy == run['preprocessing']
-        assert policy['version'] == 'vlsp-eda-v2'
+        assert policy['version'] in {'vlsp-eda-v2','vlsp-eda-v3-six-raincloud'}
         assert policy['tfidf']['max_features'] == 20000
         assert policy['phobert']['preserve_case'] and not policy['semantic_replacements']
     groups = defaultdict(list)
     for row in read_csv(directory / 'predictions.csv'):
         groups[row['architecture'], row['dataset']].append(row)
     expected = {(architecture, dataset) for architecture in run['architectures'] for dataset in ('Base', 'Augmented')}
-    assert len(expected) == 12 and set(groups) == expected
+    expected_runs = 6 if run.get('preprocessing', {}).get('version') == 'vlsp-eda-v3-six-raincloud' else 12
+    if expected_runs == 6:
+        assert set(run['architectures']) == {'TF-IDF + LinearSVC','CBOW + CNN + BiLSTM','PhoBERT-base-v2'}
+    assert len(expected) == expected_runs and set(groups) == expected
     test = [row for row in read_csv(directory / 'split_manifest.csv') if row['split'] == 'Test']
     expected_ids = [row['sample_id'] for row in test]
     assert len(set(expected_ids)) == len(expected_ids)
@@ -147,19 +150,31 @@ def check_text(directory):
         check_matrix(experiment_paths[key] / 'confusion_counts.csv', matrix, [-1, 0, 1])
         check_per_class([row for row in per_class if (row['architecture'], row['dataset']) == key],
                         matrix, {-1: 'negative', 0: 'neutral', 1: 'positive'}, 'f1-score')
+    manifest_rows = read_csv(directory / 'split_manifest.csv')
+    if run['fit_mode'] == 'stratified_validation_no_lineage':
+        test_keys = {row['clean_key'] for row in test}
+        for split in ('Base', 'Augmented'):
+            tr_keys = {row['clean_key'] for row in manifest_rows if row['split'] == split}
+            va_keys = {row['clean_key'] for row in manifest_rows if row['split'] == f'{split}_val'}
+            assert va_keys and not (tr_keys & va_keys) and not (va_keys & test_keys), split
     for training in directory.glob('models/*/*/training_summary.json'):
         value = json.loads(training.read_text())
         if value['history']:
             assert len(value['history']) == len(read_csv(training.parent / 'history.csv'))
+            expected_epochs = run['epochs']['phobert' if value['architecture'] == 'PhoBERT-base-v2' else 'neural']
             if run['fit_mode'] == 'fixed_configuration':
-                expected_epochs = run['epochs']['phobert' if value['architecture'] == 'PhoBERT-base-v2' else 'neural']
                 assert len(value['history']) == expected_epochs
                 assert value['selected_epoch'] == expected_epochs
                 assert not any('val_macro_f1' in row for row in value['history'])
+            else:
+                assert 1 <= len(value['history']) <= expected_epochs
+                best_row = max(value['history'], key=lambda row: float(row['val_macro_f1']))
+                assert value['selected_epoch'] == int(best_row['epoch'])
+                assert value['selection'] == 'validation_macro_f1'
     verification = json.loads((directory / 'verification.json').read_text())
-    assert verification['status'] == 'passed' and verification['runs'] == 12
+    assert verification['status'] == 'passed' and verification['runs'] == expected_runs
     assert verification['checkpoint_reload'] == 'passed' and verification['explanation_weights_unchanged']
-    print(f'Text: all 12 runs recomputed from {len(expected_ids)} shared test IDs')
+    print(f'Text: all {expected_runs} runs recomputed from {len(expected_ids)} shared test IDs')
 
 
 def check_image(directory):

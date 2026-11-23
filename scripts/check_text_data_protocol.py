@@ -56,7 +56,7 @@ def main(notebook_path):
             pass
         else:
             raise AssertionError('Incomplete lineage was accepted')
-    if namespace.get('PREPROCESSING_VERSION') == 'vlsp-eda-v2':
+    if namespace.get('PREPROCESSING_VERSION', '').startswith('vlsp-eda-v'):
         assert namespace['normalize_text']('Ko tốt :)) ❤️') == 'Ko tốt :)) ❤️'
         assert namespace['normalize_text']('  KHÔNG   tốt! ') == 'KHÔNG tốt!'
     # Leakage after normalization must be removed from fit, while original test is retained.

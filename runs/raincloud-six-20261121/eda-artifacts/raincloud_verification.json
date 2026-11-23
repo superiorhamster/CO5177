@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "runtime": "CPU",
+  "rows": 15249,
+  "groups": 4,
+  "source_csv_sha256": "dadb759d0c116949712cd916f7cb550095869db6c7348e3a1876ea91506bc870",
+  "plot_function_sha256": "00fe6d08409d52e8974ef83463dfca8cb3a96cd1c09d453360ad3ece39854a09",
+  "checks": [
+    "counts",
+    "quartiles",
+    "zero fractions",
+    "display sampling",
+    "constant groups",
+    "invalid values"
+  ]
+}

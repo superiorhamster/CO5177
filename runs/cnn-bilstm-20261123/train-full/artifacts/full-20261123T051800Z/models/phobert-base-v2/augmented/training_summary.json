@@ -1,0 +1,73 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.8431790437324398,
+      "train_accuracy": 0.7774993735905789,
+      "train_macro_f1": 0.7750202279778349,
+      "train_eval_loss": 0.5770299817215856,
+      "val_loss": 0.6633414314361755,
+      "val_accuracy": 0.7359719438877755,
+      "val_macro_f1": 0.7320372118895664
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.5694074140727684,
+      "train_accuracy": 0.8628163367577049,
+      "train_macro_f1": 0.8633278967819598,
+      "train_eval_loss": 0.3924242177349498,
+      "val_loss": 0.602670829496785,
+      "val_accuracy": 0.7695390781563126,
+      "val_macro_f1": 0.7701148701427222
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.4120938294559934,
+      "train_accuracy": 0.9178150839388625,
+      "train_macro_f1": 0.9173271900332359,
+      "train_eval_loss": 0.26376414350162797,
+      "val_loss": 0.5925323686045492,
+      "val_accuracy": 0.7875751503006012,
+      "val_macro_f1": 0.7848558634541893
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.28980308844687136,
+      "train_accuracy": 0.9522676021047356,
+      "train_macro_f1": 0.9522467325482725,
+      "train_eval_loss": 0.17226489133940576,
+      "val_loss": 0.5999850103545762,
+      "val_accuracy": 0.8031062124248497,
+      "val_macro_f1": 0.8010552426881082
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.2149666461442996,
+      "train_accuracy": 0.9664244550238036,
+      "train_macro_f1": 0.9664747737803735,
+      "train_eval_loss": 0.13074387076600874,
+      "val_loss": 0.6081084662410086,
+      "val_accuracy": 0.8121242484969939,
+      "val_macro_f1": 0.8119079883024924
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.17550569332144786,
+      "train_accuracy": 0.9674267100977199,
+      "train_macro_f1": 0.9674441068826272,
+      "train_eval_loss": 0.12851575517476696,
+      "val_loss": 0.6273212286462645,
+      "val_accuracy": 0.8076152304609219,
+      "val_macro_f1": 0.8066639453086958
+    }
+  ],
+  "selected_epoch": 5,
+  "selection": "validation_macro_f1",
+  "parameters": 135000579,
+  "architecture": "PhoBERT-base-v2",
+  "dataset": "Augmented",
+  "train_seconds": 715.984507534,
+  "fit_mode": "stratified_validation_no_lineage",
+  "fit_rows": 7982,
+  "directory": "vlsp_oxford_results/full-20261123T051800Z/models/phobert-base-v2/augmented"
+}

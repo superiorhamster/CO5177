@@ -1,0 +1,196 @@
+{
+  "run": {
+    "run_id": "20261123T051356Z",
+    "smoke_test": true,
+    "seed": 42,
+    "dataset": "anhphmduy/vlsp-sentiment-dataset/versions/5",
+    "fit_mode": "stratified_validation_no_lineage",
+    "labels": [
+      -1,
+      0,
+      1
+    ],
+    "architectures": [
+      "TF-IDF + LinearSVC",
+      "CBOW + CNN + BiLSTM",
+      "PhoBERT-base-v2"
+    ],
+    "sample_counts": {
+      "Base": 24,
+      "Augmented": 24,
+      "Test": 6,
+      "Base_val": 6,
+      "Augmented_val": 6
+    },
+    "sources": {
+      "Base": {
+        "filename": "vlsp_sentiment_train.csv",
+        "sha256": "669f584a9fd149ebf7b4bc8aa16bbacff3ee14e0b05512fd035d6f33a3f4b417"
+      },
+      "Augmented": {
+        "filename": "vlsp_sentiment_train_augmented_v2.csv",
+        "sha256": "67220874e2d224bfe04dec0b37791addf72c6dbb54b5b13f355327bb8e2b4477"
+      },
+      "Test": {
+        "filename": "vlsp_sentiment_test.csv",
+        "sha256": "7252546b2a289eccaa3e6a4748cc021b567442a7f3352c468ff2cbe8e353e6c8"
+      }
+    },
+    "epochs": {
+      "neural": 1,
+      "phobert": 1
+    },
+    "timing_definition": "Fit preprocessor + model initialization + training/validation; excludes shared Word2Vec loading and test inference.",
+    "phobert_effective_batch": 32,
+    "manifest_sha256": "2494a02c4f780c560a3a441f7ea4d1cf02fbaff681ab99dd6dd707c86aaf2c5d",
+    "preprocessing": {
+      "version": "vlsp-eda-v3-six-raincloud",
+      "common": [
+        "NFC",
+        "collapse_whitespace",
+        "preserve_original_text",
+        "preserve_negation_numbers_symbols"
+      ],
+      "semantic_replacements": false,
+      "elongation_reduction": false,
+      "tfidf": {
+        "lowercase": true,
+        "token_pattern": "(?u)(?::[-]?[)(d]|\\^\\^|t\\.t|\\b\\w+\\b)",
+        "ngram_range": [
+          1,
+          2
+        ],
+        "max_features": 20000,
+        "min_df": 1,
+        "sublinear_tf": true
+      },
+      "cbow": {
+        "lowercase": true,
+        "segmenter": "PyVi",
+        "vocabulary_limit": 10000,
+        "max_length": 300,
+        "pad": 0,
+        "unk": 1
+      },
+      "phobert": {
+        "preserve_case": true,
+        "segmenter": "RDRSegmenter",
+        "max_length": 256,
+        "effective_batch": 32
+      },
+      "eda_sources": {
+        "Base": "669f584a9fd149ebf7b4bc8aa16bbacff3ee14e0b05512fd035d6f33a3f4b417",
+        "Augmented": "67220874e2d224bfe04dec0b37791addf72c6dbb54b5b13f355327bb8e2b4477",
+        "Test": "7252546b2a289eccaa3e6a4748cc021b567442a7f3352c468ff2cbe8e353e6c8"
+      },
+      "eda_notebook_code_sha256": "0e8ff2afca0d5fe4f1d5d36c7a6685ca647de4e87a49e7db3b39b288f6725722",
+      "architectures": [
+        "TF-IDF + LinearSVC",
+        "CBOW + CNN + BiLSTM",
+        "PhoBERT-base-v2"
+      ]
+    },
+    "word2vec": {
+      "file": "vi-model-CBOW.bin",
+      "sha256": "b81652d573e8b5aa57e1fa4ef13bcab735a0ed236b040969ae1e313ced3aceef"
+    }
+  },
+  "results": [
+    {
+      "architecture": "TF-IDF + LinearSVC",
+      "dataset": "Base",
+      "accuracy": 0.6666666666666666,
+      "balanced_accuracy": 0.6666666666666666,
+      "macro_precision": 0.4444444444444444,
+      "macro_recall": 0.6666666666666666,
+      "macro_f1": 0.5333333333333333,
+      "weighted_f1": 0.5333333333333333,
+      "mcc": 0.5773502691896257,
+      "polarity_reversal_rate": 0.25,
+      "support": 6,
+      "parameters": 2982,
+      "train_seconds": 0.031058114000018122,
+      "inference_seconds": 0.011395218000018303
+    },
+    {
+      "architecture": "TF-IDF + LinearSVC",
+      "dataset": "Augmented",
+      "accuracy": 0.3333333333333333,
+      "balanced_accuracy": 0.3333333333333333,
+      "macro_precision": 0.16666666666666666,
+      "macro_recall": 0.3333333333333333,
+      "macro_f1": 0.2222222222222222,
+      "weighted_f1": 0.2222222222222222,
+      "mcc": 0.0,
+      "polarity_reversal_rate": 0.5,
+      "support": 6,
+      "parameters": 2760,
+      "train_seconds": 0.028092133000029662,
+      "inference_seconds": 0.009907767999948192
+    },
+    {
+      "architecture": "CBOW + CNN + BiLSTM",
+      "dataset": "Base",
+      "accuracy": 0.3333333333333333,
+      "balanced_accuracy": 0.3333333333333333,
+      "macro_precision": 0.13333333333333333,
+      "macro_recall": 0.3333333333333333,
+      "macro_f1": 0.19047619047619047,
+      "weighted_f1": 0.19047619047619047,
+      "mcc": 0.0,
+      "polarity_reversal_rate": 0.5,
+      "support": 6,
+      "parameters": 390243,
+      "train_seconds": 5.111394458000007,
+      "inference_seconds": 0.0156445510000367
+    },
+    {
+      "architecture": "CBOW + CNN + BiLSTM",
+      "dataset": "Augmented",
+      "accuracy": 0.16666666666666666,
+      "balanced_accuracy": 0.16666666666666666,
+      "macro_precision": 0.1111111111111111,
+      "macro_recall": 0.16666666666666666,
+      "macro_f1": 0.13333333333333333,
+      "weighted_f1": 0.13333333333333333,
+      "mcc": -0.28867513459481287,
+      "polarity_reversal_rate": 0.75,
+      "support": 6,
+      "parameters": 387843,
+      "train_seconds": 0.06331153399997902,
+      "inference_seconds": 0.0150432789999968
+    },
+    {
+      "architecture": "PhoBERT-base-v2",
+      "dataset": "Base",
+      "accuracy": 0.6666666666666666,
+      "balanced_accuracy": 0.6666666666666666,
+      "macro_precision": 0.7222222222222222,
+      "macro_recall": 0.6666666666666666,
+      "macro_f1": 0.6555555555555556,
+      "weighted_f1": 0.6555555555555556,
+      "mcc": 0.5222329678670935,
+      "polarity_reversal_rate": 0.25,
+      "support": 6,
+      "parameters": 135000579,
+      "train_seconds": 33.032126213000026,
+      "inference_seconds": 0.04221419000003834
+    },
+    {
+      "architecture": "PhoBERT-base-v2",
+      "dataset": "Augmented",
+      "accuracy": 0.6666666666666666,
+      "balanced_accuracy": 0.6666666666666666,
+      "macro_precision": 0.7222222222222222,
+      "macro_recall": 0.6666666666666666,
+      "macro_f1": 0.6555555555555556,
+      "weighted_f1": 0.6555555555555556,
+      "mcc": 0.5222329678670935,
+      "polarity_reversal_rate": 0.25,
+      "support": 6,
+      "parameters": 135000579,
+      "train_seconds": 6.92551026700005,
+      "inference_seconds": 0.041426597000054244
+    }
+  ]
+}

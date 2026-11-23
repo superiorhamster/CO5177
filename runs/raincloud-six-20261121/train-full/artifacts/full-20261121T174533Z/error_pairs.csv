@@ -1,0 +1,37 @@
+architecture,dataset,true_label,predicted_label,count
+CBOW + GRU,Augmented,-1,0,100
+CBOW + GRU,Augmented,-1,1,17
+CBOW + GRU,Augmented,0,-1,76
+CBOW + GRU,Augmented,0,1,24
+CBOW + GRU,Augmented,1,-1,59
+CBOW + GRU,Augmented,1,0,114
+CBOW + GRU,Base,-1,0,77
+CBOW + GRU,Base,-1,1,58
+CBOW + GRU,Base,0,-1,78
+CBOW + GRU,Base,0,1,63
+CBOW + GRU,Base,1,-1,40
+CBOW + GRU,Base,1,0,53
+PhoBERT-base-v2,Augmented,-1,0,43
+PhoBERT-base-v2,Augmented,-1,1,31
+PhoBERT-base-v2,Augmented,0,-1,65
+PhoBERT-base-v2,Augmented,0,1,49
+PhoBERT-base-v2,Augmented,1,-1,13
+PhoBERT-base-v2,Augmented,1,0,36
+PhoBERT-base-v2,Base,-1,0,49
+PhoBERT-base-v2,Base,-1,1,25
+PhoBERT-base-v2,Base,0,-1,73
+PhoBERT-base-v2,Base,0,1,55
+PhoBERT-base-v2,Base,1,-1,16
+PhoBERT-base-v2,Base,1,0,31
+TF-IDF + SVD + LinearSVC,Augmented,-1,0,81
+TF-IDF + SVD + LinearSVC,Augmented,-1,1,43
+TF-IDF + SVD + LinearSVC,Augmented,0,-1,64
+TF-IDF + SVD + LinearSVC,Augmented,0,1,50
+TF-IDF + SVD + LinearSVC,Augmented,1,-1,43
+TF-IDF + SVD + LinearSVC,Augmented,1,0,59
+TF-IDF + SVD + LinearSVC,Base,-1,0,76
+TF-IDF + SVD + LinearSVC,Base,-1,1,39
+TF-IDF + SVD + LinearSVC,Base,0,-1,77
+TF-IDF + SVD + LinearSVC,Base,0,1,48
+TF-IDF + SVD + LinearSVC,Base,1,-1,40
+TF-IDF + SVD + LinearSVC,Base,1,0,69

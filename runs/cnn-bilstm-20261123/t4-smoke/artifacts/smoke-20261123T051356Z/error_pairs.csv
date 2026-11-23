@@ -1,0 +1,17 @@
+architecture,dataset,true_label,predicted_label,count
+CBOW + CNN + BiLSTM,Augmented,-1,1,1
+CBOW + CNN + BiLSTM,Augmented,0,1,2
+CBOW + CNN + BiLSTM,Augmented,1,-1,2
+CBOW + CNN + BiLSTM,Base,0,-1,1
+CBOW + CNN + BiLSTM,Base,0,1,1
+CBOW + CNN + BiLSTM,Base,1,-1,2
+PhoBERT-base-v2,Augmented,-1,0,1
+PhoBERT-base-v2,Augmented,1,-1,1
+PhoBERT-base-v2,Base,-1,0,1
+PhoBERT-base-v2,Base,1,-1,1
+TF-IDF + LinearSVC,Augmented,-1,0,1
+TF-IDF + LinearSVC,Augmented,-1,1,1
+TF-IDF + LinearSVC,Augmented,1,-1,1
+TF-IDF + LinearSVC,Augmented,1,0,1
+TF-IDF + LinearSVC,Base,1,-1,1
+TF-IDF + LinearSVC,Base,1,0,1

@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "session": "cnn-bilstm-smoke-t4",
+  "kind": "text",
+  "mode": "smoke",
+  "vm_released": true
+}

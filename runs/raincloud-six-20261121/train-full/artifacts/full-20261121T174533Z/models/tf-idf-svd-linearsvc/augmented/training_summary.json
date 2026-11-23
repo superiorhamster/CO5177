@@ -1,0 +1,12 @@
+{
+  "history": [],
+  "selected_epoch": null,
+  "selection": "single_fit",
+  "parameters": 903,
+  "architecture": "TF-IDF + SVD + LinearSVC",
+  "dataset": "Augmented",
+  "train_seconds": 11.561390317999951,
+  "fit_mode": "fixed_configuration",
+  "fit_rows": 9978,
+  "directory": "vlsp_oxford_results/full-20261121T174533Z/models/tf-idf-svd-linearsvc/augmented"
+}

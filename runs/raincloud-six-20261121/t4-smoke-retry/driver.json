@@ -1,0 +1,8 @@
+{
+  "status": "failed",
+  "session": "raincloud-six-smoke-t4",
+  "kind": "text",
+  "mode": "smoke",
+  "error": "Notebook cell errors: [(24, 'RuntimeError', \"Can't call numpy() on Tensor that requires grad. Use tensor.detach().numpy() instead.\"), (28, 'AssertionError', ''), (30, 'KeyError', \"'macro_f1'\"), (32, 'NameError', \"name 'prediction_table' is not defined\"), (34, 'KeyError', \"('PhoBERT-base-v2', 'Augmented')\")]",
+  "vm_released": true
+}

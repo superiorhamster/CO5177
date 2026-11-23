@@ -1,0 +1,8 @@
+{
+  "status": "failed",
+  "session": "raincloud-six-smoke-t4",
+  "kind": "text",
+  "mode": "smoke",
+  "error": "Notebook cell errors: [(12, 'FileNotFoundError', \"[Errno 2] No such file or directory: 'VnCoreNLP-1.2.jar'\"), (14, 'NameError', \"name 'eda_dir' is not defined\"), (16, 'NameError', \"name 'eda_dir' is not defined\"), (18, 'NameError', \"name 'eda_dir' is not defined\"), (20, 'NameError', \"name 'word_lengths' is not defined\"), (24, 'NameError', \"name 'run_metadata' is not defined\"), (28, 'AssertionError', ''), (30, 'KeyError', \"'macro_f1'\"), (32, 'NameError', \"name 'prediction_table' is not defined\"), (34, 'KeyError', \"('TF-IDF + SVD + LinearSVC', 'Augmented')\")]",
+  "vm_released": true
+}

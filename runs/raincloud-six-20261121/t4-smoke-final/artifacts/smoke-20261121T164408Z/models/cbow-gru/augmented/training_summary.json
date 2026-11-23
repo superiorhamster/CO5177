@@ -1,0 +1,20 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.1415780782699585,
+      "train_accuracy": 0.4583333333333333,
+      "train_macro_f1": 0.44700854700854703,
+      "train_eval_loss": 1.0808746019999187
+    }
+  ],
+  "selected_epoch": 1,
+  "selection": "fixed_final_epoch",
+  "parameters": 207267,
+  "architecture": "CBOW + GRU",
+  "dataset": "Augmented",
+  "train_seconds": 0.0546448860000055,
+  "fit_mode": "fixed_configuration",
+  "fit_rows": 24,
+  "directory": "vlsp_oxford_results/smoke-20261121T164408Z/models/cbow-gru/augmented"
+}

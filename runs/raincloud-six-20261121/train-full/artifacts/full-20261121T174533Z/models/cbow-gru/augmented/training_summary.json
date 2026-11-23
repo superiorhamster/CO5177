@@ -1,0 +1,41 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.0420283515101134,
+      "train_accuracy": 0.6193625977149729,
+      "train_macro_f1": 0.6201636038847381,
+      "train_eval_loss": 0.8865035472448567
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.7999593338953944,
+      "train_accuracy": 0.7675886951292844,
+      "train_macro_f1": 0.7644427225020879,
+      "train_eval_loss": 0.6109474929164229
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.5805518195991837,
+      "train_accuracy": 0.8759270394868711,
+      "train_macro_f1": 0.8762174866270551,
+      "train_eval_loss": 0.39082615139919763
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.3887667284864394,
+      "train_accuracy": 0.9231308879534977,
+      "train_macro_f1": 0.9234595273362279,
+      "train_eval_loss": 0.2515404940750633
+    }
+  ],
+  "selected_epoch": 4,
+  "selection": "fixed_final_epoch",
+  "parameters": 4089667,
+  "architecture": "CBOW + GRU",
+  "dataset": "Augmented",
+  "train_seconds": 16.785960258000046,
+  "fit_mode": "fixed_configuration",
+  "fit_rows": 9978,
+  "directory": "vlsp_oxford_results/full-20261121T174533Z/models/cbow-gru/augmented"
+}

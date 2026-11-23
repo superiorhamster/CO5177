@@ -1,0 +1,16 @@
+{
+  "architecture": "CBOW + GRU",
+  "dataset": "Augmented",
+  "accuracy": 0.6285714285714286,
+  "balanced_accuracy": 0.6285714285714286,
+  "macro_precision": 0.6612906276219688,
+  "macro_recall": 0.6285714285714286,
+  "macro_f1": 0.6288383735027384,
+  "weighted_f1": 0.6288383735027384,
+  "mcc": 0.4524202605413574,
+  "polarity_reversal_rate": 0.10857142857142857,
+  "support": 1050,
+  "parameters": 4089667,
+  "train_seconds": 16.785960258000046,
+  "inference_seconds": 0.16420333000007759
+}

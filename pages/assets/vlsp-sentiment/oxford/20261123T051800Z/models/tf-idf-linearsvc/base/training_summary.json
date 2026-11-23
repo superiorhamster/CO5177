@@ -1,0 +1,12 @@
+{
+  "history": [],
+  "selected_epoch": null,
+  "selection": "single_fit",
+  "parameters": 60003,
+  "architecture": "TF-IDF + LinearSVC",
+  "dataset": "Base",
+  "train_seconds": 0.8164211760000057,
+  "fit_mode": "stratified_validation_no_lineage",
+  "fit_rows": 4033,
+  "directory": "vlsp_oxford_results/full-20261123T051800Z/models/tf-idf-linearsvc/base"
+}

@@ -1,6 +1,7 @@
 """Recompute EDA truncation tables and check feature diagnostics against their exports."""
 from __future__ import annotations
 import argparse
+import ast
 import csv
 import hashlib
 import json
@@ -63,7 +64,25 @@ def main(directory):
     notebook = json.loads(notebook_path.read_text())
     code = ''.join(''.join(c['source']) for c in notebook['cells'] if c['cell_type'] == 'code')
     assert hashlib.sha256(code.encode()).hexdigest() == policy['eda_notebook_code_sha256']
-    assert notebook['metadata']['verified_execution']['runtime'] == 'CPU'
+    if policy['version'] == 'vlsp-eda-v3-six-raincloud':
+        proof = json.loads((directory / 'raincloud_verification.json').read_text())
+        assert proof['status'] == 'passed' and proof['runtime'] == 'CPU'
+        assert proof['source_csv_sha256'] == hashlib.sha256((directory / 'sample_token_diagnostics.csv').read_bytes()).hexdigest()
+        cell = next(''.join(c['source']) for c in notebook['cells'] if 'def plot_cbow_raincloud(' in ''.join(c['source']))
+        function = next(node for node in ast.parse(cell).body if isinstance(node, ast.FunctionDef) and node.name == 'plot_cbow_raincloud')
+        function_source = ast.get_source_segment(cell, function).strip() + '\n'
+        assert hashlib.sha256(function_source.encode()).hexdigest() == proof['plot_function_sha256']
+        summary = rows(directory / 'cbow-raincloud-summary.csv')
+        assert len(summary) == 4
+        for row in summary:
+            values = [float(r[row['metric']]) for r in samples if r['dataset'] == row['dataset']]
+            assert int(row['n']) == len(values) and int(row['display_points']) == min(1500, len(values))
+            assert math.isclose(float(row['zero_fraction']), sum(v == 0 for v in values) / len(values))
+            for field, fraction in [('q1', .25), ('median', .5), ('q3', .75)]:
+                assert math.isclose(float(row[field]), quantile(values, fraction), abs_tol=1e-12)
+        assert notebook['metadata']['visualization_smoke']['status'] == 'passed'
+    else:
+        assert notebook['metadata']['verified_execution']['runtime'] == 'CPU'
     assert not [o for c in notebook['cells'] for o in c.get('outputs', []) if o.get('output_type') == 'error']
     print('EDA passed: raw counts, sample IDs, all truncation quantiles/rates, TF-IDF sparsity/memory/coverage and policy provenance.')
 

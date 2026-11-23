@@ -1,0 +1,7 @@
+{
+  "max_components": 300,
+  "actual_components": 300,
+  "fit_samples": 9978,
+  "tfidf_features": 20000,
+  "seed": 42
+}
