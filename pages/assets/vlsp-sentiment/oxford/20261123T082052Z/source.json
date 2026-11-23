@@ -1,0 +1,96 @@
+{
+  "run_id": "20261123T082052Z",
+  "smoke_test": false,
+  "seed": 42,
+  "dataset": "anhphmduy/vlsp-sentiment-dataset/versions/5",
+  "fit_mode": "stratified_validation_no_lineage",
+  "labels": [
+    -1,
+    0,
+    1
+  ],
+  "architectures": [
+    "TF-IDF + LinearSVC",
+    "CBOW + CNN + BiLSTM",
+    "PhoBERT-base-v2"
+  ],
+  "sample_counts": {
+    "Base": 4033,
+    "Augmented": 7982,
+    "Test": 1050,
+    "Base_val": 1009,
+    "Augmented_val": 1996
+  },
+  "sources": {
+    "Base": {
+      "filename": "vlsp_sentiment_train.csv",
+      "sha256": "669f584a9fd149ebf7b4bc8aa16bbacff3ee14e0b05512fd035d6f33a3f4b417"
+    },
+    "Augmented": {
+      "filename": "vlsp_sentiment_train_augmented_v2.csv",
+      "sha256": "67220874e2d224bfe04dec0b37791addf72c6dbb54b5b13f355327bb8e2b4477"
+    },
+    "Test": {
+      "filename": "vlsp_sentiment_test.csv",
+      "sha256": "7252546b2a289eccaa3e6a4748cc021b567442a7f3352c468ff2cbe8e353e6c8"
+    }
+  },
+  "epochs": {
+    "neural": 15,
+    "phobert": 6
+  },
+  "timing_definition": "Fit preprocessor + model initialization + training/validation; excludes shared Word2Vec loading and test inference.",
+  "phobert_effective_batch": 32,
+  "manifest_sha256": "a469254c3ac194a2c067cd03f050fe01691607a3a98ca6b2c00d07799e8c016a",
+  "preprocessing": {
+    "version": "vlsp-eda-v4-compact",
+    "common": [
+      "NFC",
+      "collapse_whitespace",
+      "preserve_original_text",
+      "preserve_negation_numbers_symbols"
+    ],
+    "semantic_replacements": false,
+    "elongation_reduction": false,
+    "tfidf": {
+      "lowercase": true,
+      "token_pattern": "(?u)(?::[-]?[)(d]|\\^\\^|t\\.t|\\b\\w+\\b)",
+      "ngram_range": [
+        1,
+        2
+      ],
+      "max_features": 20000,
+      "min_df": 1,
+      "sublinear_tf": true
+    },
+    "cbow": {
+      "lowercase": true,
+      "segmenter": "PyVi",
+      "vocabulary_limit": 10000,
+      "max_length": 300,
+      "pad": 0,
+      "unk": 1
+    },
+    "phobert": {
+      "preserve_case": true,
+      "segmenter": "RDRSegmenter",
+      "max_length": 256,
+      "effective_batch": 32
+    },
+    "eda_sources": {
+      "Base": "669f584a9fd149ebf7b4bc8aa16bbacff3ee14e0b05512fd035d6f33a3f4b417",
+      "Augmented": "67220874e2d224bfe04dec0b37791addf72c6dbb54b5b13f355327bb8e2b4477",
+      "Test": "7252546b2a289eccaa3e6a4748cc021b567442a7f3352c468ff2cbe8e353e6c8"
+    },
+    "architectures": [
+      "TF-IDF + LinearSVC",
+      "CBOW + CNN + BiLSTM",
+      "PhoBERT-base-v2"
+    ]
+  },
+  "word2vec": {
+    "file": "vi-model-CBOW.bin",
+    "sha256": "b81652d573e8b5aa57e1fa4ef13bcab735a0ed236b040969ae1e313ced3aceef"
+  },
+  "notebook_sha256": "8e5fb225e74ab94f2e5ca553fce42e42d8791b65f3eea313e90085fa9fd515a6"
+}

@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "session": "nlp-v4-smoke-t4",
+  "kind": "text",
+  "mode": "smoke",
+  "vm_released": true
+}

@@ -1,0 +1,17 @@
+{
+  "dataset": "anhphmduy/vlsp-sentiment-dataset/versions/5",
+  "cpu_only": true,
+  "test_usage": "schema and text overlap only",
+  "sources": {
+    "Base": "669f584a9fd149ebf7b4bc8aa16bbacff3ee14e0b05512fd035d6f33a3f4b417",
+    "Augmented": "67220874e2d224bfe04dec0b37791addf72c6dbb54b5b13f355327bb8e2b4477",
+    "Test": "7252546b2a289eccaa3e6a4748cc021b567442a7f3352c468ff2cbe8e353e6c8"
+  },
+  "python": "3.13.18",
+  "charts": [
+    "eda_balance_audit.png",
+    "eda_lengths_limits.png",
+    "eda_signals_ngrams.png",
+    "eda_feature_representations.png"
+  ]
+}

@@ -1,0 +1,5 @@
+dataset,stage,docs_affected_pct,mean_rate_pct,median_rate_pct,p90_rate_pct
+Base,Pretrained CBOW (OOV),90.09803921568627,18.114014645178887,16.666666666666664,33.33333333333333
+Base,Vocab 10k tự fit (UNK),0.0,0.0,0.0,0.0
+Augmented,Pretrained CBOW (OOV),88.63927480539955,16.03541579589577,15.0,28.57142857142857
+Augmented,Vocab 10k tự fit (UNK),0.5419253128387034,0.025477376513702715,0.0,0.0

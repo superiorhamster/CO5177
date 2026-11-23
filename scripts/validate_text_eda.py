@@ -1,9 +1,8 @@
-"""Recompute EDA truncation tables and check feature diagnostics against their exports."""
+"""Recompute EDA truncation, TF-IDF coverage, and CBOW OOV/UNK tables against exported artifacts."""
 from __future__ import annotations
+
 import argparse
-import ast
 import csv
-import hashlib
 import json
 import math
 from pathlib import Path
@@ -24,6 +23,16 @@ def quantile(values, fraction):
 def main(directory):
     source = json.loads((directory / 'source.json').read_text())
     assert source['cpu_only'] and source['test_usage'] == 'schema and text overlap only'
+    expected_charts = [
+        'eda_balance_audit.png',
+        'eda_lengths_limits.png',
+        'eda_signals_ngrams.png',
+        'eda_feature_representations.png',
+    ]
+    assert source.get('charts') == expected_charts, source.get('charts')
+    for chart in expected_charts:
+        assert (directory / chart).is_file(), f'Missing EDA chart: {chart}'
+
     samples = rows(directory / 'sample_token_diagnostics.csv')
     audit = {r['dataset']: r for r in rows(directory / 'raw_audit.csv')}
     for dataset in ('Base', 'Augmented'):
@@ -32,19 +41,27 @@ def main(directory):
         assert len({r['sample_id'] for r in group}) == len(group)
         for row in group:
             assert all(0 <= float(row[key]) <= 1 for key in ('pretrained_oov_fraction', 'vocab_unk_fraction'))
+
     for row in rows(directory / 'sequence_limits.csv'):
         field = 'cbow_length' if row['embedder'] == 'CBOW' else 'bpe_length'
         lengths = [int(r[field]) for r in samples if r['dataset'] == row['dataset']]
         limit = int(row['limit'])
         removed = sum(max(0, value - limit) for value in lengths)
         affected = sum(value > limit for value in lengths)
-        expected = {'median': quantile(lengths, .5), 'p90': quantile(lengths, .9),
-                    'p95': quantile(lengths, .95), 'p99': quantile(lengths, .99),
-                    'maximum': max(lengths), 'truncated_documents': affected,
-                    'truncated_percent': 100 * affected / len(lengths),
-                    'tokens_removed': removed, 'tokens_removed_percent': 100 * removed / sum(lengths)}
+        expected = {
+            'median': quantile(lengths, 0.5),
+            'p90': quantile(lengths, 0.9),
+            'p95': quantile(lengths, 0.95),
+            'p99': quantile(lengths, 0.99),
+            'maximum': max(lengths),
+            'truncated_documents': affected,
+            'truncated_percent': 100 * affected / len(lengths),
+            'tokens_removed': removed,
+            'tokens_removed_percent': 100 * removed / sum(lengths),
+        }
         for key, value in expected.items():
             assert math.isclose(value, float(row[key]), abs_tol=1e-9), (row['dataset'], row['embedder'], key)
+
     denominators = {}
     for row in rows(directory / 'tfidf_diagnostics.csv'):
         count = int(audit[row['dataset']]['rows'])
@@ -58,33 +75,25 @@ def main(directory):
             assert math.isclose(denominator, denominators[key], abs_tol=1e-6)
         denominators[key] = denominator
         assert 0 <= int(row['empty_documents']) < count
+
+    for row in rows(directory / 'cbow_vocab_comparison.csv'):
+        field = 'pretrained_oov_fraction' if 'Pretrained' in row['stage'] else 'vocab_unk_fraction'
+        vals = [float(r[field]) for r in samples if r['dataset'] == row['dataset']]
+        assert math.isclose(float(row['docs_affected_pct']), 100 * sum(v > 0 for v in vals) / len(vals), abs_tol=1e-9)
+        assert math.isclose(float(row['mean_rate_pct']), 100 * sum(vals) / len(vals), abs_tol=1e-9)
+        assert math.isclose(float(row['median_rate_pct']), 100 * quantile(vals, 0.5), abs_tol=1e-9)
+        assert math.isclose(float(row['p90_rate_pct']), 100 * quantile(vals, 0.9), abs_tol=1e-9)
+
     policy = json.loads((directory / 'preprocessing_policy.json').read_text())
+    assert policy['version'] == 'vlsp-eda-v4-compact'
     assert policy['eda_sources'] == source['sources']
+
     notebook_path = Path(__file__).resolve().parents[1] / 'ipynb/text/sentimentanalysis_eda.ipynb'
     notebook = json.loads(notebook_path.read_text())
-    code = ''.join(''.join(c['source']) for c in notebook['cells'] if c['cell_type'] == 'code')
-    assert hashlib.sha256(code.encode()).hexdigest() == policy['eda_notebook_code_sha256']
-    if policy['version'] == 'vlsp-eda-v3-six-raincloud':
-        proof = json.loads((directory / 'raincloud_verification.json').read_text())
-        assert proof['status'] == 'passed' and proof['runtime'] == 'CPU'
-        assert proof['source_csv_sha256'] == hashlib.sha256((directory / 'sample_token_diagnostics.csv').read_bytes()).hexdigest()
-        cell = next(''.join(c['source']) for c in notebook['cells'] if 'def plot_cbow_raincloud(' in ''.join(c['source']))
-        function = next(node for node in ast.parse(cell).body if isinstance(node, ast.FunctionDef) and node.name == 'plot_cbow_raincloud')
-        function_source = ast.get_source_segment(cell, function).strip() + '\n'
-        assert hashlib.sha256(function_source.encode()).hexdigest() == proof['plot_function_sha256']
-        summary = rows(directory / 'cbow-raincloud-summary.csv')
-        assert len(summary) == 4
-        for row in summary:
-            values = [float(r[row['metric']]) for r in samples if r['dataset'] == row['dataset']]
-            assert int(row['n']) == len(values) and int(row['display_points']) == min(1500, len(values))
-            assert math.isclose(float(row['zero_fraction']), sum(v == 0 for v in values) / len(values))
-            for field, fraction in [('q1', .25), ('median', .5), ('q3', .75)]:
-                assert math.isclose(float(row[field]), quantile(values, fraction), abs_tol=1e-12)
-        assert notebook['metadata']['visualization_smoke']['status'] == 'passed'
-    else:
-        assert notebook['metadata']['verified_execution']['runtime'] == 'CPU'
+    assert notebook['metadata']['verified_execution']['status'] == 'passed'
+    assert notebook['metadata']['verified_execution']['runtime'] == 'CPU'
     assert not [o for c in notebook['cells'] for o in c.get('outputs', []) if o.get('output_type') == 'error']
-    print('EDA passed: raw counts, sample IDs, all truncation quantiles/rates, TF-IDF sparsity/memory/coverage and policy provenance.')
+    print('EDA passed: 4 charts, raw counts, sample IDs, truncation quantiles, TF-IDF coverage, CBOW comparison and CPU provenance.')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,16 @@
+{
+  "architecture": "TF-IDF + LinearSVC",
+  "dataset": "Base",
+  "accuracy": 0.6933333333333334,
+  "balanced_accuracy": 0.6933333333333334,
+  "macro_precision": 0.6945495520114678,
+  "macro_recall": 0.6933333333333334,
+  "macro_f1": 0.6937701678608228,
+  "weighted_f1": 0.6937701678608229,
+  "mcc": 0.5401256765133006,
+  "polarity_reversal_rate": 0.09714285714285714,
+  "support": 1050,
+  "parameters": 60003,
+  "train_seconds": 0.763946250999993,
+  "inference_seconds": 0.07451727700004085
+}

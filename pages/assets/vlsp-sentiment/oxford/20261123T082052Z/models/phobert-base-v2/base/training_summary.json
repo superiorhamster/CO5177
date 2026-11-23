@@ -1,0 +1,73 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.9791488893387367,
+      "train_accuracy": 0.7515497148524671,
+      "train_macro_f1": 0.7509090369892624,
+      "train_eval_loss": 0.6541364912193998,
+      "val_loss": 0.6882564468591726,
+      "val_accuracy": 0.7403369672943508,
+      "val_macro_f1": 0.7394336171044258
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.6741157454176869,
+      "train_accuracy": 0.8175055789734689,
+      "train_macro_f1": 0.8149348705746428,
+      "train_eval_loss": 0.49904800623751383,
+      "val_loss": 0.6118281578757718,
+      "val_accuracy": 0.7631318136769079,
+      "val_macro_f1": 0.7605398807694949
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.5192490172628549,
+      "train_accuracy": 0.8886684849987603,
+      "train_macro_f1": 0.8890157817763938,
+      "train_eval_loss": 0.34912799188473254,
+      "val_loss": 0.5991045754066898,
+      "val_accuracy": 0.7700693756194251,
+      "val_macro_f1": 0.7710307271387983
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.39799909262984673,
+      "train_accuracy": 0.9196627820481031,
+      "train_macro_f1": 0.9195361939758744,
+      "train_eval_loss": 0.2735580309695282,
+      "val_loss": 0.6446011411423017,
+      "val_accuracy": 0.7700693756194251,
+      "val_macro_f1": 0.769356900642913
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.31494157272327516,
+      "train_accuracy": 0.9390032234068931,
+      "train_macro_f1": 0.9391424636642514,
+      "train_eval_loss": 0.2267187255049739,
+      "val_loss": 0.6543352804169782,
+      "val_accuracy": 0.7710604558969276,
+      "val_macro_f1": 0.7717848616228586
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.2800001943197139,
+      "train_accuracy": 0.9412348127944459,
+      "train_macro_f1": 0.9412676492539794,
+      "train_eval_loss": 0.21839501767862887,
+      "val_loss": 0.6480820680219898,
+      "val_accuracy": 0.7710604558969276,
+      "val_macro_f1": 0.7708257595944522
+    }
+  ],
+  "selected_epoch": 5,
+  "selection": "validation_macro_f1",
+  "parameters": 135000579,
+  "architecture": "PhoBERT-base-v2",
+  "dataset": "Base",
+  "train_seconds": 365.08001379599995,
+  "fit_mode": "stratified_validation_no_lineage",
+  "fit_rows": 4033,
+  "directory": "vlsp_oxford_results/full-20261123T082052Z/models/phobert-base-v2/base"
+}

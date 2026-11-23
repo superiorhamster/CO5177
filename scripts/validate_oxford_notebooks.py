@@ -82,16 +82,19 @@ def check_notebook(path, executed=False):
     for index, cell in enumerate(notebook['cells']):
         source = ''.join(cell['source'])
         if cell['cell_type'] == 'markdown':
-            match = re.match(r'# \((\d+)\)', source)
+            if path.name.startswith('intel_'):
+                match = re.match(r'# \((\d+)\)', source)
+            else:
+                match = re.match(r'# (?:\((\d+)\)|(\d+)\.)', source)
             if match:
-                headings.append(int(match[1]))
+                headings.append(int(match[1] or match[2]))
         else:
             code_count += 1
             ast.parse(source, filename=f'{path.name}:cell{index}')
             assert not any(output.get('output_type') == 'error' for output in cell['outputs']), (path, index)
             assert not re.search(r'fallback_(12_runs|cm)', source), (path, index)
-    assert headings == list(range(1, 12)), (path, headings)
     if path.name.startswith('intel_'):
+        assert headings == list(range(1, 12)), (path, headings)
         code = '\n'.join(''.join(c['source']) for c in notebook['cells'] if c['cell_type'] == 'code')
         tree = ast.parse(code)
         config = next(node.value for node in tree.body if isinstance(node, ast.Assign)
@@ -100,12 +103,14 @@ def check_notebook(path, executed=False):
         assert keywords['resume'].value is False
         assert keywords['dataset_version'].value == 2
         assert 'NOTEBOOK_SMOKE' in ast.unparse(keywords['smoke_test'])
+    else:
+        assert headings == [1, 2, 3, 4], (path, headings)
     if executed:
         execution = notebook['metadata']['verified_execution']
         assert execution['status'] == 'passed' and execution['code_cells'] == code_count
         assert not execution['smoke_test']
         assert execution['cells_sha256'] == hashlib.sha256(json.dumps(notebook['cells'], ensure_ascii=False, sort_keys=True).encode()).hexdigest()
-    print(f'{path.relative_to(ROOT)}: 11 sections, {code_count} code cells, AST/output checks passed')
+    print(f'{path.relative_to(ROOT)}: {len(headings)} sections, {code_count} code cells, AST/output checks passed')
 
 
 def check_text(directory):
@@ -117,14 +122,14 @@ def check_text(directory):
     if 'preprocessing' in run:
         policy = json.loads((directory / 'preprocessing_policy.json').read_text())
         assert policy == run['preprocessing']
-        assert policy['version'] in {'vlsp-eda-v2','vlsp-eda-v3-six-raincloud'}
+        assert policy['version'] in {'vlsp-eda-v2', 'vlsp-eda-v3-six-raincloud', 'vlsp-eda-v4-compact'}
         assert policy['tfidf']['max_features'] == 20000
         assert policy['phobert']['preserve_case'] and not policy['semantic_replacements']
     groups = defaultdict(list)
     for row in read_csv(directory / 'predictions.csv'):
         groups[row['architecture'], row['dataset']].append(row)
     expected = {(architecture, dataset) for architecture in run['architectures'] for dataset in ('Base', 'Augmented')}
-    expected_runs = 6 if run.get('preprocessing', {}).get('version') == 'vlsp-eda-v3-six-raincloud' else 12
+    expected_runs = 6 if run.get('preprocessing', {}).get('version') in {'vlsp-eda-v3-six-raincloud', 'vlsp-eda-v4-compact'} else 12
     if expected_runs == 6:
         assert set(run['architectures']) == {'TF-IDF + LinearSVC','CBOW + CNN + BiLSTM','PhoBERT-base-v2'}
     assert len(expected) == expected_runs and set(groups) == expected
@@ -291,6 +296,9 @@ def main():
     if args.eda_results:
         from validate_text_eda import main as check_eda
         check_eda(args.eda_results)
+        if args.require_executed:
+            eda_nb = ROOT / 'ipynb/text/sentimentanalysis_eda.ipynb'
+            assert eda_nb.read_bytes() == (ROOT / 'pages/notebooks/sentimentanalysis_eda.ipynb').read_bytes()
     if args.verify_checkpoints:
         for directory in (args.text_results, args.image_results):
             if directory:

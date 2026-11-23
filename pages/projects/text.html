@@ -47,7 +47,7 @@
 <div>
 <p class="eyebrow">CO5177 / TEXT / SLIGHTSEEK</p>
 <h1 id="project-title">Phân tích cảm xúc tiếng Việt — ba pipeline, 6 lượt chạy</h1>
-<p class="hero-description">VLSP v5; so sánh Base và Augmented với cùng test. Notebook theo 11 bước Oxford Pets, từ dữ liệu đến phân tích lỗi và giải thích.</p>
+<p class="hero-description">VLSP v5; so sánh Base và Augmented với cùng test. Quy trình gồm EDA CPU (4 biểu đồ), xử lý thuần túy, huấn luyện và đánh giá trên Colab T4.</p>
 <p class="status-badge">Đã Run all trên Colab T4 · 23/11/2026 · seed 42</p>
 </div>
 </section>
@@ -60,20 +60,20 @@
 </div>
 <div class="resource-item">
 <div>
-<h3>Notebook</h3>
-<p>Đủ 11 mục theo mẫu Oxford Pets; output và kết luận từ lần chạy mới.</p>
+<h3>Bước 1 · Notebook EDA (CPU)</h3>
+<p>Chạy trên Web Colab bằng runtime <strong>CPU</strong> → <em>Run all</em>: 4 biểu đồ trọng tâm, phân tích tín hiệu và ngầm định chốt quy tắc xử lý.</p>
 </div>
 <div class="resource-actions">
-<a class="text-link" href="https://colab.research.google.com/github/superiorhamster/CO5177/blob/main/ipynb/text/sentimentanalysis.ipynb">Mở notebook trên Colab ↗</a> <a class="text-link" href="../notebooks/sentimentanalysis.ipynb" download>Tải notebook có output (.ipynb)</a>
+<a class="text-link" href="https://colab.research.google.com/github/superiorhamster/CO5177/blob/main/ipynb/text/sentimentanalysis_eda.ipynb">Mở EDA trên Colab ↗</a> <a class="text-link" href="../notebooks/sentimentanalysis_eda.ipynb" download>Tải notebook EDA có output</a>
 </div>
 </div>
 <div class="resource-item">
 <div>
-<h3>Notebook EDA (CPU)</h3>
-<p>Khảo sát gốc, đối chiếu quy tắc, độ phủ TF-IDF/CBOW và mức cắt PhoBERT trước huấn luyện.</p>
+<h3>Bước 2 · Notebook chính (T4 GPU)</h3>
+<p>Chạy trên Web Colab chọn runtime <strong>T4 GPU</strong> → <em>Run all</em>: xử lý dữ liệu thuần túy, huấn luyện 3 pipeline và đánh giá đầy đủ.</p>
 </div>
 <div class="resource-actions">
-<a class="text-link" href="https://colab.research.google.com/github/superiorhamster/CO5177/blob/main/ipynb/text/sentimentanalysis_eda.ipynb">Mở EDA trên Colab ↗</a> <a class="text-link" href="../notebooks/sentimentanalysis_eda.ipynb" download>Tải notebook EDA có output</a>
+<a class="text-link" href="https://colab.research.google.com/github/superiorhamster/CO5177/blob/main/ipynb/text/sentimentanalysis.ipynb">Mở notebook trên Colab ↗</a> <a class="text-link" href="../notebooks/sentimentanalysis.ipynb" download>Tải notebook có output (.ipynb)</a>
 </div>
 </div>
 <div class="resource-item">
@@ -136,7 +136,7 @@
 </table>
 </div>
 <h3 id="eda">Khám phá dữ liệu</h3>
-<p>EDA chạy trước huấn luyện trên Colab CPU. Các phân tích theo nhãn chỉ dùng Base/Augmented; test chỉ phục vụ kiểm toán schema và giao văn bản.</p>
+<p>EDA chạy độc lập trên Colab CPU với 4 biểu đồ trọng tâm (chỉ dùng Base/Augmented để khảo sát; Test chỉ kiểm toán trùng văn bản).</p>
 <h3>Độ phủ TF-IDF trên dữ liệu phát triển</h3>
 <div class="table-wrap report-table" tabindex="0" role="region" aria-label="Độ phủ TF-IDF trên dữ liệu phát triển">
 <table>
@@ -246,59 +246,79 @@
 </tbody>
 </table>
 </div>
+<h3>So sánh OOV/UNK trước và sau khi tự dựng vocab 10.000 từ</h3>
+<div class="table-wrap report-table" tabindex="0" role="region" aria-label="So sánh OOV/UNK trước và sau khi tự dựng vocab 10.000 từ">
+<table>
+<caption class="visually-hidden">So sánh OOV/UNK trước và sau khi tự dựng vocab 10.000 từ</caption>
+<thead>
+<tr>
+<th scope="col">Tập</th>
+<th scope="col">Giai đoạn</th>
+<th scope="col">Câu bị OOV/UNK (%)</th>
+<th scope="col">Trung bình (%)</th>
+<th scope="col">Trung vị (%)</th>
+<th scope="col">p90 (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Base</th>
+<td>Pretrained CBOW (OOV)</td>
+<td class="report-number">90.10</td>
+<td class="report-number">18.11</td>
+<td class="report-number">16.67</td>
+<td class="report-number">33.33</td>
+</tr>
+<tr>
+<th scope="row">Base</th>
+<td>Vocab 10k tự fit (UNK)</td>
+<td class="report-number">0.00</td>
+<td class="report-number">0.00</td>
+<td class="report-number">0.00</td>
+<td class="report-number">0.00</td>
+</tr>
+<tr>
+<th scope="row">Augmented</th>
+<td>Pretrained CBOW (OOV)</td>
+<td class="report-number">88.64</td>
+<td class="report-number">16.04</td>
+<td class="report-number">15.00</td>
+<td class="report-number">28.57</td>
+</tr>
+<tr>
+<th scope="row">Augmented</th>
+<td>Vocab 10k tự fit (UNK)</td>
+<td class="report-number">0.54</td>
+<td class="report-number">0.03</td>
+<td class="report-number">0.00</td>
+<td class="report-number">0.00</td>
+</tr>
+</tbody>
+</table>
+</div>
 <figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/labels.png" aria-label="Mở hình: Phân bố nhãn của Base/Augmented gốc.">
-<img src="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/labels.png" width="640" height="480" loading="lazy" decoding="async" alt="Phân bố nhãn của Base/Augmented gốc.">
+<a class="figure-image-link" href="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/eda_balance_audit.png" aria-label="Mở hình: Hình 1: Nhãn cân bằng (~1/3 mỗi lớp), nhưng tồn tại bản sao dư (48; 161) và giao Test (23; 33) cần lọc trước khi chia tập.">
+<img src="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/eda_balance_audit.png" width="1967" height="692" loading="lazy" decoding="async" alt="Hình 1: Nhãn cân bằng (~1/3 mỗi lớp), nhưng tồn tại bản sao dư (48; 161) và giao Test (23; 33) cần lọc trước khi chia tập.">
 </a>
-<figcaption>Phân bố nhãn của Base/Augmented gốc.</figcaption>
+<figcaption>Hình 1: Nhãn cân bằng (~1/3 mỗi lớp), nhưng tồn tại bản sao dư (48; 161) và giao Test (23; 33) cần lọc trước khi chia tập.</figcaption>
 </figure>
 <figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/lengths.png" aria-label="Mở hình: ECDF độ dài văn bản gốc: đọc cùng đuôi dài và ví dụ câu.">
-<img src="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/lengths.png" width="1200" height="400" loading="lazy" decoding="async" alt="ECDF độ dài văn bản gốc: đọc cùng đuôi dài và ví dụ câu.">
+<a class="figure-image-link" href="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/eda_lengths_limits.png" aria-label="Mở hình: Hình 2: 99% câu ngắn hơn 220 từ dù đuôi đạt ~2.900 từ (lớp 0 dài nhất); ngưỡng 256 (PhoBERT) và 300 (CBOW) giữ trọn &gt;99,5% số câu.">
+<img src="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/eda_lengths_limits.png" width="1967" height="692" loading="lazy" decoding="async" alt="Hình 2: 99% câu ngắn hơn 220 từ dù đuôi đạt ~2.900 từ (lớp 0 dài nhất); ngưỡng 256 (PhoBERT) và 300 (CBOW) giữ trọn &gt;99,5% số câu.">
 </a>
-<figcaption>ECDF độ dài văn bản gốc: đọc cùng đuôi dài và ví dụ câu.</figcaption>
+<figcaption>Hình 2: 99% câu ngắn hơn 220 từ dù đuôi đạt ~2.900 từ (lớp 0 dài nhất); ngưỡng 256 (PhoBERT) và 300 (CBOW) giữ trọn &gt;99,5% số câu.</figcaption>
 </figure>
 <figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/audit.png" aria-label="Mở hình: Câu rỗng, bản sao và giao test theo văn bản; các nhóm có thể chồng lấn.">
-<img src="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/audit.png" width="640" height="480" loading="lazy" decoding="async" alt="Câu rỗng, bản sao và giao test theo văn bản; các nhóm có thể chồng lấn.">
+<a class="figure-image-link" href="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/eda_signals_ngrams.png" aria-label="Mở hình: Hình 3: Phủ định có ở cả 3 lớp, Augmented gần như sạch teencode/emoticon, còn bigram đặc trưng và cosine(-1, 0) = 0,869 dự báo vùng dễ nhầm.">
+<img src="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/eda_signals_ngrams.png" width="2042" height="737" loading="lazy" decoding="async" alt="Hình 3: Phủ định có ở cả 3 lớp, Augmented gần như sạch teencode/emoticon, còn bigram đặc trưng và cosine(-1, 0) = 0,869 dự báo vùng dễ nhầm.">
 </a>
-<figcaption>Câu rỗng, bản sao và giao test theo văn bản; các nhóm có thể chồng lấn.</figcaption>
+<figcaption>Hình 3: Phủ định có ở cả 3 lớp, Augmented gần như sạch teencode/emoticon, còn bigram đặc trưng và cosine(-1, 0) = 0,869 dự báo vùng dễ nhầm.</figcaption>
 </figure>
 <figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/signals.png" aria-label="Mở hình: Tỷ lệ câu có phủ định, teencode, kéo dài và biểu tượng theo lớp; không suy nghĩa từ tần suất.">
-<img src="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/signals.png" width="1400" height="500" loading="lazy" decoding="async" alt="Tỷ lệ câu có phủ định, teencode, kéo dài và biểu tượng theo lớp; không suy nghĩa từ tần suất.">
+<a class="figure-image-link" href="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/eda_feature_representations.png" aria-label="Mở hình: Hình 4: TF-IDF 20k phủ ~76–79% lượt từ; dựng vocab 10k kéo tỷ lệ câu có OOV/UNK của CBOW từ ~90% về gần 0%.">
+<img src="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/eda_feature_representations.png" width="2042" height="707" loading="lazy" decoding="async" alt="Hình 4: TF-IDF 20k phủ ~76–79% lượt từ; dựng vocab 10k kéo tỷ lệ câu có OOV/UNK của CBOW từ ~90% về gần 0%.">
 </a>
-<figcaption>Tỷ lệ câu có phủ định, teencode, kéo dài và biểu tượng theo lớp; không suy nghĩa từ tần suất.</figcaption>
-</figure>
-<figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/rule-impacts.png" aria-label="Mở hình: Tỷ lệ câu thay đổi so với gốc; mỗi quy tắc được thử cùng nền NFC/khoảng trắng.">
-<img src="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/rule-impacts.png" width="1960" height="700" loading="lazy" decoding="async" alt="Tỷ lệ câu thay đổi so với gốc; mỗi quy tắc được thử cùng nền NFC/khoảng trắng.">
-</a>
-<figcaption>Tỷ lệ câu thay đổi so với gốc; mỗi quy tắc được thử cùng nền NFC/khoảng trắng.</figcaption>
-</figure>
-<figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/tfidf-coverage.png" aria-label="Mở hình: Độ phủ lượt đặc trưng-văn bản theo giới hạn vocabulary, min_df=1; fit trên từng tập phát triển.">
-<img src="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/tfidf-coverage.png" width="1680" height="560" loading="lazy" decoding="async" alt="Độ phủ lượt đặc trưng-văn bản theo giới hạn vocabulary, min_df=1; fit trên từng tập phát triển.">
-</a>
-<figcaption>Độ phủ lượt đặc trưng-văn bản theo giới hạn vocabulary, min_df=1; fit trên từng tập phát triển.</figcaption>
-</figure>
-<figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/tfidf-df.png" aria-label="Mở hình: Document frequency theo analyzer word: đường tích lũy cho thấy tỷ trọng đặc trưng hiếm.">
-<img src="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/tfidf-df.png" width="1680" height="560" loading="lazy" decoding="async" alt="Document frequency theo analyzer word: đường tích lũy cho thấy tỷ trọng đặc trưng hiếm.">
-</a>
-<figcaption>Document frequency theo analyzer word: đường tích lũy cho thấy tỷ trọng đặc trưng hiếm.</figcaption>
-</figure>
-<figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/token-limits.png" aria-label="Mở hình: ECDF số từ PyVi và token PhoBERT BPE, gồm special tokens; vạch đỏ là giới hạn 300/256.">
-<img src="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/token-limits.png" width="1680" height="560" loading="lazy" decoding="async" alt="ECDF số từ PyVi và token PhoBERT BPE, gồm special tokens; vạch đỏ là giới hạn 300/256.">
-</a>
-<figcaption>ECDF số từ PyVi và token PhoBERT BPE, gồm special tokens; vạch đỏ là giới hạn 300/256.</figcaption>
-</figure>
-<figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/cbow-coverage.png" aria-label="Mở hình: Raincloud CBOW trên Base/Augmented gốc: nửa mật độ, median/IQR và điểm jitter; mật độ/box dùng toàn bộ dữ liệu, điểm tối đa 1.500/nhóm (seed 42), tỷ lệ bằng 0 ghi riêng.">
-<img src="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/cbow-coverage.png" width="2080" height="960" loading="lazy" decoding="async" alt="Raincloud CBOW trên Base/Augmented gốc: nửa mật độ, median/IQR và điểm jitter; mật độ/box dùng toàn bộ dữ liệu, điểm tối đa 1.500/nhóm (seed 42), tỷ lệ bằng 0 ghi riêng.">
-</a>
-<figcaption>Raincloud CBOW trên Base/Augmented gốc: nửa mật độ, median/IQR và điểm jitter; mật độ/box dùng toàn bộ dữ liệu, điểm tối đa 1.500/nhóm (seed 42), tỷ lệ bằng 0 ghi riêng.</figcaption>
+<figcaption>Hình 4: TF-IDF 20k phủ ~76–79% lượt từ; dựng vocab 10k kéo tỷ lệ câu có OOV/UNK của CBOW từ ~90% về gần 0%.</figcaption>
 </figure>
 </section>
 <section id="preparation" class="pipeline-section" aria-labelledby="preparation-title">
@@ -339,7 +359,7 @@
 </div>
 <p>Protocol: <strong>stratified validation 20% theo từng tập (thiếu lineage)</strong>. Tách 20% stratified validation riêng cho mỗi tập Base/Augmented (kiểm tra không trùng khóa chuẩn hóa với train/test) để bật early stopping theo validation macro-F1 (CNN + BiLSTM tối đa 15 epoch, patience 4; PhoBERT tối đa 6 epoch, patience 2). Giới hạn: thiếu lineage nên trên Augmented vẫn có thể tồn tại câu gần trùng giữa train và validation. Chỉ đánh giá test sau huấn luyện; TF-IDF và vocabulary fit riêng trên tập huấn luyện từng phiên bản.</p>
 <p>
-<a href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/rule_impacts.csv" download>Tác động từng quy tắc</a> · <a href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/rule_examples.csv" download>Ví dụ trước/sau</a> · <a href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/rule_collisions.csv" download>Va chạm chuẩn hóa</a> · <a href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/tfidf_diagnostics.csv" download>Chẩn đoán TF-IDF</a> · <a href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/embedder_rule_comparison.csv" download>Quy tắc và độ phủ embedder</a> · <a href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/cbow_oov.csv" download>Từ OOV CBOW</a> · <a href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/truncation_examples.csv" download>Nội dung bị cắt</a> · <a href="../assets/vlsp-sentiment/eda-v2/20261123T051800Z/preprocessing_policy.json" download>Policy đã chốt</a>
+<a href="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/raw_audit.csv" download>Kiểm toán gốc</a> · <a href="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/sequence_limits.csv" download>Ngưỡng cắt 300/256</a> · <a href="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/rule_impacts.csv" download>Tác động quy tắc</a> · <a href="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/distinct_bigrams.csv" download>Bigram phân biệt lớp</a> · <a href="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/tfidf_diagnostics.csv" download>Độ phủ TF-IDF</a> · <a href="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/cbow_vocab_comparison.csv" download>So sánh OOV/UNK CBOW</a> · <a href="../assets/vlsp-sentiment/eda-v2/20261123T082052Z/preprocessing_policy.json" download>Cấu hình đã chốt</a>
 </p>
 <p>Ba pipeline: TF-IDF → LinearSVC (20.000 đặc trưng sparse); CBOW → Conv1d(128, kernel=3) + BiLSTM(64×2) + Dropout(0,5), batch 64, bỏ padding bằng độ dài thật; PhoBERT-base-v2 effective batch 32.</p>
 </section>
@@ -353,14 +373,14 @@
 <h3 id="learning-curves">Đường học</h3>
 <p>Loss và metrics theo epoch thật; vạch đứt nét đánh dấu checkpoint được chọn bằng validation macro-F1 (hoặc epoch cuối nếu thiếu validation). LinearSVC fit một lần, không có đường học epoch tương đương.</p>
 <figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T051800Z/models/cbow-cnn-bilstm/augmented/learning_curves.png" aria-label="Mở hình: CBOW + CNN + BiLSTM · Augmented · checkpoint epoch 13.">
-<img src="../assets/vlsp-sentiment/oxford/20261123T051800Z/models/cbow-cnn-bilstm/augmented/learning_curves.png" width="1976" height="548" loading="lazy" decoding="async" alt="CBOW + CNN + BiLSTM · Augmented · checkpoint epoch 13.">
+<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T082052Z/models/cbow-cnn-bilstm/augmented/learning_curves.png" aria-label="Mở hình: CBOW + CNN + BiLSTM · Augmented · checkpoint epoch 13.">
+<img src="../assets/vlsp-sentiment/oxford/20261123T082052Z/models/cbow-cnn-bilstm/augmented/learning_curves.png" width="1976" height="548" loading="lazy" decoding="async" alt="CBOW + CNN + BiLSTM · Augmented · checkpoint epoch 13.">
 </a>
 <figcaption>CBOW + CNN + BiLSTM · Augmented · checkpoint epoch 13.</figcaption>
 </figure>
 <figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T051800Z/models/phobert-base-v2/augmented/learning_curves.png" aria-label="Mở hình: PhoBERT-base-v2 · Augmented · checkpoint epoch 5.">
-<img src="../assets/vlsp-sentiment/oxford/20261123T051800Z/models/phobert-base-v2/augmented/learning_curves.png" width="1976" height="548" loading="lazy" decoding="async" alt="PhoBERT-base-v2 · Augmented · checkpoint epoch 5.">
+<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T082052Z/models/phobert-base-v2/augmented/learning_curves.png" aria-label="Mở hình: PhoBERT-base-v2 · Augmented · checkpoint epoch 5.">
+<img src="../assets/vlsp-sentiment/oxford/20261123T082052Z/models/phobert-base-v2/augmented/learning_curves.png" width="1976" height="548" loading="lazy" decoding="async" alt="PhoBERT-base-v2 · Augmented · checkpoint epoch 5.">
 </a>
 <figcaption>PhoBERT-base-v2 · Augmented · checkpoint epoch 5.</figcaption>
 </figure>
@@ -382,21 +402,21 @@
 <tbody>
 <tr>
 <th scope="row">PhoBERT-base-v2</th>
-<td>Augmented</td>
-<td class="report-number">78.67</td>
-<td class="report-number">78.52</td>
-<td class="report-number">78.67</td>
-<td class="report-number">78.57</td>
-<td class="report-number">716.0</td>
+<td>Base</td>
+<td class="report-number">78.48</td>
+<td class="report-number">78.60</td>
+<td class="report-number">78.48</td>
+<td class="report-number">78.44</td>
+<td class="report-number">365.1</td>
 </tr>
 <tr>
 <th scope="row">PhoBERT-base-v2</th>
-<td>Base</td>
-<td class="report-number">78.57</td>
-<td class="report-number">78.65</td>
-<td class="report-number">78.57</td>
-<td class="report-number">78.55</td>
-<td class="report-number">398.7</td>
+<td>Augmented</td>
+<td class="report-number">78.19</td>
+<td class="report-number">78.03</td>
+<td class="report-number">78.19</td>
+<td class="report-number">78.04</td>
+<td class="report-number">706.2</td>
 </tr>
 <tr>
 <th scope="row">TF-IDF + LinearSVC</th>
@@ -423,7 +443,7 @@
 <td class="report-number">67.41</td>
 <td class="report-number">67.24</td>
 <td class="report-number">67.29</td>
-<td class="report-number">36.2</td>
+<td class="report-number">35.3</td>
 </tr>
 <tr>
 <th scope="row">CBOW + CNN + BiLSTM</th>
@@ -432,14 +452,14 @@
 <td class="report-number">65.96</td>
 <td class="report-number">66.00</td>
 <td class="report-number">65.93</td>
-<td class="report-number">99.4</td>
+<td class="report-number">96.9</td>
 </tr>
 </tbody>
 </table>
 </div>
 <figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T051800Z/model-comparison.png" aria-label="Mở hình: Test macro-F1 của đủ 6 cấu hình; mọi cấu hình dùng cùng test.">
-<img src="../assets/vlsp-sentiment/oxford/20261123T051800Z/model-comparison.png" width="1485" height="731" loading="lazy" decoding="async" alt="Test macro-F1 của đủ 6 cấu hình; mọi cấu hình dùng cùng test.">
+<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T082052Z/model-comparison.png" aria-label="Mở hình: Test macro-F1 của đủ 6 cấu hình; mọi cấu hình dùng cùng test.">
+<img src="../assets/vlsp-sentiment/oxford/20261123T082052Z/model-comparison.png" width="1485" height="731" loading="lazy" decoding="async" alt="Test macro-F1 của đủ 6 cấu hình; mọi cấu hình dùng cùng test.">
 </a>
 <figcaption>Test macro-F1 của đủ 6 cấu hình; mọi cấu hình dùng cùng test.</figcaption>
 </figure>
@@ -470,23 +490,23 @@
 </tr>
 <tr>
 <th scope="row">PhoBERT-base-v2</th>
-<td class="report-number">78.55</td>
-<td class="report-number">78.57</td>
-<td class="report-number">+0.02</td>
+<td class="report-number">78.44</td>
+<td class="report-number">78.04</td>
+<td class="report-number">-0.40</td>
 </tr>
 </tbody>
 </table>
 </div>
 <figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T051800Z/confusion-matrices.png" aria-label="Mở hình: Ma trận nhầm lẫn 6 lượt: hàng là nhãn thật, cột là dự đoán.">
-<img src="../assets/vlsp-sentiment/oxford/20261123T051800Z/confusion-matrices.png" width="1292" height="1696" loading="lazy" decoding="async" alt="Ma trận nhầm lẫn 6 lượt: hàng là nhãn thật, cột là dự đoán.">
+<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T082052Z/confusion-matrices.png" aria-label="Mở hình: Ma trận nhầm lẫn 6 lượt: hàng là nhãn thật, cột là dự đoán.">
+<img src="../assets/vlsp-sentiment/oxford/20261123T082052Z/confusion-matrices.png" width="1292" height="1696" loading="lazy" decoding="async" alt="Ma trận nhầm lẫn 6 lượt: hàng là nhãn thật, cột là dự đoán.">
 </a>
 <figcaption>Ma trận nhầm lẫn 6 lượt: hàng là nhãn thật, cột là dự đoán.</figcaption>
 </figure>
-<h3 id="errors">Phân tích lỗi: PhoBERT Augmented có 224/1050 câu sai</h3>
-<div class="table-wrap report-table" tabindex="0" role="region" aria-label="Phân tích lỗi: PhoBERT Augmented có 224/1050 câu sai">
+<h3 id="errors">Phân tích lỗi: PhoBERT Augmented có 229/1050 câu sai</h3>
+<div class="table-wrap report-table" tabindex="0" role="region" aria-label="Phân tích lỗi: PhoBERT Augmented có 229/1050 câu sai">
 <table>
-<caption class="visually-hidden">Phân tích lỗi: PhoBERT Augmented có 224/1050 câu sai</caption>
+<caption class="visually-hidden">Phân tích lỗi: PhoBERT Augmented có 229/1050 câu sai</caption>
 <thead>
 <tr>
 <th scope="col">sample_id</th>
@@ -500,7 +520,7 @@
 <th scope="row">test-1</th>
 <td>Đang dùng mx1. Cũng ngon nhưng chưa đầy năm mà đã 3 lần tháo ra thay 3 nút bấm rồi. May còn lột được từ máy khác mà bỏ vào!</td>
 <td class="report-number">-1</td>
-<td class="report-number">0</td>
+<td class="report-number">1</td>
 </tr>
 <tr>
 <th scope="row">test-10</th>
@@ -532,32 +552,32 @@
 <h3 id="explanations">Giải thích mô hình đại diện</h3>
 <p>Trọng số LinearSVC phản ánh điểm quyết định, không phải xác suất. PhoBERT dùng mức giảm xác suất lớp dự đoán ban đầu khi bỏ từng từ trong các câu ngắn được chọn xác định.</p>
 <figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T051800Z/explanations/svc-weights.png" aria-label="Mở hình: Những từ có trọng số dương cao của LinearSVC Augmented theo từng lớp (trực tiếp trên TF-IDF 20.000 đặc trưng).">
-<img src="../assets/vlsp-sentiment/oxford/20261123T051800Z/explanations/svc-weights.png" width="2117" height="767" loading="lazy" decoding="async" alt="Những từ có trọng số dương cao của LinearSVC Augmented theo từng lớp (trực tiếp trên TF-IDF 20.000 đặc trưng).">
+<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T082052Z/explanations/svc-weights.png" aria-label="Mở hình: Những từ có trọng số dương cao của LinearSVC Augmented theo từng lớp (trực tiếp trên TF-IDF 20.000 đặc trưng).">
+<img src="../assets/vlsp-sentiment/oxford/20261123T082052Z/explanations/svc-weights.png" width="2117" height="767" loading="lazy" decoding="async" alt="Những từ có trọng số dương cao của LinearSVC Augmented theo từng lớp (trực tiếp trên TF-IDF 20.000 đặc trưng).">
 </a>
 <figcaption>Những từ có trọng số dương cao của LinearSVC Augmented theo từng lớp (trực tiếp trên TF-IDF 20.000 đặc trưng).</figcaption>
 </figure>
 <figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T051800Z/explanations/phobert-test-10.png" aria-label="Mở hình: PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
-<img src="../assets/vlsp-sentiment/oxford/20261123T051800Z/explanations/phobert-test-10.png" width="1245" height="403" loading="lazy" decoding="async" alt="PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
+<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T082052Z/explanations/phobert-test-10.png" aria-label="Mở hình: PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
+<img src="../assets/vlsp-sentiment/oxford/20261123T082052Z/explanations/phobert-test-10.png" width="1245" height="403" loading="lazy" decoding="async" alt="PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
 </a>
 <figcaption>PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.</figcaption>
 </figure>
 <figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T051800Z/explanations/phobert-test-100.png" aria-label="Mở hình: PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
-<img src="../assets/vlsp-sentiment/oxford/20261123T051800Z/explanations/phobert-test-100.png" width="1244" height="907" loading="lazy" decoding="async" alt="PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
+<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T082052Z/explanations/phobert-test-100.png" aria-label="Mở hình: PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
+<img src="../assets/vlsp-sentiment/oxford/20261123T082052Z/explanations/phobert-test-100.png" width="1245" height="907" loading="lazy" decoding="async" alt="PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
 </a>
 <figcaption>PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.</figcaption>
 </figure>
 <figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T051800Z/explanations/phobert-test-1002.png" aria-label="Mở hình: PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
-<img src="../assets/vlsp-sentiment/oxford/20261123T051800Z/explanations/phobert-test-1002.png" width="1245" height="969" loading="lazy" decoding="async" alt="PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
+<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T082052Z/explanations/phobert-test-1002.png" aria-label="Mở hình: PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
+<img src="../assets/vlsp-sentiment/oxford/20261123T082052Z/explanations/phobert-test-1002.png" width="1246" height="969" loading="lazy" decoding="async" alt="PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
 </a>
 <figcaption>PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.</figcaption>
 </figure>
 <figure class="report-figure report-figure-wide">
-<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T051800Z/explanations/phobert-test-1005.png" aria-label="Mở hình: PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
-<img src="../assets/vlsp-sentiment/oxford/20261123T051800Z/explanations/phobert-test-1005.png" width="1245" height="507" loading="lazy" decoding="async" alt="PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
+<a class="figure-image-link" href="../assets/vlsp-sentiment/oxford/20261123T082052Z/explanations/phobert-test-1005.png" aria-label="Mở hình: PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
+<img src="../assets/vlsp-sentiment/oxford/20261123T082052Z/explanations/phobert-test-1005.png" width="1245" height="507" loading="lazy" decoding="async" alt="PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.">
 </a>
 <figcaption>PhoBERT Augmented: thay đổi xác suất khi bỏ từng từ; giá trị dương nghĩa từ đang hỗ trợ lớp dự đoán.</figcaption>
 </figure>
@@ -567,10 +587,10 @@
 <span class="step-number" aria-hidden="true">04</span>
 <h2 id="conclusions-title">Kết luận và nguồn kết quả</h2>
 </div>
-<p>Trong lần chạy seed 42, <strong>PhoBERT-base-v2 (Augmented)</strong> đạt macro-F1 cao nhất 78.57%, accuracy 78.67%.</p>
+<p>Trong lần chạy seed 42, <strong>PhoBERT-base-v2 (Base)</strong> đạt macro-F1 cao nhất 78.44%, accuracy 78.48%.</p>
 <p>Một seed, nguồn augmentation và khả năng gần trùng còn hạn chế kết luận. Các số liệu mô tả lần chạy hiện tại; không suy ra mọi augmentation đều có ích. Tiếp theo có thể bổ sung lineage, chạy nhiều seed và kiểm tra thủ công các cặp nhãn nhầm.</p>
 <p>
-<a href="../assets/vlsp-sentiment/oxford/20261123T051800Z/summary.csv" download>CSV tổng hợp</a> · <a href="../assets/vlsp-sentiment/oxford/20261123T051800Z/per_class_metrics.csv" download>CSV từng lớp</a> · <a href="../assets/vlsp-sentiment/oxford/20261123T051800Z/predictions.csv" download>Dự đoán</a> · <a href="../assets/vlsp-sentiment/oxford/20261123T051800Z/augmentation_delta.csv" download>Chênh lệch Base/Augmented</a> · <a href="../assets/vlsp-sentiment/oxford/20261123T051800Z/run.json" download>Nguồn lần chạy</a>
+<a href="../assets/vlsp-sentiment/oxford/20261123T082052Z/summary.csv" download>CSV tổng hợp</a> · <a href="../assets/vlsp-sentiment/oxford/20261123T082052Z/per_class_metrics.csv" download>CSV từng lớp</a> · <a href="../assets/vlsp-sentiment/oxford/20261123T082052Z/predictions.csv" download>Dự đoán</a> · <a href="../assets/vlsp-sentiment/oxford/20261123T082052Z/augmentation_delta.csv" download>Chênh lệch Base/Augmented</a> · <a href="../assets/vlsp-sentiment/oxford/20261123T082052Z/run.json" download>Nguồn lần chạy</a>
 </p>
 <p>Nhóm SlightSeek: Phạm Duy Anh (2310139), Nguyễn Phan Tuấn Duy (2310491).</p>
 <h3>Đối chiếu pipeline trước ngày 20/11/2026</h3>
@@ -619,15 +639,15 @@
 <th scope="row">PhoBERT-base-v2</th>
 <td>Base</td>
 <td class="report-number">77.52</td>
-<td class="report-number">78.55</td>
-<td class="report-number">+1.02</td>
+<td class="report-number">78.44</td>
+<td class="report-number">+0.92</td>
 </tr>
 <tr>
 <th scope="row">PhoBERT-base-v2</th>
 <td>Augmented</td>
 <td class="report-number">77.65</td>
-<td class="report-number">78.57</td>
-<td class="report-number">+0.92</td>
+<td class="report-number">78.04</td>
+<td class="report-number">+0.39</td>
 </tr>
 </tbody>
 </table>

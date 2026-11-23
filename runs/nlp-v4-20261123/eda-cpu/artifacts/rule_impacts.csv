@@ -1,0 +1,11 @@
+dataset,rule,changed_pct,collision_groups,conflicting_groups,bpe_tokens
+Base,NFC + khoảng trắng,4.176470588235294,0,0,172312
+Base,+ Chữ thường,84.15686274509804,10,0,174840
+Base,+ Đổi teencode,21.43137254901961,0,0,172036
+Base,+ Đổi emoticon,8.509803921568627,0,0,172066
+Base,+ Rút chữ kéo dài,4.7254901960784315,0,0,172263
+Augmented,NFC + khoảng trắng,0.009853187506158241,0,0,328094
+Augmented,+ Chữ thường,45.20642427825401,51,1,331324
+Augmented,+ Đổi teencode,0.05911912503694946,0,0,328094
+Augmented,+ Đổi emoticon,0.009853187506158241,0,0,328094
+Augmented,+ Rút chữ kéo dài,0.5419253128387034,0,0,328028

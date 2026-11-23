@@ -115,19 +115,21 @@ def text_report(source, eda_source=None):
             source = subs[-1].parent
     check_text(source)
     metadata = json.loads((source / 'run.json').read_text())
-    if metadata.get('preprocessing', {}).get('version') in {'vlsp-eda-v2','vlsp-eda-v3-six-raincloud'} and eda_source is None:
-        raise ValueError('Pipeline v2 cần --eda-results để đồng bộ bằng chứng EDA CPU.')
+    version_tag = metadata.get('preprocessing', {}).get('version', '')
+    if version_tag in {'vlsp-eda-v2', 'vlsp-eda-v3-six-raincloud', 'vlsp-eda-v4-compact'} and eda_source is None:
+        raise ValueError('Pipeline v2/v4 cần --eda-results để đồng bộ bằng chứng EDA CPU.')
     assert not metadata['smoke_test']
     run_id = metadata['run_id']
     date = run_date(run_id)
     run_count = 2 * len(metadata['architectures'])
     six = run_count == 6
+    compact_eda = version_tag == 'vlsp-eda-v4-compact'
     destination = ROOT / 'pages/assets/vlsp-sentiment/oxford' / run_id
     copy_evidence(source, destination)
     (destination / 'source.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n')
     eda_destination = None
     if eda_source is not None:
-        assert metadata['preprocessing']['version'] in {'vlsp-eda-v2','vlsp-eda-v3-six-raincloud'}
+        assert version_tag in {'vlsp-eda-v2', 'vlsp-eda-v3-six-raincloud', 'vlsp-eda-v4-compact'}
         eda_info = json.loads((eda_source / 'source.json').read_text())
         assert eda_info['cpu_only'] and eda_info['sources'] == metadata['preprocessing']['eda_sources']
         eda_destination = ROOT / 'pages/assets/vlsp-sentiment/eda-v2' / run_id
@@ -140,7 +142,7 @@ def text_report(source, eda_source=None):
     hero = ('<nav class="breadcrumb" aria-label="Điều hướng phân cấp"><a href="../../index.html">Trang chủ</a> / Text</nav>'
             '<section class="project-hero" aria-labelledby="project-title"><div><p class="eyebrow">CO5177 / TEXT / SLIGHTSEEK</p>'
             '<h1 id="project-title">Phân tích cảm xúc tiếng Việt — sáu kiến trúc, 12 lượt chạy</h1>'
-            '<p class="hero-description">VLSP v5; so sánh Base và Augmented với cùng test. Notebook theo 11 bước Oxford Pets, từ dữ liệu đến phân tích lỗi và giải thích.</p>'
+            '<p class="hero-description">VLSP v5; so sánh Base và Augmented với cùng test. Quy trình gồm EDA CPU (4 biểu đồ), xử lý thuần túy, huấn luyện và đánh giá trên Colab T4.</p>'
             f'<p class="status-badge">Đã Run all trên Colab T4 · {date} · seed 42</p></div></section>')
     if six:
         hero = hero.replace('sáu kiến trúc, 12 lượt chạy','ba pipeline, 6 lượt chạy')
@@ -157,6 +159,22 @@ def text_report(source, eda_source=None):
             ('eda-lexical.png', 'Tín hiệu từ vựng và bigram theo lớp.'),
             ('eda-class-similarity.png', 'Cosine giữa centroid TF-IDF của Base fit.'),
             ('eda-tokenizers.png', 'Độ dài PyVi và PhoBERT BPE.')]]
+    elif compact_eda:
+        dataset += '<p>EDA chạy độc lập trên Colab CPU với 4 biểu đồ trọng tâm (chỉ dùng Base/Augmented để khảo sát; Test chỉ kiểm toán trùng văn bản).</p>'
+        tfidf = [r for r in read_csv(eda_source / 'tfidf_diagnostics.csv') if r['min_df'] == '1' and r['analyzer'] == 'word+emoticon']
+        dataset += table(['Tập', 'Giới hạn đặc trưng', 'Độ phủ (%)', 'Câu mất đặc trưng', 'Dense batch 128 (MB)'],
+                         [[r['dataset'], r['max_features'], f'{100*float(r["feature_occurrence_coverage"]):.2f}', r['empty_documents'], f'{int(r["dense_batch128_bytes"])/1e6:.2f}'] for r in tfidf], 'Độ phủ TF-IDF trên dữ liệu phát triển')
+        limits = [r for r in read_csv(eda_source / 'sequence_limits.csv') if (r['embedder'], r['limit']) in {('CBOW','300'),('PhoBERT','256')}]
+        dataset += table(['Tập', 'Embedder', 'Giới hạn', 'Câu bị cắt (%)', 'Lượt token bị mất (%)', 'p99'],
+                         [[r['dataset'],r['embedder'],r['limit'],f'{float(r["truncated_percent"]):.2f}',f'{float(r["tokens_removed_percent"]):.2f}',f'{float(r["p99"]):.1f}'] for r in limits], 'Mức mất thông tin do cắt chuỗi')
+        cbow_cmp = read_csv(eda_source / 'cbow_vocab_comparison.csv')
+        dataset += table(['Tập', 'Giai đoạn', 'Câu bị OOV/UNK (%)', 'Trung bình (%)', 'Trung vị (%)', 'p90 (%)'],
+                         [[r['dataset'], r['stage'], f'{float(r["docs_affected_pct"]):.2f}', f'{float(r["mean_rate_pct"]):.2f}', f'{float(r["median_rate_pct"]):.2f}', f'{float(r["p90_rate_pct"]):.2f}'] for r in cbow_cmp], 'So sánh OOV/UNK trước và sau khi tự dựng vocab 10.000 từ')
+        figures = [(eda_destination / filename, caption) for filename, caption in [
+            ('eda_balance_audit.png', 'Hình 1: Nhãn cân bằng (~1/3 mỗi lớp), nhưng tồn tại bản sao dư (48; 161) và giao Test (23; 33) cần lọc trước khi chia tập.'),
+            ('eda_lengths_limits.png', 'Hình 2: 99% câu ngắn hơn 220 từ dù đuôi đạt ~2.900 từ (lớp 0 dài nhất); ngưỡng 256 (PhoBERT) và 300 (CBOW) giữ trọn >99,5% số câu.'),
+            ('eda_signals_ngrams.png', 'Hình 3: Phủ định có ở cả 3 lớp, Augmented gần như sạch teencode/emoticon, còn bigram đặc trưng và cosine(-1, 0) = 0,869 dự báo vùng dễ nhầm.'),
+            ('eda_feature_representations.png', 'Hình 4: TF-IDF 20k phủ ~76–79% lượt từ; dựng vocab 10k kéo tỷ lệ câu có OOV/UNK của CBOW từ ~90% về gần 0%.')]]
     else:
         dataset += '<p>EDA chạy trước huấn luyện trên Colab CPU. Các phân tích theo nhãn chỉ dùng Base/Augmented; test chỉ phục vụ kiểm toán schema và giao văn bản.</p>'
         figures = [(eda_destination / filename, caption) for filename, caption in [
@@ -198,7 +216,14 @@ def text_report(source, eda_source=None):
                    + ' Chỉ đánh giá test sau huấn luyện; TF-IDF và vocabulary fit riêng trên tập huấn luyện từng phiên bản.</p>')
     if eda_destination is not None:
         eda_base = '../assets/' + eda_destination.relative_to(ROOT / 'pages/assets').as_posix()
-        preparation += '<p>' + ' · '.join(f'<a href="{eda_base}/{name}" download>{label}</a>' for name,label in [('rule_impacts.csv','Tác động từng quy tắc'),('rule_examples.csv','Ví dụ trước/sau'),('rule_collisions.csv','Va chạm chuẩn hóa'),('tfidf_diagnostics.csv','Chẩn đoán TF-IDF'),('embedder_rule_comparison.csv','Quy tắc và độ phủ embedder'),('cbow_oov.csv','Từ OOV CBOW'),('truncation_examples.csv','Nội dung bị cắt'),('preprocessing_policy.json','Policy đã chốt')]) + '</p>'
+        if compact_eda:
+            eda_links = [('raw_audit.csv', 'Kiểm toán gốc'), ('sequence_limits.csv', 'Ngưỡng cắt 300/256'),
+                         ('rule_impacts.csv', 'Tác động quy tắc'), ('distinct_bigrams.csv', 'Bigram phân biệt lớp'),
+                         ('tfidf_diagnostics.csv', 'Độ phủ TF-IDF'), ('cbow_vocab_comparison.csv', 'So sánh OOV/UNK CBOW'),
+                         ('preprocessing_policy.json', 'Cấu hình đã chốt')]
+        else:
+            eda_links = [('rule_impacts.csv','Tác động từng quy tắc'),('rule_examples.csv','Ví dụ trước/sau'),('rule_collisions.csv','Va chạm chuẩn hóa'),('tfidf_diagnostics.csv','Chẩn đoán TF-IDF'),('embedder_rule_comparison.csv','Quy tắc và độ phủ embedder'),('cbow_oov.csv','Từ OOV CBOW'),('truncation_examples.csv','Nội dung bị cắt'),('preprocessing_policy.json','Policy đã chốt')]
+        preparation += '<p>' + ' · '.join(f'<a href="{eda_base}/{name}" download>{label}</a>' for name, label in eda_links) + '</p>'
     if six:
         preparation += '<p>Ba pipeline: TF-IDF → LinearSVC (20.000 đặc trưng sparse); CBOW → Conv1d(128, kernel=3) + BiLSTM(64×2) + Dropout(0,5), batch 64, bỏ padding bằng độ dài thật; PhoBERT-base-v2 effective batch 32.</p>'
     analysis = ('<p>Sáu kiến trúc: TF-IDF + LinearSVC, TF-IDF + 1D-CNN, TextCNN, BiLSTM, CNN+BiLSTM và PhoBERT-base-v2. '
@@ -253,9 +278,17 @@ def text_report(source, eda_source=None):
         conclusion += '<p>Dấu — nghĩa pipeline không có đối ứng trong lần chạy cũ. Thay đổi đồng thời kiến trúc, xử lý, đặc trưng và mẫu fit; đối chiếu này mô tả kết quả, không cô lập tác động từng thay đổi. <a href="../assets/vlsp-sentiment/oxford/20261120T161056Z/summary.csv">CSV lần chạy trước</a>.</p>'
     resource_html = resources(old, 'sentimentanalysis.ipynb', date)
     if eda_destination is not None:
-        eda_row = '<div class="resource-item"><div><h3>Notebook EDA (CPU)</h3><p>Khảo sát gốc, đối chiếu quy tắc, độ phủ TF-IDF/CBOW và mức cắt PhoBERT trước huấn luyện.</p></div><div class="resource-actions"><a class="text-link" href="https://colab.research.google.com/github/superiorhamster/CO5177/blob/main/ipynb/text/sentimentanalysis_eda.ipynb">Mở EDA trên Colab ↗</a> <a class="text-link" href="../notebooks/sentimentanalysis_eda.ipynb" download>Tải notebook EDA có output</a></div></div>'
-        # Existing resources() keeps PDF/video rows; insert immediately before PDF.
-        marker = re.search(r'<div class="resource-item">\s*<div>\s*<h3>PDF report</h3>', resource_html).start()
+        if compact_eda:
+            resource_html = resource_html.replace('<h3>Notebook</h3>', '<h3>Bước 2 · Notebook chính (T4 GPU)</h3>').replace(
+                '<p>Đủ 11 mục theo mẫu Oxford Pets; output và kết luận từ lần chạy mới.</p>',
+                '<p>Chạy trên Web Colab chọn runtime <strong>T4 GPU</strong> → <em>Run all</em>: xử lý dữ liệu thuần túy, huấn luyện 3 pipeline và đánh giá đầy đủ.</p>'
+            )
+            eda_row = '<div class="resource-item"><div><h3>Bước 1 · Notebook EDA (CPU)</h3><p>Chạy trên Web Colab bằng runtime <strong>CPU</strong> → <em>Run all</em>: 4 biểu đồ trọng tâm, phân tích tín hiệu và ngầm định chốt quy tắc xử lý.</p></div><div class="resource-actions"><a class="text-link" href="https://colab.research.google.com/github/superiorhamster/CO5177/blob/main/ipynb/text/sentimentanalysis_eda.ipynb">Mở EDA trên Colab ↗</a> <a class="text-link" href="../notebooks/sentimentanalysis_eda.ipynb" download>Tải notebook EDA có output</a></div></div>'
+        else:
+            eda_row = '<div class="resource-item"><div><h3>Notebook EDA (CPU)</h3><p>Khảo sát gốc, đối chiếu quy tắc, độ phủ TF-IDF/CBOW và mức cắt PhoBERT trước huấn luyện.</p></div><div class="resource-actions"><a class="text-link" href="https://colab.research.google.com/github/superiorhamster/CO5177/blob/main/ipynb/text/sentimentanalysis_eda.ipynb">Mở EDA trên Colab ↗</a> <a class="text-link" href="../notebooks/sentimentanalysis_eda.ipynb" download>Tải notebook EDA có output</a></div></div>'
+        # Put Step 1 (EDA CPU) before Step 2 (T4 Main) if compact_eda, else before PDF.
+        anchor = '<h3>Bước 2' if compact_eda else '<h3>PDF report</h3>'
+        marker = re.search(rf'<div class="resource-item">\s*<div>\s*{re.escape(anchor)}', resource_html).start()
         resource_html = resource_html[:marker] + eda_row + resource_html[marker:]
         shutil.copy2(ROOT / 'ipynb/text/sentimentanalysis_eda.ipynb', ROOT / 'pages/notebooks/sentimentanalysis_eda.ipynb')
     inner = hero + '<div class="project-layout"><article class="project-content">' + resource_html
